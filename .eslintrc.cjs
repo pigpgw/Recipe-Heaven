@@ -5,7 +5,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  plugins: ['react', 'react-hooks', 'import'],
+  plugins: ['react', 'react-hooks', 'import', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
@@ -27,15 +27,21 @@ module.exports = {
   },
   overrides: [
     {
-      env: {
-        es6: true,
-        browser: true,
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
+      files: ['*.ts', '*.tsx'],
+      parser: '@typescript-eslint/parser',
       parserOptions: {
-        sourceType: 'script',
+        ecmaVersion: 2021,
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+        project: './tsconfig.json',
+        tsconfigRootDir: __dirname,
       },
+      extends: [
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+      ],
     },
   ],
   parserOptions: {
@@ -49,10 +55,10 @@ module.exports = {
     'import/resolver': {
       node: {
         paths: ['src'],
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
       alias: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
     },
   },
