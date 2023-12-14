@@ -1,12 +1,20 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
+
+import Main from './pages/Main'
+import RecipeSearchList from './pages/RecipeCategoryList'
+import RecipeCategoryList from './pages/RecipeCategoryList'
+import Detail from './pages/Detail'
 
 function App() {
   return (
-    <div className="flex">
-      <div className="m-10 text-slate-300">테일윈드확인</div>
-      <div className="pureCSS">순수css</div>
-    </div>
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="detail/:id" element={<Detail />} />
+      <Route path="search" element={<RecipeSearchList />} />
+      <Route path="category" element={<RecipeCategoryList />} />
+    </Routes>
   )
 }
 
