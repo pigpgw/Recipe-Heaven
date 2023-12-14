@@ -1,3 +1,3 @@
-# First commit
+# team6-front
 
-FrontEnd
+6팀 프론트 레포입니다.
