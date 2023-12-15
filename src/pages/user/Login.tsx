@@ -1,5 +1,5 @@
 import React from 'react';
-import loginImage from '../img/kakao_login.png';
+import loginImage from './img/kakao_login.png';
 
 const Login: React.FC = () => {
   const Rest_api_key: string = '8c28dc1b469c8392a5e2773f5cc5dfdb'; // REST API 키
