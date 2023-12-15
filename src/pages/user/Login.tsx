@@ -20,5 +20,5 @@ const Login: React.FC = () => {
     </div>
   );
 };
-
+// 액세스 토큰 발급 필요
 export default Login;
