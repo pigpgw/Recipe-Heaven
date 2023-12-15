@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 
-import Main from './pages/Main'
+import Main from './pages/Login'
 import RecipeSearchList from './pages/RecipeCategoryList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
