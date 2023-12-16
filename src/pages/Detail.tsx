@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { ChangeEvent, useEffect } from 'react'
 import { useState } from 'react';
 import { dummyData , reviewModel } from '../../public/dummy'
 import DetailHeader from '../components/detail/DetailHeader';
@@ -6,27 +6,33 @@ import DetailMainList from '../components/detail/DetailMainList'
 import DetailMainReview from '../components/detail/DetailMainReview'
 
 function Detail() {
-    const explaincontentList = dummyData.sequenceExplain;
-    const sequenceImgList = dummyData.sequenceImg;
+    const explaincontentList: string[] = dummyData.sequenceExplain;
+    const sequenceImgList: string[] = dummyData.sequenceImg;
 
-    const review = reviewModel.filter((_) => _.recipeId == 0);
+    const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
 
-    const [inputValue , setInputValue] = useState("");
-    const [comments , setComments] = useState(review);
-    console.log("comments", comments);
-    console.log("review",review);
+    type ReviewModel = {
+      reviewId: string
+      recipeId: number
+      id: number
+      start: number
+      comment: string
+      time: string
+    }
 
-    useEffect(() => {
+    const [inputValue , setInputValue] = useState<string>("");
+    const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
 
-    },[comments])
+    // console.log("comments", comments);
+    // console.log('review', filterdCommentList)
 
-    function getInputValueHandler(e){
-        setInputValue(e.target.value)
+    function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
+      setInputValue(e.target.value)
     }
 
     function addCommentsHandler(){
-      let previousCommentsList = [...comments]
-      let User = {
+      const previousCommentsList = [...comments]
+      const dummyUserComments: ReviewModel = {
         reviewId: 'ceads',
         recipeId: 0,
         id: 1,
@@ -34,7 +40,7 @@ function Detail() {
         comment: inputValue,
         time: '하하',
       }
-      previousCommentsList.push(User)
+      previousCommentsList.push(dummyUserComments)
       setComments(previousCommentsList)
       setInputValue('')
     }
@@ -50,8 +56,8 @@ function Detail() {
           explaincontentList={explaincontentList}
           sequenceImgList={sequenceImgList}
         />
-        <DetailMainReview review={comments} />
-        
+        <DetailMainReview totalReview={comments} />
+
         <div className="w-full min-w-[10rem] p-5 flex items-center justify-center">
           <div className="w-[7rem] h-[7rem] flex flex-wrap items-center justify-center text-4xl border-solid border-2 border-black-800">
             +
