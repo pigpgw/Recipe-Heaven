@@ -6,7 +6,8 @@ import { ListBySearchAPIResponse } from '../../fetch/APIResponsesTypes'
 import useIntersect from '../../components/list/useIntersect'
 
 function RecipeSearchList() {
-  const { keyword } = useParams<{ keyword: string }>()
+  // const { keyword } = useParams<{ keyword: string }>()
+  const keyword = '피자'
   if (!keyword) {
     throw new Error('검색어를 입력해주세요')
   }

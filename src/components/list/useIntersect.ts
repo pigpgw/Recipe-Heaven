@@ -1,10 +1,7 @@
 import { useState, useEffect, useCallback, MutableRefObject } from 'react'
 
-interface ObserverOptions {
+interface ObserverOptions extends IntersectionObserverInit {
   root?: HTMLDivElement | null
-  rootMargin?: string
-  threshold?: number | number[]
-  [key: string]: any
 }
 
 const useIntersect = (
