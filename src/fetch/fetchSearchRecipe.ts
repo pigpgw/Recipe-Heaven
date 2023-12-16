@@ -13,7 +13,7 @@ const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
   )
 
   if (apiRes.status !== 200) {
-    throw new Error(`레시피 로드중 에러발생.`)
+    throw new Error('레시피 로드중 에러발생.')
   }
 
   return apiRes.data
