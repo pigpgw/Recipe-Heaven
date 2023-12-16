@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ListBySearchAPIResponse } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
 
-const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse[]> = async ({
+const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
   queryKey,
 }) => {
   const { keyword, items, page } = queryKey[1]
