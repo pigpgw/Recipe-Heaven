@@ -31,7 +31,7 @@ const FoodMakingList: React.FC<FoodMakingListProps> = ({
   index,
 }) => {
   return (
-    <div className="flex justify-center p-10 flex-wrap ">
+    <div className="flex justify-center p-10 flex-wrap">
       <div className="w-3/12 min-w-[15rem]">
         <img
           className="w-[25rem] h-[15rem] rounded-2xl"
@@ -48,5 +48,6 @@ const FoodMakingList: React.FC<FoodMakingListProps> = ({
     </div>
   )
 }
+
 
 export default DetailMain
