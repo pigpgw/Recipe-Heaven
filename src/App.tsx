@@ -1,4 +1,3 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 
@@ -13,7 +12,6 @@ function App() {
     defaultOptions: {
       queries: {
         staleTime: Infinity,
-        cacheTime: Infinity,
       },
     },
   })
@@ -22,9 +20,9 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="detail/:id" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/search" element={<RecipeSearchList />} />
-        <Route path="category" element={<RecipeCategoryList />} />
+        <Route path="/category" element={<RecipeCategoryList />} />
       </Routes>
     </QueryClientProvider>
   )

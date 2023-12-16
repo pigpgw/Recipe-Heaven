@@ -7,10 +7,13 @@ const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
 }) => {
   const { keyword, items, page } = queryKey[1]
 
-  const apiRes = await axios.get(`https//에이피아이주소`)
+  const apiRes = await axios.get(
+    // `https://jsonplaceholder.typicode.com/todos/10000`,
+    `api호출 주소`,
+  )
 
   if (apiRes.status !== 200) {
-    throw new Error(`${keyword}에 관한 레시피 검색 결과가 없습니다.`)
+    throw new Error(`레시피 로드중 에러발생.`)
   }
 
   return apiRes.data

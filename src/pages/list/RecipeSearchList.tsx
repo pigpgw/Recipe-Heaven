@@ -6,7 +6,9 @@ import {
   ListBySearchAPIResponse,
   RecipeCard,
 } from '../../fetch/APIResponsesTypes'
+import RecipeItem from '../../components/list/RecipeItem'
 import useIntersect from '../../components/list/useIntersect'
+import ErrorBoundary from '../../components/error/ErrorBoundary'
 
 function RecipeSearchList() {
   // const { keyword } = useParams<{ keyword: string }>()
@@ -27,12 +29,25 @@ function RecipeSearchList() {
     [],
   )
 
-  const { data, isLoading } = useQuery<ListBySearchAPIResponse>({
+  const { data, isLoading, isError } = useQuery<ListBySearchAPIResponse>({
     queryKey: ['search', { keyword, items, page }],
     queryFn: fetchSearchRecipe,
   })
+  if (isError) {
+    throw new Error(
+      `${keyword}에 대한 레시피 데이터 로드중 문제가 발생했습니다`,
+    )
+  }
+
+  if (isLoading) {
+    return <div>로딩스피너</div>
+  }
 
   const recipeList = data?.recipe
+
+  if (!recipeList) {
+    return <div>"{keyword}" 검색 결과가 없습니다</div>
+  }
 
   useEffect(() => {
     if (!isLoading && data && recipeList?.length) {
@@ -53,12 +68,38 @@ function RecipeSearchList() {
 
   return (
     <div>
-      {recipes.map((recipe) => (
-        <div>레시피아이템컴포넌트에레시피전달</div>
+      {/* {recipes.map((recipe) => ( */}
+      {[1].map((recipe, idx) => (
+        <RecipeItem
+          key={idx}
+          id={'tempId'}
+          title={'샐러드'}
+          image={
+            'https://cdn.pixabay.com/photo/2022/05/20/08/55/pasta-7209002_640.jpg'
+          }
+          userId={'샐러드요정'}
+          postDate={new Date()}
+          avgRating={1.5}
+          reviewCnt={100}
+          // key={recipe.id}
+          // id={recipe.id}
+          // title={recipe.title}
+          // image={recipe.image}
+          // userId={recipe.userId}
+          // postDate={recipe.postDate}
+          // avgRating={recipe.avgRating}
+          // reviewCnt={recipe.reviewCnt}
+        />
       ))}
       <div ref={intersectRef} className="h-20 bg-transparent"></div>
     </div>
   )
 }
 
-export default RecipeSearchList
+export default function SearchErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <RecipeSearchList />
+    </ErrorBoundary>
+  )
+}

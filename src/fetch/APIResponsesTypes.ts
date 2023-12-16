@@ -12,6 +12,8 @@ export interface RecipeCard {
   image: string
   userId: string
   postDate: Date
+  avgRating: number
+  reviewCnt: number
 }
 
 // 키워드로 검색 시
