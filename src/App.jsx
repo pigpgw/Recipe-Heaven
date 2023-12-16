@@ -14,6 +14,7 @@ function App() {
       <Route path="detail/:id" element={<Detail />} />
       <Route path="search" element={<RecipeSearchList />} />
       <Route path="category" element={<RecipeCategoryList />} />
+      <Route path="header" element={<RecipeCategoryList />} />
     </Routes>
   )
 }
