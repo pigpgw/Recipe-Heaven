@@ -1,6 +1,11 @@
 import React from 'react'
 
-function DetailMain({ explaincontentList, sequenceImgList }) {
+type DetailMainProps = {
+  explaincontentList: string[];
+  sequenceImgList: string[];
+};
+
+const DetailMain: React.FC<DetailMainProps> = ({ explaincontentList, sequenceImgList }) => {
   return (
     <div className="flex flex-col bg-white w-full">
       {explaincontentList.map((item, index) => {

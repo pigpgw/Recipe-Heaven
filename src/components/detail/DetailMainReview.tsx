@@ -1,6 +1,19 @@
 import React from 'react'
 
-function DetailMainReview({ review }) {
+type Review = {
+  reviewId: string
+  recipeId: number
+  id: number
+  start: number
+  comment: string
+  time: string
+}
+
+type DetailMainReviewProps = {
+  review: Review[]
+}
+
+const DetailMainReview: React.FC<DetailMainReviewProps> = ({ review }) => {
   return (
     <div className="w-full min-w-[10rem] p-10">
       <p

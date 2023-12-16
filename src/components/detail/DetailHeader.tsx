@@ -50,7 +50,7 @@ function DetailHeader() {
 
         <div className="py-2">
           <p className="text-1xl py-4 font-extrabold">
-            재료 및 분량 <span className="text-orange-600">(4인분)</span>
+            재료 및 분량 <span className="text-orange-600">{dummyData.portion}</span>
           </p>
           <div className="h-[14rem] bg-gray-100 p-7 font-medium">
             <div className="flex w-full">
