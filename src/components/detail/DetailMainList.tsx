@@ -1,11 +1,11 @@
 import React from 'react'
 
 type DetailMainProps = {
-  explaincontentList: string[];
-  sequenceImgList: string[];
-};
+  explaincontentList: string[]
+  sequenceImgList: string[]
+}
 
-const DetailMain: React.FC<DetailMainProps> = ({ explaincontentList, sequenceImgList }) => {
+function DetailMain({ explaincontentList, sequenceImgList }: DetailMainProps) {
   return (
     <div className="flex flex-col bg-white w-full">
       {explaincontentList.map((item, index) => {
@@ -30,11 +30,7 @@ type FoodMakingListProps = {
   index: number
 }
 
-const FoodMakingList: React.FC<FoodMakingListProps> = ({
-  sequenseImgUrl,
-  explainText,
-  index,
-}) => {
+function FoodMakingList({ sequenseImgUrl, explainText, index,}: FoodMakingListProps) {
   return (
     <div className="flex justify-center p-10 flex-wrap">
       <div className="w-3/12 min-w-[15rem]">
@@ -53,6 +49,5 @@ const FoodMakingList: React.FC<FoodMakingListProps> = ({
     </div>
   )
 }
-
 
 export default DetailMain
