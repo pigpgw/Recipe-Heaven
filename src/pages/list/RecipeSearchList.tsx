@@ -71,7 +71,7 @@ function RecipeSearchList() {
             <RecipeItem
               key={idx}
               id={'tempId'}
-              title={'샐러드'}
+              title={'아삭아삭한 샐러드'}
               image={
                 'https://cdn.pixabay.com/photo/2022/05/20/08/55/pasta-7209002_640.jpg'
               }
