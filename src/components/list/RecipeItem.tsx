@@ -12,8 +12,14 @@ interface IProps {
   reviewCnt: number
 }
 
-const RecipeItem = (props: IProps) => {
-  const { id, title, image, userId, avgRating, reviewCnt } = props
+const RecipeItem = ({
+  id,
+  title,
+  image,
+  userId,
+  avgRating,
+  reviewCnt,
+}: IProps) => {
   return (
     <Link to={`/detail/${id}`}>
       <div className="flex flex-col group relative overflow-hidden">

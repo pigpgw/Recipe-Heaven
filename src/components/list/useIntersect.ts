@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, MutableRefObject } from 'react'
+import { useEffect, useCallback, useRef } from 'react'
 
 interface ObserverOptions extends IntersectionObserverInit {
   root?: HTMLDivElement | null
@@ -11,9 +11,7 @@ const useIntersect = (
   ) => void,
   option: ObserverOptions,
 ) => {
-  const [ref, setRef] = useState<MutableRefObject<HTMLDivElement | null>>({
-    current: null,
-  })
+  const ref = useRef<HTMLDivElement | null>(null)
 
   const obsCallback = useCallback(
     ([entry]: IntersectionObserverEntry[], observer: IntersectionObserver) => {

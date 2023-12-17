@@ -1,8 +1,8 @@
-import { Component, ErrorInfo, ReactElement } from 'react'
+import React, { Component, ErrorInfo, ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
 class ErrorBoundary extends Component<{ children: ReactElement }> {
-  state = { hasError: false, error: false }
+  state = { hasError: false, error: null }
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error: error }
   }
@@ -12,7 +12,7 @@ class ErrorBoundary extends Component<{ children: ReactElement }> {
   }
 
   render() {
-    if (this.state.hasError) {
+    if (this.state.hasError && this.state.error) {
       return (
         <h2>
           {this.state.error.toString()}

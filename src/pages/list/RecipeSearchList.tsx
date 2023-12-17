@@ -17,8 +17,7 @@ function RecipeSearchList() {
     throw new Error('검색어를 입력해주세요')
   }
 
-  const [page, setPage] = useState<number>(1)
-  // FIXME 한페이지에 보여줄 아이템 수, 아직 프론트에서 정할지 백에서 정할지 논의 필요합니다.
+  const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
 
