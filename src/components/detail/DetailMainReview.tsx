@@ -4,8 +4,7 @@ type DetailMainReviewProps = {
   totalReview: string[]
 }
 
-const DetailMainReview: React.FC<DetailMainReviewProps> = ({ totalReview }) => {
-  
+function DetailMainReview({ totalReview }: DetailMainReviewProps){
   return (
     <div className="w-full min-w-120px p-10">
       <p
