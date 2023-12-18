@@ -24,33 +24,36 @@ function DetailHeader() {
 
           <div className="flex items-center justify-around p-1">
             <div className="flex items-center flex-col">
-              <div className="p-7 text-4xl text-slate-500">
-                <IoIosPeople style={{ height: 30 }} />
+              <div className="p-10 text-4xl text-slate-500 h-8">
+                <IoIosPeople />
               </div>
               <p className="text-xs text-slate-500 font-bold">
                 {dummyData.portion}
               </p>
             </div>
             <div className="flex items-center flex-col">
-              <div className="p-7 text-3xl text-slate-500">
-                <FaRegClock style={{ height: 30 }} />
+              <div className="p-10 text-3xl text-slate-500 h-7">
+                <FaRegClock />
               </div>
               <p className="text-xs text-slate-500 font-bold">
                 {dummyData.leadTime}
               </p>
             </div>
             <div className="flex items-center flex-col">
-              <div className="p-7 text-3xl text-slate-500">
-                <TbStarsFilled style={{ height: 30 }} />
+              <div className="p-10 text-3xl text-slate-500 h-7">
+                <TbStarsFilled />
               </div>
-              <p className="text-xs text-slate-500 font-bold">{dummyData.level}</p>
+              <p className="text-xs text-slate-500 font-bold">
+                {dummyData.level}
+              </p>
             </div>
           </div>
         </div>
 
         <div className="py-2">
           <p className="text-1xl py-4 font-extrabold">
-            재료 및 분량 <span className="text-orange-600">{dummyData.portion}</span>
+            재료 및 분량{' '}
+            <span className="text-orange-600">{dummyData.portion}</span>
           </p>
           <div className="h-[14rem] bg-gray-100 p-7 font-medium">
             <div className="flex w-full">
