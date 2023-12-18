@@ -13,16 +13,16 @@ function Header() {
 
       <ul className="navbar items-center flex ml-8 text-lg font-bold">
         <li>
-          <span className="mx-7 cursor-pointer">레시피</span>
+          <a href=""><span className="mx-7 cursor-pointer">레시피</span></a>
         </li>
         <li>
-          <span className="mx-7 cursor-pointer">재료별</span>
+           <a href=""><span className="mx-7 cursor-pointer">재료별</span></a>
         </li>
         <li>
-          <span className="mx-7 cursor-pointer">상황별</span>
+           <a href=""><span className="mx-7 cursor-pointer">상황별</span></a>
         </li>
         <li>
-          <span className="mx-7 cursor-pointer">SPECIAL</span>
+           <a href=""><span className="mx-7 cursor-pointer">SPECIAL</span></a>
         </li>
       </ul>
       <span className="mr-7">|</span>
