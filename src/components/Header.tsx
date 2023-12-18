@@ -6,13 +6,9 @@ function Header() {
       <div className="logo">
         <img className="w-40" src="../assets/logo.png" alt="logo" />
       </div>
-      <div className="search pl-3.5 w-60 h-9">
-        <input
-          id="gnb_search"
-          placeholder="검색어를 입력해주세요"
-          className="text-xs items-center bg-neutral-100"
-        />
-        <button id="submit" aria-label="submit" className=""></button>
+      <div className="mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">      
+        <input type="text" placeholder="검색어를 입력해주세요" className="items-center border-none outline-none ml-4 text-xs" />
+        <button id="submit" aria-label="submit" className=""><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" className="w-4 top-2 right-3 m-0 ml-10" /></button>
       </div>
 
       <ul className="navbar items-center flex ml-8 text-lg font-bold">
@@ -34,10 +30,11 @@ function Header() {
         <img className="mr-4" src="../assets/ico_user.png" alt="" />
         <img className="mr-4" src="../assets/rcp_write.png" alt="" />
       </div>
-      <div className="searchbar">
-        <div className="my-10">어디로 가시나요?</div>
-        <div>
-          {/* 추가적인 내용 */}
+      <div className="search flex flex-col items-center">
+        <div className="mt-14 mb-7 font-black text-5xl">FIND A RECIPE</div>
+        <div className="mx-4 my-4 w-2/5 h-10 p-1.5 rounded-full border border-solid space-between">      
+          <input type="text" placeholder="검색어를 입력해주세요" className="items-center border-none outline-none ml-6 mr-80" />
+          <button id="submit" aria-label="submit" className=""><img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png" className="w-4 top-2 right-3 m-0 ml-10" /></button>
         </div>
       </div>
     </div>
