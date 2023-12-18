@@ -7,6 +7,7 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
+import Header from './components/common/Header'
 // import Signup from './pages/user/Signup'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
