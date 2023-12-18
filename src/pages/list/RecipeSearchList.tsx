@@ -12,10 +12,6 @@ import ErrorBoundary from '../../components/error/ErrorBoundary'
 import LoadingSpinner from '../../components/common/LoadingSpinner'
 
 function RecipeSearchList() {
-  if (!keyword) {
-    throw new Error('검색어를 입력해주세요')
-  }
-
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
