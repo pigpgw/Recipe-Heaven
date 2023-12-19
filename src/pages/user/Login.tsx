@@ -20,6 +20,11 @@ const Login: React.FC = () => {
     // 카카오 인증 URL로 이동
     window.location.href = kakaoURL;
   };
+  /*const handleLogin = () => {
+    setLoading(true);
+    // 인증 URL로 이동
+    navigate(kakaoURL);
+  };*/
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
