@@ -4,7 +4,9 @@ import { Link, useNavigate } from "react-router-dom"
 
 function Header() {
   return (
+    
     <div id="header" className="flex mt-3 items-center w-full justify-center">
+      <link rel="stylesheet" href="src\components\common\navbar.css"></link>
       <div className="logo">
         <Link to="/">
           <img className="w-40" src="./src/assets/common/logo.png" alt="logo" />
@@ -15,12 +17,13 @@ function Header() {
           type="text"
           placeholder="검색어를 입력해주세요"
           className="items-center border-none outline-none ml-4 text-xs"
+          size={25}
         />
         <button id="submit" aria-label="submit" className="">
           <Link to="/search">
           <img
             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-            className="w-4 top-2 right-3 m-0 ml-10"
+            className="w-4 top-2 right-3 m-0 ml-5 justify-end"
           /></Link>
         </button>
       </div>
@@ -32,23 +35,42 @@ function Header() {
           </Link>
         </li>
         <li>
-            <span className="mx-7 cursor-pointer">재료별</span>
+            {/* <span className="mx-7 cursor-pointer">재료별</span>
             <div className="absolute z-10 mt-2 bg-white border rounded-lg shadow-lg p-2 space-y-2 group-hover:block text-sm font-medium">
             <Link to="/category/beef" className="block px-4 py-1 ">소고기</Link>
             <Link to="/category/pork" className="block px-4 py-1">돼지고기</Link>
             <Link to="/category/chicken" className="block px-4 py-1">닭고기</Link>
             <Link to="/category/seafood" className="block px-4 py-1">해산물</Link>
             <Link to="/category/vegetable" className="block px-4 py-1">채소</Link>
-          </div>
+          </div> */}
+          <div className="dropdown">
+              <button className="dropbtn">재료별</button>
+              <div className="dropdown-content">
+              <Link to="/category/beef" className="block px-4 py-1 ">소고기</Link>
+              <Link to="/category/pork" className="block px-4 py-1">돼지고기</Link>
+              <Link to="/category/chicken" className="block px-4 py-1">닭고기</Link>
+              <Link to="/category/seafood" className="block px-4 py-1">해산물</Link>
+              <Link to="/category/seafood" className="block px-4 py-1">채소</Link>
+              </div>
+            </div>
         </li>
         <li>
-            <span className="mx-7 cursor-pointer">상황별</span>
+            {/* <span className="mx-7 cursor-pointer">상황별</span>
             <div className="absolute z-10 mt-2 bg-white border rounded-lg shadow-lg p-2 space-y-2 group-hover:block text-sm font-medium">
-            <Link to="/category/beef" className="block px-4 py-1 ">일상</Link>
-            <Link to="/category/pork" className="block px-4 py-1">파티요리</Link>
-            <Link to="/category/chicken" className="block px-4 py-1">다이어트</Link>
-            <Link to="/category/seafood" className="block px-4 py-1">간편요리</Link>
-          </div>
+              <Link to="/category/beef" className="block px-4 py-1 ">일상</Link>
+              <Link to="/category/pork" className="block px-4 py-1">파티요리</Link>
+              <Link to="/category/chicken" className="block px-4 py-1">다이어트</Link>
+              <Link to="/category/seafood" className="block px-4 py-1">간편요리</Link>
+            </div> */}
+            <div className="dropdown">
+              <button className="dropbtn">상황별</button>
+              <div className="dropdown-content">
+              <Link to="/category/beef" className="block px-4 py-1 ">일상</Link>
+              <Link to="/category/pork" className="block px-4 py-1">파티요리</Link>
+              <Link to="/category/chicken" className="block px-4 py-1">다이어트</Link>
+              <Link to="/category/seafood" className="block px-4 py-1">간편요리</Link>
+              </div>
+            </div>
         </li>
         <li>
           <Link to='/'>
