@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import useUserStore from '../common/userStore';
+import useUserStore from './userStore';
 
 function Header() {
   const { token } = useUserStore();
