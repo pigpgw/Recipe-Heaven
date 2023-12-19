@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/userImg/kakao_login.png';
 
 const Login: React.FC = () => {
-  const Rest_api_key = process.env.REACT_APP_REST_API_KEY; // REST API 키
-  const redirect_uri = process.env.REACT_APP_REDIRECT_URI; // 리다이렉트 URI
+  const Rest_api_key = import.meta.env.VITE_REST_API_KEY; // REST API 키
+  const redirect_uri = import.meta.env.VITE_APP_REDIRECT_URI; // 리다이렉트 URI
   const kakaoURL: string = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
 
   const navigate = useNavigate();
