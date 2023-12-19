@@ -1,8 +1,31 @@
 import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
-// import './src/App.tsx'
+import useUserStore from '../common/userStore';
 
 function Header() {
+  const { token } = useUserStore();
+  const navigate = useNavigate();
+
+  const mypageIconClick = () => {
+    if (token) {
+      // 토큰이 존재하면 로그인된 상태로 간주
+      navigate('/mypage'); //주소변경 필요
+    } else {
+      // 토큰이 존재하지 않으면 로그인 페이지로 이동
+      navigate('/Login');
+    }
+  };
+
+  const writingIconClick = () => {
+    if (token) {
+      // 토큰이 존재하면 로그인된 상태로 간주
+      navigate('/'); //글 쓰기 페이지 주소변경 필요
+    } else {
+      // 토큰이 존재하지 않으면 로그인 페이지로 이동
+      navigate('/Login');
+    }
+  };
+
   return (
     
     <div id="header" className="flex mt-3 items-center w-full justify-center">
@@ -79,20 +102,17 @@ function Header() {
         </li>
       </ul>
       <span className="mr-7">|</span>
+
+      {/* 마이페이지/글쓰기 아이콘 */}
       <div className="flex items-center">
         <Link to='/'>
-          <img
-            className="mr-4"
-            src="./src/assets/ico_user.png"
-            alt=""
-          />
+          <img className="mr-4" src="./src/assets/ico_user.png" alt="" onClick={mypageIconClick}/> 
         </Link>
         <Link to='/'>
-          <img className="mr-4" src="./src/assets/rcp_write.png" alt="" />
+          <img className="mr-4" src="./src/assets/rcp_write.png" alt="" onClick={writingIconClick}/> 
         </Link>
       </div>
     </div>
-  )
+  );
 }
-
 export default Header;
