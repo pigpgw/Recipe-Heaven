@@ -11,6 +11,7 @@ import NicknameEdit from './pages/user/nicknameEdit'
 import Callback from './pages/user/callBack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
   const queryClient = new QueryClient({
@@ -34,6 +35,20 @@ function App() {
         <Route path="oauth" element={<Callback />} />
         {/* <Route path="signUp" element={<Signup />} /> */}
       </Routes>
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: '8px' }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 5000,
+          },
+          className: 'text-base max-w-screen-sm p-4 bg-lightgray text-darkgray',
+        }}
+      />
     </QueryClientProvider>
   )
 }
