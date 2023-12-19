@@ -7,7 +7,8 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
-// import Signup from './pages/user/Signup'
+import NicknameEdit from './pages/user/nicknameEdit'
+import Callback from './pages/user/callBack';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
         <Route path="search" element={<RecipeSearchList />} />
         <Route path="category" element={<RecipeCategoryList />} />
         <Route path="login" element={<Login />} />
+        <Route path="nickname" element={<NicknameEdit />} />
+        <Route path="oauth" element={<Callback />} />
         {/* <Route path="signUp" element={<Signup />} /> */}
       </Routes>
     </QueryClientProvider>
