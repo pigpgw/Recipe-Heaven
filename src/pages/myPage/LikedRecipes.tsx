@@ -7,6 +7,7 @@ import { TbMinusVertical } from 'react-icons/tb'
 import { useMutation } from '@tanstack/react-query'
 import fetchDeleteLikes from '../../fetch/fetchDeletLikes'
 import toast from 'react-hot-toast'
+import RecipeItem from '../../components/list/RecipeItem'
 
 const LikedRecipes = () => {
   const { likedRecipes }: LikedState = useStore()
@@ -21,10 +22,11 @@ const LikedRecipes = () => {
     },
     onSuccess: () => {
       toast.success('찜하기 목록에서 삭제')
+      setCheckedItems([])
     },
     onError: () => {
-      checkedItems.map((id) => toggleLikedRecipe(id))
       toast.error('잠시 후 다시 시도해주세요')
+      checkedItems.map((id) => toggleLikedRecipe(id))
     },
   })
 
@@ -68,6 +70,7 @@ const LikedRecipes = () => {
             type="checkbox"
             checked={checkedItems.length === likedRecipes.length}
             onChange={(e) => handleAllCheck(e.target.checked)}
+            disabled={likedRecipes.length === 0}
           />
           <span className="text-gray-900 text-lg font-semibold ml-2">
             전체선택
@@ -91,7 +94,7 @@ const LikedRecipes = () => {
                     handleSingleCheck(e.target.checked, recipe.id)
                   }
                 />
-                <LikedRecipeItem recipe={recipe} />
+                <LikedRecipeItem recipe={recipe} isLikedPage={true} />
               </div>
             ))
           ) : (
