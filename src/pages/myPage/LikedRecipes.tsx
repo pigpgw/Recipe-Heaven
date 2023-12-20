@@ -38,11 +38,13 @@ const LikedRecipes = () => {
   }, [likedRecipes])
 
   const handleSingleCheck = (checked, recipeId) => {
-    if (checked) {
-      setCheckedItems((prevChecked) => [...prevChecked, recipeId])
-    } else {
-      setCheckedItems(checkedItems.filter((id) => id !== recipeId))
-    }
+    setCheckedItems((prevCheckedItems) => {
+      if (checked) {
+        return [...prevCheckedItems, recipeId]
+      } else {
+        return prevCheckedItems.filter((id) => id !== recipeId)
+      }
+    })
   }
 
   const handleAllCheck = (checked) => {
