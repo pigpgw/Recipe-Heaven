@@ -91,7 +91,6 @@ function UploadRecipe() {
         />
       </div>
     )
-
     setRecipeSequenceItems((previous) => [...previous, item])
   }
 
@@ -153,13 +152,13 @@ function UploadRecipe() {
 
           <div className="recipe-box">
             <div className="item-title">카테고리</div>
-            <select>
+            <select className="select-item">
               <option value="none">{ingredientCategoryTitle}</option>
               {ingredientCategory.map((item) => {
                 return <option value={item.name}>{item.name}</option>
               })}
             </select>
-            <select>
+            <select className="select-item">
               <option value="none">{situationCategoryTitle}</option>
               {situationCategory.map((item) => {
                 return <option value={item.name}>{item.name}</option>
@@ -207,12 +206,12 @@ function UploadRecipe() {
             {/* sequence 컨테이너 */}
             <div className="sequence-item-container">
               {recipeSuquenceItems}
-              <div
+              <button
                 className="add-sequence-item-btn"
                 onClick={addRecipeSequenceBtnHandler}
               >
                 순서 추가
-              </div>
+              </button>
             </div>
           </div>
         </div>
