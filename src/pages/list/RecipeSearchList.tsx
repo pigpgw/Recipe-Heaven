@@ -16,7 +16,6 @@ import LoadingSpinner from '../../components/common/LoadingSpinner'
 
 function RecipeSearchList() {
   // const { keyword } = useParams<{ keyword: string }>()
-
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
