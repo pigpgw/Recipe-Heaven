@@ -135,6 +135,13 @@ const dummyCategoriesData: CategoryNode[] = [
       { id: 4, name: '간편요리' },
     ],
   },
+  {
+    id: 3,
+    name: 'Special',
+    children: [
+      { id: 1, name: '일상' },
+    ],
+  },
 ]
 
 export { dummyData , reviewModel, dummyCategoriesData };
