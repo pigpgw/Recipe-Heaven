@@ -1,17 +1,21 @@
 import axios from 'axios'
 
-const fetchDeleteLikes = async (recipeIds: string[]): Promise<void> => {
-  const deleteRequests = recipeIds.map((recipeId) => {
-    return axios.delete(
+export const fetchDeleteLike = async (recipeId: string): Promise<void> => {
+  try {
+    const response = await axios.delete(
       `https://jsonplaceholder.typicode.com/posts/${recipeId}`,
     )
-  })
-
-  try {
-    await Promise.all(deleteRequests)
+    return response.data
   } catch (error) {
-    throw new Error('Error deleting recipes')
+    throw new Error('내가 찜한 레시피 삭제하는 중 오류 발생')
   }
 }
 
-export default fetchDeleteLikes
+export const fetchDeleteLikes = async (recipeIds: string[]): Promise<void> => {
+  try {
+    const recipePromises = recipeIds.map((id) => fetchDeleteLike(id))
+    await Promise.all(recipePromises)
+  } catch (error) {
+    throw new Error('내가 찜한 레시피 삭제하는 중 오류 발생')
+  }
+}

@@ -5,7 +5,7 @@ import LikedRecipeItem from '../../components/myPage/LikedRecipeItem'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
 import { TbMinusVertical } from 'react-icons/tb'
 import { useMutation } from '@tanstack/react-query'
-import fetchDeleteLikes from '../../fetch/fetchDeletLikes'
+import { fetchDeleteLikes } from '../../fetch/fetchDeletLikes'
 import toast from 'react-hot-toast'
 import RecipeItem from '../../components/list/RecipeItem'
 
@@ -13,9 +13,9 @@ const LikedRecipes = () => {
   const { likedRecipes }: LikedState = useStore()
   const [recipeList, setRecipeList] = useState<TempRecipe[]>([])
   const [checkedItems, setCheckedItems] = useState<string[]>([])
-  const { toggleLikedRecipe, isLiked }: LikedState = useStore()
+  const { toggleLikedRecipe }: LikedState = useStore()
 
-  const { mutate, isLoading: isDeleting } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: () => fetchDeleteLikes(checkedItems),
     onMutate: () => {
       checkedItems.map((id) => toggleLikedRecipe(id))
@@ -94,7 +94,7 @@ const LikedRecipes = () => {
                     handleSingleCheck(e.target.checked, recipe.id)
                   }
                 />
-                <LikedRecipeItem recipe={recipe} isLikedPage={true} />
+                <LikedRecipeItem recipe={recipe} />
               </div>
             ))
           ) : (
