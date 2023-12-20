@@ -5,16 +5,6 @@ function UploadRecipe() {
   const [recipeMainImg, setRecipeMainImg] = useState('')
   const [mainImgVisible, setMainImageVisible] = useState(false)
 
-  const [inputValue1, setInputValue1] = useState('')
-  const [inputValue2, setInputValue2] = useState('')
-  const [inputValue3, setInputValue3] = useState('')
-  const [inputValue4, setInputValue4] = useState('')
-
-  function inputImageHandler() {
-    const mainInputBtn = document.querySelector('#uploadRecipeMainImg')
-    mainInputBtn.click()
-  }
-
   function previewImg(event) {
     // Set the main image source when the file input changes
     setMainImageVisible(true)
@@ -29,14 +19,97 @@ function UploadRecipe() {
   const situationCategory = dummyCategoriesData.filter(
     (item) => item.id === 2,
   )[0].children
-  //   console.log('ingredientCategoryTitle', ingredientCategoryTitle)
-  //   console.log('ingredientCategory', ingredientCategory)
-  //   console.log('situationCategoryTitle', situationCategoryTitle)
-  //   console.log('situationCategory', situationCategory)
 
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
+  }
+
+  const initialRecipeSequenceItem = [
+    <div className="add-sequence-item">
+      <div className="add-sequence-item-title">Step 1</div>
+      <input
+        className="add-sequence-item-input"
+        type="text"
+        placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기를 썰아주세요"
+      />
+    </div>,
+  ]
+
+  const initialIngredientItem = [
+    <div className="add-ingredient-item">
+      <input
+        className="add-ingredient-input"
+        type="text"
+        placeholder="예: 닭"
+      />
+      <input
+        className="add-ingredient-input"
+        type="text"
+        placeholder="예: 한마리"
+      />
+    </div>,
+    <div className="add-ingredient-item">
+      <input
+        className="add-ingredient-input"
+        type="text"
+        placeholder="예: 돼지고기"
+      />
+      <input
+        className="add-ingredient-input"
+        type="text"
+        placeholder="예: 120g"
+      />
+    </div>,
+    <div className="add-ingredient-item">
+      <input
+        className="add-ingredient-input"
+        type="text"
+        placeholder="예: 설탕"
+      />
+      <input
+        className="add-ingredient-input"
+        type="text"
+        placeholder="예: 100g"
+      />
+    </div>,
+  ]
+  const [recipeSuquenceItems, setRecipeSequenceItems] = useState(
+    initialRecipeSequenceItem,
+  )
+
+  const addRecipeSequenceBtnHandler = () => {
+    const item = (
+      <div className="add-sequence-item">
+        <div className="add-sequence-item-title">{`Step ${
+          recipeSuquenceItems.length + 1
+        }`}</div>
+        <input
+          className="add-sequence-item-input"
+          type="text"
+          placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기를 썰아주세요"
+        />
+      </div>
+    )
+
+    setRecipeSequenceItems((previous) => [...previous, item])
+  }
+
+  const [ingredientitems, setIngredientitems] = useState(initialIngredientItem)
+
+  const addIngredientItem = () => {
+    const newItem = (
+      <div className="add-ingredient-item">
+        <input
+          className="add-ingredient-input"
+          type="text"
+          placeholder="추가할 재료"
+        />
+        <input className="add-ingredient-input" type="text" placeholder="양" />
+      </div>
+    )
+
+    setIngredientitems((prevItems) => [...prevItems, newItem])
   }
 
   return (
@@ -81,13 +154,13 @@ function UploadRecipe() {
           <div className="recipe-box">
             <div className="item-title">카테고리</div>
             <select>
-              <option value="none">재료별</option>
+              <option value="none">{ingredientCategoryTitle}</option>
               {ingredientCategory.map((item) => {
                 return <option value={item.name}>{item.name}</option>
               })}
             </select>
             <select>
-              <option value="none">상황별</option>
+              <option value="none">{situationCategoryTitle}</option>
               {situationCategory.map((item) => {
                 return <option value={item.name}>{item.name}</option>
               })}
@@ -114,42 +187,31 @@ function UploadRecipe() {
             <div className="item-title">레시피 재료</div>
             <div className="add-ingredient-container">
               <div className="add-ingredient-input-container">
-                <div className="add-ingredient-item">
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 돼지고기"
-                  />
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 120g"
-                  />
-                </div>
-                <div className="add-ingredient-item">
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 돼지고기"
-                  />
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 120g"
-                  />
-                </div>
-                <div className="add-ingredient-item">
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 돼지고기"
-                  />
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 120g"
-                  />
-                </div>
+                {ingredientitems}
+              </div>
+              <button
+                onClick={addIngredientItem}
+                className="addRecipeSequenceBtn"
+              >
+                추가
+              </button>
+            </div>
+          </div>
+
+          <div className="sequence-container">
+            <div className="item-title">요리 순서</div>
+            <div className="alert-info">
+              요리의맛이 좌우될 수 있는 중요한 부분은 빠짐없이 적어주세요
+            </div>
+
+            {/* sequence 컨테이너 */}
+            <div className="sequence-item-container">
+              {recipeSuquenceItems}
+              <div
+                className="add-sequence-item-btn"
+                onClick={addRecipeSequenceBtnHandler}
+              >
+                순서 추가
               </div>
             </div>
           </div>
