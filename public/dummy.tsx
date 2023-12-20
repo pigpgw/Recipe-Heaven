@@ -106,4 +106,35 @@ const reviewModel = [
   },
 ]
 
-export { dummyData , reviewModel };
+//헤더 카테고리 navbar 관련
+interface CategoryNode {
+  id: number
+  name: string
+  children?: CategoryNode[]
+}
+
+const dummyCategoriesData: CategoryNode[] = [
+  {
+    id: 1,
+    name: '재료별',
+    children: [
+      { id: 1, name: '소고기' },
+      { id: 2, name: '돼지고기' },
+      { id: 3, name: '닭고기' },
+      { id: 4, name: '해산물' },
+      { id: 5, name: '채소' },
+    ],
+  },
+  {
+    id: 2,
+    name: '상황별',
+    children: [
+      { id: 1, name: '일상' },
+      { id: 2, name: '파티요리' },
+      { id: 3, name: '다이어트' },
+      { id: 4, name: '간편요리' },
+    ],
+  },
+]
+
+export { dummyData , reviewModel, dummyCategoriesData };
