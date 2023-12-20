@@ -7,6 +7,7 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
+import UploadRecipe from './pages/UploadRecipe'
 // import Signup from './pages/user/Signup'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -30,6 +31,7 @@ function App() {
         <Route path="search" element={<RecipeSearchList />} />
         <Route path="category" element={<RecipeCategoryList />} />
         <Route path="login" element={<Login />} />
+        <Route path="uploadrecipe" element={<UploadRecipe />} />
         {/* <Route path="signUp" element={<Signup />} /> */}
       </Routes>
       <Toaster
