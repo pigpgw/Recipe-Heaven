@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../components/Header'
 import { dummyCategoriesData } from '../../public/dummy'
 
 function UploadRecipe() {
@@ -42,7 +41,6 @@ function UploadRecipe() {
 
   return (
     <>
-      <Header />
       <link
         rel="stylesheet"
         href="./src/components/uploadRecipe/uploadRecipe.css"
@@ -62,7 +60,7 @@ function UploadRecipe() {
               />
             ) : (
               <img
-                src="./public/uploadMainfoodimg.png"
+                src="./src/assets/uploadRecipe/uploadMainfoodimg.png"
                 className="main-imgUpload-btn-box"
                 onClick={mainBtnClick}
                 alt="Default Main Image"

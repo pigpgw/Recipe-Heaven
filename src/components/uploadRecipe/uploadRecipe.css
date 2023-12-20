@@ -14,7 +14,7 @@
 }
 
 .main-uploadImg-bg {
-    background: url('../../../public/recipeUploadimage.jpeg');
+    background: url('../../../src/assets/uploadRecipe/recipeUploadimage.jpeg');
     width: 70%;
     height: 300px;
     background-size: cover;
@@ -37,7 +37,9 @@
 .main-imgUpload-btn-box {
     width:400px;
     height: 200px;
-    background-image: url('../../../public/uploadMainfoodimg.png');
+    background: url('../../../src/assets/uploadRecipe/uploadMainfoodimg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .recipe-title-container {
