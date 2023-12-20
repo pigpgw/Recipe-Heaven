@@ -2,17 +2,28 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import useUserStore from './userStore';
 
+
+
+import { create } from 'zustand';
+
+
+
 function Header() {
   const { token } = useUserStore();
   const navigate = useNavigate();
 
+  console.log('Token:', token);
+
   const mypageIconClick = () => {
     if (token) {
       // 토큰이 존재하면 로그인된 상태로 간주
-      navigate('/mypage'); //주소변경 필요
+      navigate('/search'); //주소변경 필요
+      console.log("토큰o");
     } else {
       // 토큰이 존재하지 않으면 로그인 페이지로 이동
-      navigate('/Login');
+      navigate('/detail'); //주소변경 필요
+      console.log("토큰x");
+
     }
   };
 
