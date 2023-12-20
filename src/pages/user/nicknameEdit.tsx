@@ -2,75 +2,83 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const NicknameEdit: React.FC = () => {
-  // State 변수 선언
   const [id, setId] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 컴포넌트가 마운트될 때 서버에서 데이터 가져오기
   useEffect(() => {
     const fetchId = async () => {
       try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1'); //임시 api 테스트
-        setId(response.data.id.toString());
-        setLoading(false);
+        // 서버에서 id 데이터 가져오기 (id = 닉네임)
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1');
+        if (response.data && response.data.id) {
+          // 성공적으로 데이터를 가져왔을 때
+          setId(response.data.id.toString());
+          setLoading(false);
+        } else {
+          // 서버 응답에 유효한 데이터가 없을 때
+          console.error('서버 응답에 유효한 데이터가 없습니다.');
+          setLoading(false);
+        }
       } catch (error) {
+        // 데이터 가져오기 중 오류가 발생했을 때
         console.error('닉네임 불러오기 중 오류 발생:', error);
         setLoading(false);
       }
     };
-    // 데이터 가져오는 함수 호출
-    fetchId();
-  }, []); // 빈 배열을 전달해서 한 번만 실행
 
-  // 닉네임 입력 필드 값 변경
+    // 데이터 가져오기 함수 호출
+    fetchId();
+  }, []); // 빈 배열 전달
+
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 닉네임 입력 값 변경 시 호출
     setId(e.target.value);
   };
 
-  // 폼 제출
   const handleIdSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     try {
-      // 입력된 닉네임이 유효하면 서버에 업데이트 요청
       if (validateId()) {
-        const response = await axios.put('https://jsonplaceholder.typicode.com/posts/1', {
-          id: parseInt(id, 10), 
-        });
+        // 닉네임 변경 요청
+        const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {
 
-        // 서버 응답이 성공하면 페이지 새로고침
+        });
+  
         if (response.data && response.data.id) {
+          // 서버 응답이 성공하면 변경된 닉네임으로 변경 
           alert('닉네임이 변경되었습니다');
-          window.location.reload(); 
+          setId(response.data.id.toString());
         }
       }
     } catch (error) {
+      // 닉네임 변경 중 오류가 발생했을 때
       console.error('닉네임 변경 중 오류 발생:', error);
     }
   };
 
-  // 닉네임 유효성 검사
   const validateId = (): boolean => {
+    // 닉네임 유효성 검사
     if (id.length < 2 || id.length > 8) {
       setError('닉네임은 최소 2글자에서 최대 8글자 사이어야 합니다.');
       return false;
     }
 
+    // 유효성 검사 통과 시 에러 메시지
     setError(null);
     return true;
   };
 
-  // 로딩 중이면 로딩 메시지 반환
   if (loading) {
+    // 데이터를 가져오는 중일 때 로딩 메시지
     return <div>Loading...</div>;
   }
-
+  // 데이터를 모두 가져온 후에 닉네임 변경 페이지 렌더링
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">닉네임 변경</h1>
-        {/* 폼 제출 시 handleIdSubmit 함수 호출 */}
         <form onSubmit={handleIdSubmit} className="max-w-md">
           {/* 현재 닉네임 표시 */}
           <label className="block mb-2">
