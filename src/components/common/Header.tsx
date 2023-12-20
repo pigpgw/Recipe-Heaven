@@ -1,16 +1,15 @@
+//건우님 코드 백업
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { dummyCategoriesData } from '../../../public/dummy'
-// import useUserStore from './userStore'
+import useUserStore from './userStore'
+// import { create } from 'zustand';
 
 function Header() {
+  //카테고리 navbar 더미데이터 가져오기
   dummyCategoriesData.map((item) => {
     console.log("item", item)
   })
-  // const ingredientCategoryTitle = dummyCategoriesData[0].name;
-  // const situationCategoryTitle = dummyCategoriesData[1].name
-  // const ingredientCategory = dummyCategoriesData.filter((item) => item.id === 1)[0].children;
-  // const situationCategory = dummyCategoriesData.filter((item) => item.id === 2)[0].children
   const ingredientCategoryTitle = dummyCategoriesData[0]?.name;
   const situationCategoryTitle = dummyCategoriesData[1]?.name;
 
@@ -22,6 +21,34 @@ function Header() {
   console.log('situationCategoryTitle', situationCategoryTitle)
   console.log('situationCategory', situationCategory)
 
+  //마이페이지, 글쓰기 아이콘 로그인 판별
+  const { token } = useUserStore();
+  const navigate = useNavigate();
+
+  console.log('Token:', token);
+
+  const mypageIconClick = () => {
+    if (token) {
+      // 토큰이 존재하면 로그인된 상태로 간주
+      navigate('/search'); //주소변경 필요
+      console.log("토큰o");
+    } else {
+      // 토큰이 존재하지 않으면 로그인 페이지로 이동
+      navigate('/Login'); //주소변경 필요
+      console.log("토큰null");
+    }
+  };
+
+  const writingIconClick = () => {
+    if (token) {
+      // 토큰이 존재하면 로그인된 상태로 간주
+      navigate('/'); //글 쓰기 페이지 주소변경 필요
+    } else {
+      // 토큰이 존재하지 않으면 로그인 페이지로 이동
+      navigate('/Login');
+    }
+  };
+  
   return (
     <div id="header" className="flex mt-3 items-center w-full justify-center">
       <link rel="stylesheet" href="./src/components/navbar.css"></link>
@@ -110,7 +137,7 @@ function Header() {
             className="mr-4"
             src="./src/assets/ico_user.png"
             alt=""
-          // onClick={mypageIconClick}
+          onClick={mypageIconClick}
           />
         </Link>
         <Link to="/">
@@ -118,7 +145,7 @@ function Header() {
             className="mr-4"
             src="./src/assets/rcp_write.png"
             alt=""
-          // onClick={writingIconClick}
+          onClick={writingIconClick}
           />
         </Link>
       </div>
