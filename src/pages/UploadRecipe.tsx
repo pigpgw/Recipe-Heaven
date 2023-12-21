@@ -1,16 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { dummyCategoriesData } from '../../public/dummy'
 
 function UploadRecipe() {
-  const [recipeMainImg, setRecipeMainImg] = useState('')
-  const [mainImgVisible, setMainImageVisible] = useState(false)
-
-  function previewImg(event) {
-    // Set the main image source when the file input changes
-    setMainImageVisible(true)
-    setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
-  }
-
   const ingredientCategoryTitle = dummyCategoriesData[0].name
   const situationCategoryTitle = dummyCategoriesData[1].name
   const ingredientCategory = dummyCategoriesData.filter(
@@ -25,7 +16,31 @@ function UploadRecipe() {
     mainBtn.click()
   }
 
+  function previewImg(event) {
+    setMainImageVisible(true)
+    setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
+  }
+
+  const [recipeName, setRecipeName] = useState('')
+  const [recipMainImg, setRecipMainImg] = useState('')
+  const [portion, setPortion] = useState('')
+  const [leadTime, setLeadTime] = useState('')
+  const [level, setLevel] = useState('')
+  const [ingredients, setIngredients] = useState([{ name: '', stock: '' }])
+
+  const handleIngredientChange = (index, key, value) => {
+    const updatedIngredients = [...ingredients]
+    updatedIngredients[index][key] = value
+    setIngredients(updatedIngredients)
+    console.log('ingredient', ingredients)
+  }
+
+  const addIngredient = () => {
+    setIngredients([...ingredients, { name: '', stock: '' }])
+  }
+
   const initialRecipeSequenceItem = [
+    // eslint-disable-next-line react/jsx-key
     <div className="add-sequence-item">
       <div className="add-sequence-item-title">Step 1</div>
       <input
@@ -33,47 +48,33 @@ function UploadRecipe() {
         type="text"
         placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기를 썰아주세요"
       />
+      <input className="add-sequence-item-img-input" type="file" />
+      <div className="add-sequence-item-img-input-btn">+</div>
     </div>,
   ]
 
-  const initialIngredientItem = [
-    <div className="add-ingredient-item">
-      <input
-        className="add-ingredient-input"
-        type="text"
-        placeholder="예: 닭"
-      />
-      <input
-        className="add-ingredient-input"
-        type="text"
-        placeholder="예: 한마리"
-      />
-    </div>,
-    <div className="add-ingredient-item">
-      <input
-        className="add-ingredient-input"
-        type="text"
-        placeholder="예: 돼지고기"
-      />
-      <input
-        className="add-ingredient-input"
-        type="text"
-        placeholder="예: 120g"
-      />
-    </div>,
-    <div className="add-ingredient-item">
-      <input
-        className="add-ingredient-input"
-        type="text"
-        placeholder="예: 설탕"
-      />
-      <input
-        className="add-ingredient-input"
-        type="text"
-        placeholder="예: 100g"
-      />
-    </div>,
-  ]
+  // const ForApi = {
+    // "recipeName": "ahaha",
+    // "img": "sjddfkkfjsdvjlksf",
+    // "portion": 2,
+    // "leadTime": 2,
+    // "level": 3,
+    // "ingredient": [
+        // {"item": "apple", "unit": "1개"},
+        // {"item": "soysource", "unit": "10g"}
+    // ],
+    // "step": [
+        // {"stepNum": 1, "des": "abcd", "imgUrl": "dkldlksdlsd"},
+        // {"stepNum": 2, "des": "qwerty", "imgUrl": "qwerty"}
+    // ],
+        // "aveStar": 4
+  // }
+
+  // 이미지 클리깃 preview 레시피 순서별 아이템 이미지는 어떻게 관리해야하나
+  // 만약 순서와 이미지를 같이 쏴준다면
+
+  const [recipeMainImg, setRecipeMainImg] = useState('')
+  const [mainImgVisible, setMainImageVisible] = useState(false)
   const [recipeSuquenceItems, setRecipeSequenceItems] = useState(
     initialRecipeSequenceItem,
   )
@@ -89,26 +90,10 @@ function UploadRecipe() {
           type="text"
           placeholder="예) 소고기는 기름기를 떼어내고 적당한 크기를 썰아주세요"
         />
+        <div className="add-sequence-item-img-input-btn">+</div>
       </div>
     )
     setRecipeSequenceItems((previous) => [...previous, item])
-  }
-
-  const [ingredientitems, setIngredientitems] = useState(initialIngredientItem)
-
-  const addIngredientItem = () => {
-    const newItem = (
-      <div className="add-ingredient-item">
-        <input
-          className="add-ingredient-input"
-          type="text"
-          placeholder="추가할 재료"
-        />
-        <input className="add-ingredient-input" type="text" placeholder="양" />
-      </div>
-    )
-
-    setIngredientitems((prevItems) => [...prevItems, newItem])
   }
 
   return (
@@ -186,12 +171,31 @@ function UploadRecipe() {
             <div className="item-title">레시피 재료</div>
             <div className="add-ingredient-container">
               <div className="add-ingredient-input-container">
-                {ingredientitems}
+                {/* {ingredientitems} */}
+                {ingredients.map((ingredient, index) => (
+                  <div key={index}>
+                    <input
+                      className="add-ingredient-input"
+                      type="text"
+                      placeholder="예: 닭"
+                      value={ingredient.name}
+                      onChange={(e) =>
+                        handleIngredientChange(index, 'name', e.target.value)
+                      }
+                    />
+                    <input
+                      className="add-ingredient-input"
+                      type="text"
+                      placeholder="예: 한마리"
+                      value={ingredient.stock}
+                      onChange={(e) =>
+                        handleIngredientChange(index, 'stock', e.target.value)
+                      }
+                    />
+                  </div>
+                ))}
               </div>
-              <button
-                onClick={addIngredientItem}
-                className="addRecipeSequenceBtn"
-              >
+              <button onClick={addIngredient} className="addRecipeSequenceBtn">
                 추가
               </button>
             </div>
@@ -204,6 +208,7 @@ function UploadRecipe() {
             </div>
 
             {/* sequence 컨테이너 */}
+            {/* 현재는 이미지는 미 고려 우선은 텍스트만 서버에 전달 후 추후 이미지도 업로드 (백엔드와 상의 필요) */}
             <div className="sequence-item-container">
               {recipeSuquenceItems}
               <button
