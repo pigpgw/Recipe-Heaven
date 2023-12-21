@@ -68,8 +68,8 @@ const NicknameEdit = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="container mx-auto p-4">
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">닉네임 변경</h1>
         <form onSubmit={handleIdSubmit} className="max-w-md">
           <label className="block mb-2">
