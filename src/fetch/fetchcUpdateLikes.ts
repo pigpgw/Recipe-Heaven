@@ -1,5 +1,13 @@
 import axios from 'axios'
 
+export const fetchAddLike = async (recipeId: string): Promise<void> => {
+  // const response = await axios.post(
+  const response = await axios.get(
+    `https://jsonplaceholder.typicode.com/posts/${recipeId}`,
+  )
+  return response.data
+}
+
 export const fetchDeleteLike = async (recipeId: string): Promise<void> => {
   try {
     const response = await axios.delete(

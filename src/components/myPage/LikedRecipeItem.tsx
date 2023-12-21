@@ -1,31 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { IoStar } from 'react-icons/io5'
-import { IoIosStar } from 'react-icons/io'
-import { GoComment } from 'react-icons/go'
-import { FaHeart } from 'react-icons/fa'
-import { useStore, LikedState } from '../../components/store/store'
-import toast from 'react-hot-toast'
-import { useMutation } from '@tanstack/react-query'
-import { fetchDeleteLike } from '../../fetch/fetchDeletLikes'
 import { TempRecipe } from '../../fetch/APIResponsesTypes'
+import { useDeleteLikeMutation } from '../likes/useLikesMutation'
 
-const LikedRecipeItem = ({ recipe }: TempRecipe, isLikedPage: boolean) => {
-  const { toggleLikedRecipe }: LikedState = useStore()
-
-  const { mutate } = useMutation({
-    mutationFn: () => fetchDeleteLike(recipe.id),
-    onMutate: () => {
-      toggleLikedRecipe(recipe.id)
-    },
-    onSuccess: () => {
-      toast.success('찜하기 취소 완료!')
-    },
-    onError: () => {
-      toggleLikedRecipe(recipe.id)
-      toast.error('잠시 후 다시 시도해주세요')
-    },
-  })
+const LikedRecipeItem = ({ recipe }: TempRecipe) => {
+  const { deleteRecipe, isDeleting } = useDeleteLikeMutation(recipe.id)
 
   return (
     <div className="flex gap-3">
@@ -44,8 +22,9 @@ const LikedRecipeItem = ({ recipe }: TempRecipe, isLikedPage: boolean) => {
       </div>
       <button
         onClick={() => {
-          mutate(recipe.id)
+          deleteRecipe(recipe.id)
         }}
+        disabled={isDeleting}
       >
         X
       </button>
