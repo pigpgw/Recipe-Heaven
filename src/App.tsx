@@ -9,6 +9,7 @@ import Detail from './pages/Detail'
 import Login from './pages/user/Login'
 import NicknameEdit from './pages/user/nicknameEdit'
 import Callback from './pages/user/callBack';
+import Header from './components/common/Header'
 import UploadRecipe from './pages/UploadRecipe'
 // import Signup from './pages/user/Signup'
 import LikedRecipes from './pages/myPage/LikedRecipes'
