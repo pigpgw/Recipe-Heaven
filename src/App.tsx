@@ -16,6 +16,7 @@ import DeleteUser from './pages/user/deleteUser'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
+import CategoryManagement from './pages/admin/CategoryMenagement'
 
 
 
@@ -44,6 +45,8 @@ function App() {
         <Route path="nickname" element={<NicknameEdit />} />
         <Route path="oauth" element={<Callback />} />
         <Route path="uploadrecipe" element={<UploadRecipe />} />
+        <Route path="admin_caterory" element={<CategoryManagement />} />
+        
         {/* <Route path="signUp" element={<Signup />} /> */}
       </Routes>
       <Toaster
