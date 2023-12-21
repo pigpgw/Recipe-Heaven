@@ -11,6 +11,7 @@ const fetchTestGet: QueryFunction<string> = async ({ queryKey }) => {
     )
 
     console.log(apiRes)
+    console.log('apiRes')
     if (apiRes.status !== 200) {
       throw new Error('레시피 로드중 에러발생.')
     }
