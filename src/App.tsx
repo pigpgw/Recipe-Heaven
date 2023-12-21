@@ -7,6 +7,7 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
+import Header from './components/common/Header'
 import NicknameEdit from './pages/user/nicknameEdit'
 import Callback from './pages/user/callBack';
 import UploadRecipe from './pages/UploadRecipe'
