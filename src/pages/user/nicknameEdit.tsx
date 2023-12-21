@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const NicknameEdit: React.FC = () => {
   const [id, setId] = useState<string>('');
@@ -42,19 +43,18 @@ const NicknameEdit: React.FC = () => {
     try {
       if (validateId()) {
         // 닉네임 변경 요청
-        const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-
-        });
+        const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, {});
   
         if (response.data && response.data.id) {
           // 서버 응답이 성공하면 변경된 닉네임으로 변경 
-          alert('닉네임이 변경되었습니다');
+          toast.success('닉네임이 변경되었습니다');
           setId(response.data.id.toString());
         }
       }
     } catch (error) {
       // 닉네임 변경 중 오류가 발생했을 때
       console.error('닉네임 변경 중 오류 발생:', error);
+      toast.error('닉네임 변경 중 오류가 발생했습니다.');
     }
   };
 
@@ -62,6 +62,7 @@ const NicknameEdit: React.FC = () => {
     // 닉네임 유효성 검사
     if (id.length < 2 || id.length > 8) {
       setError('닉네임은 최소 2글자에서 최대 8글자 사이어야 합니다.');
+      toast.error('닉네임은 최소 2글자에서 최대 8글자 사이어야 합니다.');
       return false;
     }
 

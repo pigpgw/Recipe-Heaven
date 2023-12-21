@@ -16,7 +16,6 @@ import LoadingSpinner from '../../components/common/LoadingSpinner'
 
 function RecipeSearchList() {
   // const { keyword } = useParams<{ keyword: string }>()
-
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
@@ -53,15 +52,11 @@ function RecipeSearchList() {
       `${keyword}에 대한 레시피 데이터 로드중 문제가 발생했습니다`,
     )
   }
-  console.log('data')
-  console.log(data)
 
   // const recipeList = data?.recipe
   // const testList = data
 
   const [isLoadingMore, setIsLoadingMore] = useState(false)
-  console.log('loading세팅같은지확인')
-  console.log(isLoading === isLoadingMore)
 
   useEffect(() => {
     if (!isLoading && !isError && data && data?.length) {

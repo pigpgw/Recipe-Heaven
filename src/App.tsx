@@ -7,9 +7,12 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
-//import DeleteUser from './pages/user/deleteUser'
 import NicknameEdit from './pages/user/nicknameEdit'
 import Callback from './pages/user/callBack';
+import UploadRecipe from './pages/UploadRecipe'
+// import Signup from './pages/user/Signup'
+import LikedRecipes from './pages/myPage/LikedRecipes'
+import DeleteUser from './pages/user/deleteUser'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
@@ -30,13 +33,17 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="detail" element={<Detail />} />
+        <Route path="/test" element={<LikedRecipes />} />
+        <Route path="/detail" element={<Detail />} />
+        <Route path="/category" element={<RecipeCategoryList />} />
+        <Route path="/login" element={<Login />} />
         <Route path="search" element={<RecipeSearchList />} />
         <Route path="category" element={<RecipeCategoryList />} />
         <Route path="login" element={<Login />} />
-        {/* <Route path="delete" element={<DeleteUser />} /> */}
+        <Route path="/delete" element={<DeleteUser />} />
         <Route path="nickname" element={<NicknameEdit />} />
         <Route path="oauth" element={<Callback />} />
+        <Route path="uploadrecipe" element={<UploadRecipe />} />
         {/* <Route path="signUp" element={<Signup />} /> */}
       </Routes>
       <Toaster
