@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { IoStar } from 'react-icons/io5'
 import { IoIosStar } from 'react-icons/io'
 import { GoComment } from 'react-icons/go'
-import { CiHeart } from 'react-icons/ci'
 import { FaHeart } from 'react-icons/fa'
 import { useStore, LikedState } from '../../components/store/store'
-import toast from 'react-hot-toast'
+import { useToggleLikeMutation } from '../likes/useLikesMutation'
 
 // 레시피 목록에 들어가는 카드 하나하나 -> 클릭시 상세페이지 이동
 interface IProps {
@@ -27,7 +25,9 @@ const RecipeItem = ({
   avgRating,
   reviewCnt,
 }: IProps) => {
-  const { likedRecipes, toggleLikedRecipe, isLiked }: LikedState = useStore()
+  const { isLiked }: LikedState = useStore()
+
+  const { toggleRecipeLiked } = useToggleLikeMutation(id)
 
   return (
     <div className="relative">
@@ -70,7 +70,8 @@ const RecipeItem = ({
       >
         <FaHeart
           onClick={() => {
-            toggleLikedRecipe(id)
+            // toggleLikedRecipe(id)
+            toggleRecipeLiked(id)
           }}
           className={
             isLiked(id)

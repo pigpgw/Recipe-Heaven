@@ -116,12 +116,6 @@ interface CategoryNode {
 const dummyCategoriesData: CategoryNode[] = [
   {
     id: 1,
-    name: '레시피',
-    children: [
-    ],
-  },
-  {
-    id: 2,
     name: '재료별',
     children: [
       { id: 1, name: '소고기' },
@@ -132,7 +126,7 @@ const dummyCategoriesData: CategoryNode[] = [
     ],
   },
   {
-    id: 3,
+    id: 2,
     name: '상황별',
     children: [
       { id: 1, name: '일상' },
@@ -140,36 +134,6 @@ const dummyCategoriesData: CategoryNode[] = [
       { id: 3, name: '다이어트' },
       { id: 4, name: '간편요리' },
     ],
-  },
-  {
-    id: 4,
-    name: 'Special',
-    children: [
-    ],
-  },
-  // {
-  //   id: 5,
-  //   name: 'Dinner',
-  //   children: [
-  //   ],
-  // },
-  // {
-  //   id: 6,
-  //   name: 'Dinner',
-  //   children: [
-  //   ],
-  // },
-  // {
-  //   id: 7,
-  //   name: 'Dinner',
-  //   children: [
-  //   ],
-  // },
-  // {
-  //   id: 8,
-  //   name: 'Dinner',
-  //   children: [
-  //   ],
   },
 ]
 
