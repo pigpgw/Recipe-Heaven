@@ -43,8 +43,6 @@ function App() {
             <Route path="testComments" element={<MyComments />} />
             <Route path="test" element={<LikedRecipes />} />
           </Route>
-          {/* <Route path="/test" element={<LikedRecipes />} /> */}
-          {/* <Route path="/testComments" element={<MyComments />} /> */}
           <Route path="/detail" element={<Detail />} />
           <Route path="/category" element={<RecipeCategoryList />} />
           <Route path="/login" element={<Login />} />
@@ -52,7 +50,6 @@ function App() {
           <Route path="category" element={<RecipeCategoryList />} />
           <Route path="login" element={<Login />} />
           <Route path="/delete" element={<DeleteUser />} />
-          {/* <Route path="nickname" element={<NicknameEdit />} /> */}
           <Route path="oauth" element={<Callback />} />
           <Route path="uploadrecipe" element={<UploadRecipe />} />
           {/* <Route path="signUp" element={<Signup />} /> */}
