@@ -1,8 +1,6 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import Header from '../../components/common/Header'
-import Footer from '../../components/common/Footer'
 
 const NicknameEdit = () => {
   const [id, setId] = useState<string>('')
@@ -76,8 +74,6 @@ const NicknameEdit = () => {
 
   return (
     <div className="">
-      {' '}
-      <Header />
       <div className="text-2xl font-bold flex justify-center mt-20 ">
         회원 정보 수정
       </div>
@@ -104,7 +100,6 @@ const NicknameEdit = () => {
           </button>
         </form>
       </div>
-      <Footer />
     </div>
   )
 }
