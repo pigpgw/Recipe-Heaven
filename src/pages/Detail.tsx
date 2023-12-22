@@ -4,6 +4,7 @@ import { dummyData , reviewModel } from '../../public/dummy'
 import DetailHeader from '../components/detail/DetailHeader';
 import DetailMainList from '../components/detail/DetailMainList'
 import DetailMainReview from '../components/detail/DetailMainReview'
+import axios from 'axios';
 
 function Detail() {
     const explaincontentList: string[] = dummyData.sequenceExplain;
@@ -44,6 +45,14 @@ function Detail() {
       setComments(previousCommentsList)
       setInputValue('')
     }
+
+    async function getDetailData() {
+      const res = await axios.get('/recipe/:recipeId')
+    }
+
+    useEffect(() => {
+      getDetailData();
+    },[])
 
   return (
     // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
