@@ -1,26 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { dummyCategoriesData } from '../../public/dummy'
+import axios from 'axios'
+import { error } from 'console'
 
 function UploadRecipe() {
-  const [recipeMainImg, setRecipeMainImg] = useState('')
-  const [mainImgVisible, setMainImageVisible] = useState(false)
-
-  const [inputValue1, setInputValue1] = useState('')
-  const [inputValue2, setInputValue2] = useState('')
-  const [inputValue3, setInputValue3] = useState('')
-  const [inputValue4, setInputValue4] = useState('')
-
-  function inputImageHandler() {
-    const mainInputBtn = document.querySelector('#uploadRecipeMainImg')
-    mainInputBtn.click()
-  }
-
-  function previewImg(event) {
-    // Set the main image source when the file input changes
-    setMainImageVisible(true)
-    setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
-  }
-
   const ingredientCategoryTitle = dummyCategoriesData[0].name
   const situationCategoryTitle = dummyCategoriesData[1].name
   const ingredientCategory = dummyCategoriesData.filter(
@@ -29,15 +12,111 @@ function UploadRecipe() {
   const situationCategory = dummyCategoriesData.filter(
     (item) => item.id === 2,
   )[0].children
-  //   console.log('ingredientCategoryTitle', ingredientCategoryTitle)
-  //   console.log('ingredientCategory', ingredientCategory)
-  //   console.log('situationCategoryTitle', situationCategoryTitle)
-  //   console.log('situationCategory', situationCategory)
+
+  interface Ingredient {
+    item: string;
+    unit: string;
+  }
+
+  interface RecipeSequenceItem {
+    stepNum: number;
+    des: string;
+    imgUrl: string;
+  }
+
+  const [recipeName, setRecipeName] = useState<String>('')
+  const [recipeMainImg, setRecipeMainImg] = useState<String>('')
+  const [portion, setPortion] = useState<Number>(0)
+  const [leadTime, setLeadTime] = useState<Number>(0)
+  const [level, setLevel] = useState<Number>(0)
+  const [ingredients, setIngredients] =
+    useState<Ingredient[]>([{ item: '', unit: '' }])
+  const [categoryIg, setCategoryIg] = useState<String>('')
+  const [categorySt, setCategorySt] = useState<String>('')
+  const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
+  const [recipeSequenceItems, setRecipeSequenceItems] =
+    useState<RecipeSequenceItem[]>([{ stepNum: 1, des: '', imgUrl: '' }])
 
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
   }
+
+  const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
+      setMainImageVisible(true)
+      setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
+  }
+
+  function addRecipeSequenceBtnHandler() {
+    const newItem = {
+      stepNum: recipeSequenceItems.length + 1,
+      des: '',
+      imgUrl: '',
+    }
+    setRecipeSequenceItems([...recipeSequenceItems, newItem])
+  }
+
+  const handleStepChange = (index:number, key:string, value:string) => {
+    const updatedSteps = [...recipeSequenceItems]
+    updatedSteps[index][key] = value
+    setRecipeSequenceItems(updatedSteps)
+    console.log('recipe steps', recipeSequenceItems)
+  }
+
+  const handleIngredientChange = (index:number, key:string, value:string) => {
+    const updatedIngredients = [...ingredients]
+    updatedIngredients[index][key] = value
+    setIngredients(updatedIngredients)
+    console.log('ingredient', ingredients)
+  }
+
+  const addIngredient = () => {
+    setIngredients([...ingredients, { name: '', stock: '' }])
+  }
+
+  function createRecipeData() {
+    return {
+      recipeName: recipeName,
+      // img: recipeMainImg,
+      img: 'hi',
+      portion: portion,
+      leadTime: leadTime,
+      // setCgIngredient: categoryIg,
+      // setCgSituation: categorySt,
+      level: level,
+      ingredient: ingredients,
+      step: recipeSequenceItems,
+      // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
+    }
+  }
+
+  const submit = async () => {
+    try {
+      const recipeData = createRecipeData()
+
+      await axios.post(
+        'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
+        recipeData,
+      )
+
+      console.log('success, Data', recipeData)
+      console.log('전송 성공')
+    } catch (e) {
+      console.log('error', e)
+    }
+  }
+
+  // const formData = new FormData()
+  // formData.append('recipeName', recipeName)
+  // formData.append('img', recipeMainImg)
+  // formData.append('portion', portion)
+  // formData.append('portion', portion)
+  // formData.append('leadTime', leadTime)
+  // formData.append('setCgIngredient', categoryIg)
+  // formData.append('setCgSituation', categorySt)
+  // formData.append('level', level)
+  // formData.append('ingredient', JSON.stringify(ingredients))
+  // formData.append('step', JSON.stringify(recipeSequenceItems))
 
   return (
     <>
@@ -69,25 +148,44 @@ function UploadRecipe() {
             <input
               className="main-imgUpload-btn"
               type="file"
+              accept="image/*"
               onChange={previewImg}
             />
           </div>
 
           <div className="recipe-box">
             <div className="item-title">레시피 제목</div>
-            <input type="text" placeholder="예) 소고기 미역국" />
+            <input
+              type="text"
+              placeholder="예) 소고기 미역국"
+              value={recipeName}
+              onChange={(e) => {
+                setRecipeName(e.target.value)
+                console.log('rercipe title', recipeName)
+              }}
+            />
           </div>
 
           <div className="recipe-box">
             <div className="item-title">카테고리</div>
-            <select>
-              <option value="none">재료별</option>
+            <select
+              className="select-item"
+              onChange={(e) => {
+                setCategoryIg(e.target.value)
+              }}
+            >
+              <option value="none">{ingredientCategoryTitle}</option>
               {ingredientCategory.map((item) => {
                 return <option value={item.name}>{item.name}</option>
               })}
             </select>
-            <select>
-              <option value="none">상황별</option>
+            <select
+              className="select-item"
+              onChange={(e) => {
+                setCategorySt(e.target.value)
+              }}
+            >
+              <option value="none">{situationCategoryTitle}</option>
               {situationCategory.map((item) => {
                 return <option value={item.name}>{item.name}</option>
               })}
@@ -98,15 +196,39 @@ function UploadRecipe() {
             <div className="item-title">요리정보</div>
             <div className="info-box">
               <div>인원</div>
-              <input className="infoInput" type="text" placeholder="인원" />
+              <input
+                className="infoInput"
+                type="text"
+                placeholder="인원"
+                value={portion}
+                onChange={(e) => {
+                  setPortion(e.target.value)
+                }}
+              />
             </div>
             <div className="info-box">
               <div>시간</div>
-              <input className="infoInput" type="text" placeholder="인원" />
+              <input
+                className="infoInput"
+                type="text"
+                placeholder="인원"
+                value={leadTime}
+                onChange={(e) => {
+                  setLeadTime(e.target.value)
+                }}
+              />
             </div>
             <div className="info-box">
               <div>난이도</div>
-              <input className="infoInput" type="text" placeholder="인원" />
+              <input
+                className="infoInput"
+                type="text"
+                placeholder="인원"
+                value={level}
+                onChange={(e) => {
+                  setLevel(e.target.value)
+                }}
+              />
             </div>
           </div>
 
@@ -114,46 +236,104 @@ function UploadRecipe() {
             <div className="item-title">레시피 재료</div>
             <div className="add-ingredient-container">
               <div className="add-ingredient-input-container">
-                <div className="add-ingredient-item">
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 돼지고기"
-                  />
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 120g"
-                  />
-                </div>
-                <div className="add-ingredient-item">
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 돼지고기"
-                  />
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 120g"
-                  />
-                </div>
-                <div className="add-ingredient-item">
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 돼지고기"
-                  />
-                  <input
-                    className="add-ingredient-input"
-                    type="text"
-                    placeholder="예> 120g"
-                  />
-                </div>
+                {/* {ingredientitems} */}
+                {ingredients.map((ingredient, index) => (
+                  <div key={index}>
+                    <input
+                      className="add-ingredient-input"
+                      type="text"
+                      placeholder="예: 닭"
+                      value={ingredient.item}
+                      onChange={(e) =>
+                        handleIngredientChange(index, 'item', e.target.value)
+                      }
+                    />
+                    <input
+                      className="add-ingredient-input"
+                      type="text"
+                      placeholder="예: 한마리"
+                      value={ingredient.unit}
+                      onChange={(e) =>
+                        handleIngredientChange(index, 'unit', e.target.value)
+                      }
+                    />
+                  </div>
+                ))}
               </div>
+              <button onClick={addIngredient} className="addRecipeSequenceBtn">
+                추가
+              </button>
+            </div>
+          </div>
+
+          <div className="sequence-container">
+            <div className="item-title">요리 순서</div>
+            <div className="alert-info">
+              요리의맛이 좌우될 수 있는 중요한 부분은 빠짐없이 적어주세요
+            </div>
+
+            {/* sequence 컨테이너 */}
+            {/* 현재는 이미지는 미 고려 우선은 텍스트만 서버에 전달 후 추후 이미지도 업로드 (백엔드와 상의 필요) */}
+            <div className="sequence-item-container">
+              {/* {recipeSuquenceItems} */}
+              {recipeSequenceItems.map((item, index) => {
+                return (
+                  <div key={index} className="add-sequence-item">
+                    <div className="add-sequence-item-title">{`Step ${item.stepNum}`}</div>
+
+                    <input
+                      className="add-sequence-item-input"
+                      type="text"
+                      placeholder="Example) Remove the fat from the beef and cut it into appropriate sizes."
+                      value={item.des}
+                      onChange={(e) =>
+                        handleStepChange(index, 'des', e.target.value)
+                      }
+                    />
+
+                    <input
+                      id={`imageInput_${index}`}
+                      className="add-sequence-item-img-input"
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        handleStepChange(
+                          index,
+                          'imgUrl',
+                          URL.createObjectURL(e.target.files[0]),
+                        )
+                      }
+                    />
+                    {item.imgUrl === '' && (
+                      <label
+                        htmlFor={`imageInput_${index}`}
+                        className="add-sequence-item-img-input-btn"
+                      >
+                        +
+                      </label>
+                    )}
+                    {item.imgUrl && (
+                      <img
+                        src={item.imgUrl}
+                        alt={`Step ${item.stepNum}`}
+                        className="recipe-step-image"
+                      />
+                    )}
+                  </div>
+                )
+              })}
+
+              <button
+                className="add-sequence-item-btn"
+                onClick={addRecipeSequenceBtnHandler}
+              >
+                순서 추가
+              </button>
             </div>
           </div>
         </div>
+
+        <div onClick={submit}>저장</div>
       </div>
     </>
   )
