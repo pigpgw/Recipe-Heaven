@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/userImg/kakao_login.png';
 
-const Login: React.FC = () => {
+const Login = () => {
   const Rest_api_key = import.meta.env.VITE_REST_API_KEY; // REST API 키
   const redirect_uri = import.meta.env.VITE_APP_REDIRECT_URI; // 리다이렉트 URI
 
