@@ -25,6 +25,7 @@ export interface RecipeCard {
 
 // 키워드로 검색 시
 export interface ListBySearchAPIResponse {
+  id: string
   recipe: RecipeCard[]
 }
 
