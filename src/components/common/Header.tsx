@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { dummyCategoriesData } from '../../../public/dummy'
 import useUserStore from './userStore'
 import axios from 'axios';
-
+import { QueryFunction } from '@tanstack/react-query'
 // import { create } from 'zustand';
 
 function Header() {
@@ -22,39 +22,41 @@ function Header() {
   // console.log('situationCategoryTitle', situationCategoryTitle)
   // console.log('situationCategory', situationCategory)
 
-  //카테고리 navbar API 가져오기
-  async function getData() {
-  //   try {
-  //     //응답 성공
-  //     const response = await axios.get('url주소');
-  //     console.log(response, '다으으ㅡ은');
-  //   } catch (error) {
-  //     //응답 실패
-  //     console.error(error,  '다은');
-  //   }
-  // }
-  try {
-    console.log('메롱')
-    const apiRes = await axios.get(
-      `/category`,
-    )
-
-    console.log('1.',apiRes)
-    console.log('2.',apiRes)
-    if (apiRes.status !== 200) {
-      throw new Error('레시피 로드 중 에러발생.')
-    }
-
-    return apiRes.data
-  } catch (error) {
-    console.error(error)
-    throw error
+  // API에서 데이터 가져오기
+  interface Category {
+    categoryId: number;
+    categoryName: string;
+    categoryParent: string | null; // categoryParent가 문자열 또는 null일 수 있다고 가정
   }
-}
 
+  // 카테고리 navbar API 가져오기
+  async function getCategoryData(): Promise<Category[]> {
+    try {
+      const res = await axios.get('/category');
+      console.log('API 성공', res);
+      return res.data // 데이터를 Category 배열 타입으로 캐스팅
+      console.log("이건 또 왜 안뜨냐")
+      console.log('res.data: ', res.data)
+    } catch (error) {
+      console.error('API 실패', error);
+      throw error; // 필요시 에러를 다시 던질 수 있습니다.
+    }
+  }
+
+  getCategoryData()
+    .then(apiResponse => {
+      // "categoryParent"가 "null"인 항목 필터링
+      // console.log("필터링")
+      const topLevelCategories = apiResponse.filter(category => category.categoryParent === null);
+      console.log('필터링된 결과:', topLevelCategories);
+    })
+    .catch(error => {
+      console.error('에러:', error);
+    });
 
   //마이페이지, 글쓰기 아이콘 로그인 판별
   const { token } = useUserStore();
+  const { administration } = useUserStore();
   const navigate = useNavigate();
 
   console.log('Token:', token);
@@ -63,18 +65,24 @@ function Header() {
     if (token) {
       // 토큰이 존재하면 로그인된 상태로 간주
       navigate('/search'); //주소변경 필요
-      console.log("토큰o");
+      console.log("회원-로그인화면 이동");
     } else {
-      // 토큰이 존재하지 않으면 로그인 페이지로 이동
-      navigate('/Login'); //주소변경 필요
-      console.log("토큰null");
+      // 토큰 존재x, 관리자 권한o
+      if (administration) {
+        navigate('/admin_caterory'); //주소변경 필요
+        console.log("관리자-관리자페이지 이동")
+      }
+      else {
+        navigate('/Login'); //주소변경 필요
+        console.log("비회원-로그인페이지 이동");
+      }
     }
   };
 
   const writingIconClick = () => {
     if (token) {
       // 토큰이 존재하면 로그인된 상태로 간주
-      navigate('/'); //글 쓰기 페이지 주소변경 필요
+      navigate('/uploadrecipe'); //글 쓰기 페이지 주소변경 필요
     } else {
       // 토큰이 존재하지 않으면 로그인 페이지로 이동
       navigate('/Login');
