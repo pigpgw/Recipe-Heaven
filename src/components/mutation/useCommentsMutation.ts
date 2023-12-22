@@ -3,26 +3,38 @@ import toast from 'react-hot-toast'
 import {
   fetchDeleteComment,
   fetchDeleteComments,
-} from '../../fetch/fetchcDeleteComments'
+} from '../../fetch/fetchDeleteComments'
 
-export const useCommentsMutation = (
+import { useQueryClient } from '@tanstack/react-query'
+
+export const useDeleteCommentsMutation = (
   checkedItems: number[],
   setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>,
 ) => {
+  const queryClient = useQueryClient()
   const { mutate: deleteComments, isPending: isDeleting } = useMutation<
     void,
     Error
   >({
     mutationFn: () => fetchDeleteComments(checkedItems),
-    onMutate: () => {
-      // checkedItems을 이용한 낙관적 쿼리키업데이트
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['comments'] })
+      const previousComments = queryClient.getQueriesData(['comments'])
+      queryClient.setQueriesData(
+        ['comments'],
+        previousComments[0][1].filter(
+          (comment) => !checkedItems.includes(comment.id),
+        ),
+      )
+
+      return { previousComments }
     },
     onSuccess: () => {
       toast.success('댓글 삭제 완료')
-      setCheckedItems([])
     },
-    onError: () => {
+    onError: (err, _, context) => {
       toast.error('잠시 후 다시 시도해주세요')
+      queryClient.setQueriesData(['comments'], context.previousComments)
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] })
@@ -32,21 +44,28 @@ export const useCommentsMutation = (
   return { deleteComments, isDeleting }
 }
 
-export const useDeleteLikeMutation = (id: number) => {
+export const useDeleteCommentMutation = (id: number) => {
+  const queryClient = useQueryClient()
   const { mutate: deleteComment, isPending: isDeleting } = useMutation<
     void,
-    Error,
-    number
+    Error
   >({
-    mutationFn: (id: number) => fetchDeleteComment(id),
-    onMutate: (id: number) => {
-      // 낙관적쿼리키업데이트
+    mutationFn: () => fetchDeleteComment(id),
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ['comments'] })
+      const previousComments = queryClient.getQueriesData(['comments'])
+      queryClient.setQueriesData(
+        ['comments'],
+        previousComments[0][1].filter((comment) => comment.id !== id),
+      )
+      return { previousComments }
     },
     onSuccess: () => {
       toast.success('댓글 삭제 완료')
     },
     onError: () => {
       toast.error('잠시 후 다시 시도해주세요')
+      queryClient.setQueriesData(['comments'], context.previousComments)
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] })

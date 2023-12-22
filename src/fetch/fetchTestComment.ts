@@ -3,7 +3,7 @@ import { QueryFunction } from '@tanstack/react-query'
 import { TempRecipe } from './APIResponsesTypes'
 
 const fetchTestComment: QueryFunction<TempRecipe[]> = async ({ queryKey }) => {
-  const { keyword, category, items, page } = queryKey[1]
+  // NOTE 유저아이디 스토어에서 가져오기
 
   try {
     const apiRes = await axios.get(
