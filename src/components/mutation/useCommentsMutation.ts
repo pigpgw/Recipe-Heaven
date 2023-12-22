@@ -12,6 +12,7 @@ export const useDeleteCommentsMutation = (
   setCheckedItems: React.Dispatch<React.SetStateAction<number[]>>,
 ) => {
   const queryClient = useQueryClient()
+
   const { mutate: deleteComments, isPending: isDeleting } = useMutation<
     void,
     Error
@@ -46,6 +47,7 @@ export const useDeleteCommentsMutation = (
 
 export const useDeleteCommentMutation = (id: number) => {
   const queryClient = useQueryClient()
+
   const { mutate: deleteComment, isPending: isDeleting } = useMutation<
     void,
     Error
@@ -61,10 +63,10 @@ export const useDeleteCommentMutation = (id: number) => {
       return { previousComments }
     },
     onSuccess: () => {
-      toast.success('댓글 삭제 완료')
+      toast.success('단일 삭제 성공')
     },
-    onError: () => {
-      toast.error('잠시 후 다시 시도해주세요')
+    onError: (err, _, context) => {
+      toast.error('댓글 삭제 중 오류 발생')
       queryClient.setQueriesData(['comments'], context.previousComments)
     },
     onSettled: () => {

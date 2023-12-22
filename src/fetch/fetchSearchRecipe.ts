@@ -11,10 +11,12 @@ const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
     const apiRes = await axios.get(
       'http://kdt-sw-7-team06.elicecoding.com:3000/recipe',
     )
+    // const apiRes = await axios.get(`http://kdt-sw-7-team06.elicecoding.com:3000/recipe?page=${page}&items=${items}`)
 
     if (apiRes.status !== 200) {
       throw new Error('레시피 로드중 에러발생.')
     }
+    console.log(apiRes.data)
 
     return apiRes.data
   } catch (error) {
