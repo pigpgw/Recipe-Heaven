@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/userImg/kakao_login.png';
+import Header from '../../components/common/Header'
+import Footer from '../../components/common/Footer'
 
 const Login = () => {
   const Rest_api_key = import.meta.env.VITE_REST_API_KEY; // REST API 키
@@ -27,12 +29,15 @@ const Login = () => {
   };*/
 
   return (
+    <div className=''> <Header />
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-5xl mb-6">로그인 / 회원가입</h1>
       {/* 카카오 로그인 버튼 */}
       <button onClick={handleLogin} disabled={loading} className="">
         {loading ? '로딩 중...' : <img src={loginImage} alt="카카오 로그인 버튼" />}
       </button>
+    </div>
+    <Footer />
     </div>
   );
 };
