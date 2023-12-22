@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../../assets/userImg/kakao_login.png';
-import Header from '../../components/common/Header';
-import Footer from '../../components/common/Footer';
 import useLoginStore from '../../components/store/useLoginStore';
 
 const Login = () => {
@@ -21,8 +19,6 @@ const Login = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
-
       <div className="flex-grow flex items-center justify-center bg-white-100">
         <div className="bg-gray-50 p-8 rounded shadow-md max-w-3xl">
           <h1 className="font-sans text-4xl mb-6 text-center font-semibold ">로그인</h1>
@@ -38,8 +34,6 @@ const Login = () => {
           </button>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };
