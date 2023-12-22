@@ -2,23 +2,56 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { dummyCategoriesData } from '../../../public/dummy'
 import useUserStore from './userStore'
+import axios from 'axios';
+
 // import { create } from 'zustand';
 
 function Header() {
   //카테고리 navbar 더미데이터 가져오기
-  dummyCategoriesData.map((item) => {
-    console.log("item", item)
-  })
-  const ingredientCategoryTitle = dummyCategoriesData[0]?.name;
-  const situationCategoryTitle = dummyCategoriesData[1]?.name;
+  // dummyCategoriesData.map((item) => {
+  //   console.log("item", item)
+  // })
+  // const ingredientCategoryTitle = dummyCategoriesData[0]?.name;
+  // const situationCategoryTitle = dummyCategoriesData[1]?.name;
 
-  const ingredientCategory = dummyCategoriesData.find(item => item.id === 1)?.children || [];
-  const situationCategory = dummyCategoriesData.find(item => item.id === 2)?.children || [];
+  // const ingredientCategory = dummyCategoriesData.find(item => item.id === 1)?.children || [];
+  // const situationCategory = dummyCategoriesData.find(item => item.id === 2)?.children || [];
 
-  console.log('ingredientCategoryTitle', ingredientCategoryTitle)
-  console.log('ingredientCategory', ingredientCategory)
-  console.log('situationCategoryTitle', situationCategoryTitle)
-  console.log('situationCategory', situationCategory)
+  // console.log('ingredientCategoryTitle', ingredientCategoryTitle)
+  // console.log('ingredientCategory', ingredientCategory)
+  // console.log('situationCategoryTitle', situationCategoryTitle)
+  // console.log('situationCategory', situationCategory)
+
+  //카테고리 navbar API 가져오기
+  async function getData() {
+  //   try {
+  //     //응답 성공
+  //     const response = await axios.get('url주소');
+  //     console.log(response, '다으으ㅡ은');
+  //   } catch (error) {
+  //     //응답 실패
+  //     console.error(error,  '다은');
+  //   }
+  // }
+  try {
+    console.log('메롱')
+    const apiRes = await axios.get(
+      `/category`,
+    )
+
+    console.log('1.',apiRes)
+    console.log('2.',apiRes)
+    if (apiRes.status !== 200) {
+      throw new Error('레시피 로드 중 에러발생.')
+    }
+
+    return apiRes.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 
   //마이페이지, 글쓰기 아이콘 로그인 판별
   const { token } = useUserStore();
@@ -47,7 +80,7 @@ function Header() {
       navigate('/Login');
     }
   };
-  
+
   return (
     <div id="header" className="flex mt-3 items-center w-full justify-center">
       <link rel="stylesheet" href="./src/components/navbar.css"></link>
@@ -79,7 +112,7 @@ function Header() {
             <span className="mx-7 cursor-pointer">레시피</span>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <div className="dropdown">
             <button className="dropbtn">{ingredientCategoryTitle}</button>
             <div className="dropdown-content">
@@ -95,14 +128,12 @@ function Header() {
                   </>
                 )
               })}
-
-              {/* {git} */}
             </div>
           </div>
-        </li>
+        </li> */}
         <li>
           <div className="dropdown">
-            <button className="dropbtn">{situationCategoryTitle}</button>
+            {/* <button className="dropbtn">{situationCategoryTitle}</button>
             <div className="dropdown-content">
               {
                 situationCategory.map((item) => {
@@ -118,7 +149,7 @@ function Header() {
                   )
                 })
               }
-            </div>
+            </div> */}
           </div>
         </li>
         <li>
@@ -136,7 +167,7 @@ function Header() {
             className="mr-4"
             src="./src/assets/ico_user.png"
             alt=""
-          onClick={mypageIconClick}
+            onClick={mypageIconClick}
           />
         </Link>
         <Link to="/">
@@ -144,7 +175,7 @@ function Header() {
             className="mr-4"
             src="./src/assets/rcp_write.png"
             alt=""
-          onClick={writingIconClick}
+            onClick={writingIconClick}
           />
         </Link>
       </div>

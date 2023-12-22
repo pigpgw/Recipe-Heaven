@@ -23,6 +23,7 @@ function RankItem() {
         enabled: !!category,
       })
 
+    console.log('데이터 확인: ', data)
     //   if(!data) {
     //     throw new Error('에러')
     //   } 
@@ -33,9 +34,6 @@ function RankItem() {
       setTests([...data])
     }, [data,category])
     
-        useEffect(() => {
-            console.log("hi")
-        })
     // console.log('data')
     // console.log(data)
     // console.log('test')
