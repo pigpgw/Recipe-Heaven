@@ -13,27 +13,38 @@ function UploadRecipe() {
     (item) => item.id === 2,
   )[0].children
 
-  const [recipeName, setRecipeName] = useState('')
-  const [recipeMainImg, setRecipeMainImg] = useState('')
-  const [portion, setPortion] = useState('')
-  const [leadTime, setLeadTime] = useState('')
-  const [level, setLevel] = useState('')
-  const [ingredients, setIngredients] = useState([{ name: '', stock: '' }])
-  const [categoryIg, setCategoryIg] = useState('')
-  const [categorySt, setCategorySt] = useState('')
-  const [mainImgVisible, setMainImageVisible] = useState(false)
-  const [recipeSequenceItems, setRecipeSequenceItems] = useState([
-    { stepNum: 1, des: '', imgUrl: '' },
-  ])
+  interface Ingredient {
+    item: string;
+    unit: string;
+  }
+
+  interface RecipeSequenceItem {
+    stepNum: number;
+    des: string;
+    imgUrl: string;
+  }
+
+  const [recipeName, setRecipeName] = useState<String>('')
+  const [recipeMainImg, setRecipeMainImg] = useState<String>('')
+  const [portion, setPortion] = useState<Number>(0)
+  const [leadTime, setLeadTime] = useState<Number>(0)
+  const [level, setLevel] = useState<Number>(0)
+  const [ingredients, setIngredients] =
+    useState<Ingredient[]>([{ item: '', unit: '' }])
+  const [categoryIg, setCategoryIg] = useState<String>('')
+  const [categorySt, setCategorySt] = useState<String>('')
+  const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
+  const [recipeSequenceItems, setRecipeSequenceItems] =
+    useState<RecipeSequenceItem[]>([{ stepNum: 1, des: '', imgUrl: '' }])
 
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
   }
 
-  function previewImg(event) {
-    setMainImageVisible(true)
-    setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
+  const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
+      setMainImageVisible(true)
+      setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
   }
 
   function addRecipeSequenceBtnHandler() {
@@ -45,14 +56,14 @@ function UploadRecipe() {
     setRecipeSequenceItems([...recipeSequenceItems, newItem])
   }
 
-  const handleStepChange = (index, key, value) => {
+  const handleStepChange = (index:number, key:string, value:string) => {
     const updatedSteps = [...recipeSequenceItems]
     updatedSteps[index][key] = value
     setRecipeSequenceItems(updatedSteps)
     console.log('recipe steps', recipeSequenceItems)
   }
 
-  const handleIngredientChange = (index, key, value) => {
+  const handleIngredientChange = (index:number, key:string, value:string) => {
     const updatedIngredients = [...ingredients]
     updatedIngredients[index][key] = value
     setIngredients(updatedIngredients)
@@ -63,67 +74,49 @@ function UploadRecipe() {
     setIngredients([...ingredients, { name: '', stock: '' }])
   }
 
-  //   const forapi = {
-  //     recipeName: recipeName,
-  //     img: recipeMainImg,
-  //     portion: portion,
-  //     leadTime: leadTime,
-  //     setCgIngredient: categoryIg,
-  //     setCgSituation: categorySt,
-  //     level: level,
-  //     ingredient: ingredients,
-  //     step: recipeSequenceItems,
-  //   }
-
-  //   const submit = () => {
-  //     axios.post('/recipe/insert',{
-  //         recipeName: recipeName,
-  //         img: recipeMainImg,
-  //         portion: portion,
-  //         leadTime: leadTime,
-  //         setCgIngredient: categoryIg,
-  //         setCgSituation: categorySt,
-  //         level: level,
-  //         ingredient: ingredients,
-  //         step: recipeSequenceItems,
-  //       })
-  //       .then((res) => (console.log(res)))
-  //       .catch((e) => (console.log("error",e)))
-  //   }
-
-  const submit = async () => {
-    try {
-      await axios.post('/recipe/insert', {
-        recipeName: recipeName,
-        img: recipeMainImg,
-        portion: portion,
-        leadTime: leadTime,
-        setCgIngredient: categoryIg,
-        setCgSituation: categorySt,
-        level: level,
-        ingredient: ingredients,
-        step: recipeSequenceItems,
-      })
-    } catch (e) {
-    //   throw new Error
-        console.log("error",e)
+  function createRecipeData() {
+    return {
+      recipeName: recipeName,
+      // img: recipeMainImg,
+      img: 'hi',
+      portion: portion,
+      leadTime: leadTime,
+      // setCgIngredient: categoryIg,
+      // setCgSituation: categorySt,
+      level: level,
+      ingredient: ingredients,
+      step: recipeSequenceItems,
+      // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
     }
   }
 
-  //   const checkPostApiData = () => {
-  //     const formData = new FormData()
-  //     formData.append('recipeName', recipeName)
-  //     formData.append('img', recipeMainImg)
-  //     formData.append('portion', portion)
-  //     formData.append('portion', portion)
-  //     formData.append('leadTime', leadTime)
-  //     formData.append('setCgIngredient', categoryIg)
-  //     formData.append('setCgSituation', categorySt)
-  //     formData.append('level', level)
-  //     formData.append('ingredient', JSON.stringify(ingredients))
-  //     formData.append('step', JSON.stringify(recipeSequenceItems))
-  //     console.log('check for Api data', formData)
-  //   }
+  const submit = async () => {
+    try {
+      const recipeData = createRecipeData()
+
+      await axios.post(
+        'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
+        recipeData,
+      )
+
+      console.log('success, Data', recipeData)
+      console.log('전송 성공')
+    } catch (e) {
+      console.log('error', e)
+    }
+  }
+
+  // const formData = new FormData()
+  // formData.append('recipeName', recipeName)
+  // formData.append('img', recipeMainImg)
+  // formData.append('portion', portion)
+  // formData.append('portion', portion)
+  // formData.append('leadTime', leadTime)
+  // formData.append('setCgIngredient', categoryIg)
+  // formData.append('setCgSituation', categorySt)
+  // formData.append('level', level)
+  // formData.append('ingredient', JSON.stringify(ingredients))
+  // formData.append('step', JSON.stringify(recipeSequenceItems))
 
   return (
     <>
@@ -250,18 +243,18 @@ function UploadRecipe() {
                       className="add-ingredient-input"
                       type="text"
                       placeholder="예: 닭"
-                      value={ingredient.name}
+                      value={ingredient.item}
                       onChange={(e) =>
-                        handleIngredientChange(index, 'name', e.target.value)
+                        handleIngredientChange(index, 'item', e.target.value)
                       }
                     />
                     <input
                       className="add-ingredient-input"
                       type="text"
                       placeholder="예: 한마리"
-                      value={ingredient.stock}
+                      value={ingredient.unit}
                       onChange={(e) =>
-                        handleIngredientChange(index, 'stock', e.target.value)
+                        handleIngredientChange(index, 'unit', e.target.value)
                       }
                     />
                   </div>
@@ -340,7 +333,7 @@ function UploadRecipe() {
           </div>
         </div>
 
-        <div onClick={checkPostApiData}>저장</div>
+        <div onClick={submit}>저장</div>
       </div>
     </>
   )

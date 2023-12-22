@@ -5,6 +5,7 @@ import DetailHeader from '../components/detail/DetailHeader';
 import DetailMainList from '../components/detail/DetailMainList'
 import DetailMainReview from '../components/detail/DetailMainReview'
 import axios from 'axios';
+import { IoIosMore } from 'react-icons/io'
 
 function Detail() {
     const explaincontentList: string[] = dummyData.sequenceExplain;
@@ -23,6 +24,10 @@ function Detail() {
 
     const [inputValue , setInputValue] = useState<string>("");
     const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
+
+    // 본인이 작성한 글이라 가정
+    const [myBlogContent, setMyBlogContent] = useState(true)
+
 
     // console.log("comments", comments);
     // console.log('review', filterdCommentList)
@@ -46,6 +51,23 @@ function Detail() {
       setInputValue('')
     }
 
+      const [showOptions, setShowOptions] = useState(false)
+
+      const handleMoreClick = () => {
+        setShowOptions(!showOptions)
+      }
+
+      const handleEditClick = () => {
+        // Handle the edit functionality
+        console.log('Edit clicked')
+      }
+
+      const handleDeleteClick = () => {
+        // Handle the delete functionality
+        console.log('Delete clicked')
+      }
+
+
     async function getDetailData() {
       const res = await axios.get('/recipe/:recipeId')
     }
@@ -60,6 +82,49 @@ function Detail() {
 
     <div className="flex flex-col items-center justify-center bg-red-400 min-w-[480px]">
       <div className="w-5/6 bg-white h-90 flex flex-wrap items-center justify-center min-w-[800px]">
+        <div>
+          <button
+            onClick={() => {
+              setMyBlogContent(true)
+            }}
+            className="p-5"
+          >
+            내 글에 접속
+          </button>
+          <button
+            onClick={() => {
+              setMyBlogContent(false)
+            }}
+          >
+            다른사람 글
+          </button>
+        </div>
+        {myBlogContent && (
+          <div className="w-full">
+            <div
+              className="float-right px-10 relative top-5"
+              onClick={handleMoreClick}
+            >
+              <IoIosMore className="w-10 h-10 cursor-pointer" />
+              {showOptions && (
+                <div className="absolute right-6 bottom-8 bg-white border border-gray-300 shadow-md p-2">
+                  <button
+                    className="block w-full text-left py-1 px-1 hover:bg-gray-100"
+                    onClick={handleEditClick}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="block w-full text-left py-1 px-1 hover:bg-gray-100 text-red-500"
+                    onClick={handleDeleteClick}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         <DetailHeader />
         <DetailMainList
           explaincontentList={explaincontentList}
