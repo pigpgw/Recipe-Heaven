@@ -39,7 +39,7 @@ function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<Main />} />
           <Route path="/my" element={<Mypage />}>
-            <Route path="nickname" element={<NicknameEdit />} />
+            <Route index element={<NicknameEdit />} />
             <Route path="testComments" element={<MyComments />} />
             <Route path="test" element={<LikedRecipes />} />
           </Route>

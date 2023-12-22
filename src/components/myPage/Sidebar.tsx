@@ -6,7 +6,7 @@ const Sidebar = () => {
     <div className="flex flex-col w-100">
       <ul>
         <li className="py-5">
-          <Link to="/my/nickname">닉네임변경</Link>
+          <Link to="/my">닉네임변경</Link>
         </li>
         <li className="py-5">
           <Link to="/my/testComments">나의 댓글</Link>
