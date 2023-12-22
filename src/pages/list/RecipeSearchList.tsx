@@ -17,6 +17,7 @@ import { useStore, LikedState } from '../../components/store/store'
 
 function RecipeSearchList() {
   // const { keyword } = useParams<{ keyword: string }>()
+
   const [page, setPage] = useState(1)
   const items = 30
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
@@ -32,8 +33,8 @@ function RecipeSearchList() {
     if (!keyword) {
       throw new Error('검색어를 입력해주세요')
     }
-    setRecipes([]) // Clear previous recipes if any
-    setPage(1) // Reset page to 1 when keyword changes
+    setRecipes([])
+    setPage(1)
   }, [keyword])
 
   useEffect(

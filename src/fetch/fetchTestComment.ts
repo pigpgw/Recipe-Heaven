@@ -1,14 +1,14 @@
 import axios from 'axios'
-import { ListBySearchAPIResponse } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
+import { TempRecipe } from './APIResponsesTypes'
 
-const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
-  queryKey,
-}) => {
+const fetchTestComment: QueryFunction<TempRecipe[]> = async ({ queryKey }) => {
   const { keyword, category, items, page } = queryKey[1]
 
   try {
-    const apiRes = await axios.get(`api호출 주소`)
+    const apiRes = await axios.get(
+      `https://jsonplaceholder.typicode.com/comments?_limit=10`,
+    )
 
     if (apiRes.status !== 200) {
       throw new Error('레시피 로드중 에러발생.')
@@ -21,4 +21,4 @@ const fetchSearchRecipe: QueryFunction<ListBySearchAPIResponse> = async ({
   }
 }
 
-export default fetchSearchRecipe
+export default fetchTestComment
