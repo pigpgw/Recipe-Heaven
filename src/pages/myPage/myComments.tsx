@@ -67,6 +67,7 @@ function MyComments() {
   return (
     <div>
       <h2 className="font-sans">댓글 목록({commentList.length})</h2>
+      <h2>댓글 목록({commentList.length})</h2>
       <div className="flex flex-col justify-center w-full">
         <div>
           <input
