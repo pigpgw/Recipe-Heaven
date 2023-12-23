@@ -23,6 +23,21 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
 
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
+  return null
+}
+
+
 function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -69,6 +84,7 @@ function App() {
           className: 'text-base max-w-screen-sm p-4 bg-lightgray text-darkgray',
         }}
       />
+      <ScrollToTop />
     </QueryClientProvider>
   )
 }
