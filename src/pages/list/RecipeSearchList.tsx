@@ -2,9 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import fetchSearchRecipe from '../../fetch/fetchSearchRecipe'
-
 import fetchTestGet from '../../fetch/fetchTestGet'
-
 import {
   ListBySearchAPIResponse,
   RecipeCard,

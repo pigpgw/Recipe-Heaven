@@ -11,6 +11,7 @@ import RecipeSearchList from './pages/list/RecipeSearchList'
 import RecipeCategoryList from './pages/RecipeCategoryList'
 import Detail from './pages/Detail'
 import Login from './pages/user/Login'
+import Header from './components/common/Header'
 import NicknameEdit from './pages/user/nicknameEdit'
 import Callback from './pages/user/callBack'
 import UploadRecipe from './pages/UploadRecipe'
@@ -23,6 +24,7 @@ import ModifyRecipe from './pages/ModifyPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
+import CategoryManagement from './pages/admin/CategoryMenagement'
 
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -70,6 +72,7 @@ function App() {
           <Route path="uploadrecipe" element={<UploadRecipe />} />
           <Route path="/modify" element={<ModifyRecipe />} />
           {/* <Route path="signUp" element={<Signup />} /> */}
+          <Route path="admin_caterory" element={<CategoryManagement />} />
         </Route>
       </Routes>
       <Toaster

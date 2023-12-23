@@ -29,7 +29,7 @@ function CategoryManagement() {
                     </div>
                 </div>
 
-                <div className='flex md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-20 mt-6'>
+                {/* <div className='flex md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-20 mt-6'>
                     <div className='flex items-center'>
                         <span>항목 위로 이동</span>
                         <button className='w-10 h-10 bg-neutral-200 rounded-xl ml-2 mt-1 flex items-center justify-center'>
@@ -43,7 +43,7 @@ function CategoryManagement() {
                             <Icon icon="mingcute:down-fill" className='text-gray-600' />
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* 카테고리 생성 영역 */}

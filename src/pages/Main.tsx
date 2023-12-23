@@ -18,7 +18,6 @@ function Main() {
         />
       </div>
       <Link to="/search">
-        {' '}
         {/* 경로변경필요 */}
         <span className="flex flex-col items-center text-2xl font-bold my-7">
           이달의 인기 레시피 {'>'}
@@ -26,7 +25,6 @@ function Main() {
       </Link>
       <RankItem />
       <Link to="/search">
-        {' '}
         {/* 경로변경필요 */}
         <span className="flex flex-col items-center text-2xl font-bold my-7">
           달콤한 인기 레시피 {'>'}
