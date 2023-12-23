@@ -1,3 +1,4 @@
+//header 아이콘 권한 판단 관련
 //임의로 값 넣어서 확인해보기
 import create from 'zustand';
 

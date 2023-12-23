@@ -107,44 +107,74 @@ const reviewModel = [
 ]
 
 //헤더 카테고리 navbar 관련
-interface CategoryNode {
-  id: number
-  name: string
-  children?: CategoryNode[]
+interface Category {
+  categoryId: number
+  categoryName: string
+  categoryParent: string
 }
 
-const dummyCategoriesData: CategoryNode[] = [
+const dummyCategoriesData: Category[] = [
   {
-    id: 1,
-    name: '재료별',
-    children: [
-      { id: 1, name: '소고기' },
-      { id: 2, name: '돼지고기' },
-      { id: 3, name: '닭고기' },
-      { id: 4, name: '해산물' },
-      { id: 5, name: '채소' },
-    ],
-  },
-  {
-    id: 2,
-    name: '상황별',
-    children: [
-      { id: 1, name: '일상' },
-      { id: 2, name: '파티요리' },
-      { id: 3, name: '다이어트' },
-      { id: 4, name: '간편요리' },
-    ],
-  },
-  {
-    id: 3,
-    name: '스페셜',
-    children: [
-      { id: 1, name: '일상' },
-      { id: 2, name: '파티요리' },
-      { id: 3, name: '다이어트' },
-      { id: 4, name: '간편요리' },
-    ],
-  },
+    "categoryId": 1,
+    "categoryName": "재료별",
+    "categoryParent": "null"
+    },
+    {
+    "categoryId": 2,
+    "categoryName": "육류",
+    "categoryParent": "재료별"
+    },
+    {
+      "categoryId": 3,
+      "categoryName": "상황별",
+      "categoryParent": "null"
+      },
+      {
+      "categoryId": 4,
+      "categoryName": "특별한날",
+      "categoryParent": "상황별"
+      },
+      {
+      "categoryId": 5,
+      "categoryName": "해산물",
+      "categoryParent": "재료별"
+      },
+      {
+      "categoryId": 6,
+      "categoryName": "크리스마스",
+      "categoryParent": "상황별"
+      },
+  // {
+  //   id: 1,
+  //   name: '재료별',
+  //   children: [
+  //     { id: 1, name: '소고기' },
+  //     { id: 2, name: '돼지고기' },
+  //     { id: 3, name: '닭고기' },
+  //     { id: 4, name: '해산물' },
+  //     { id: 5, name: '채소' },
+  //   ],
+  // },
+  // {
+  //   id: 2,
+  //   name: '상황별',
+  //   children: [
+  //     { id: 1, name: '일상' },
+  //     { id: 2, name: '파티요리' },
+  //     { id: 3, name: '다이어트' },
+  //     { id: 4, name: '간편요리' },
+  //   ],
+  // },
+  // {
+  //   id: 3,
+  //   name: '스페셜',
+  //   children: [
+  //     { id: 1, name: '일상' },
+  //     { id: 2, name: '파티요리' },
+  //     { id: 3, name: '다이어트' },
+  //     { id: 4, name: '간편요리' },
+  //   ],
+  // },
 ]
 
 export { dummyData , reviewModel, dummyCategoriesData };

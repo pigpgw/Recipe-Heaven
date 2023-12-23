@@ -1,18 +1,34 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { dummyCategoriesData } from '../../../public/dummy'
 import useUserStore from './userStore'
 import axios from 'axios';
 import { QueryFunction } from '@tanstack/react-query'
+import { dummyCategoriesData } from '../../../public/dummy'
 // import { create } from 'zustand';
 
 function Header() {
   //카테고리 navbar 더미데이터 가져오기
-  // dummyCategoriesData.map((item) => {
-  //   console.log("item", item)
-  // })
-  // const ingredientCategoryTitle = dummyCategoriesData[0]?.name;
-  // const situationCategoryTitle = dummyCategoriesData[1]?.name;
+  dummyCategoriesData.map((item) => {
+    console.log("더미수정item", item)
+  });
+  console.log("더미dummyCategoriesData[0]", dummyCategoriesData[0])
+  console.log("더미dummyCategoriesData[1]", dummyCategoriesData[1])
+  console.log("더미dummyCategoriesData[5]", dummyCategoriesData[5])
+  console.log("더미dummyCategoriesData", dummyCategoriesData)
+
+  //categoryParent=null 필터링해서 상위카테고리로 만들기
+  const topCatetory = dummyCategoriesData.filter(dummyCategoriesData => dummyCategoriesData.categoryParent === 'null');
+  console.log('필터링된 결과:', topCatetory);
+
+  const ingredientCategory = dummyCategoriesData.filter(dummyCategoriesData => dummyCategoriesData.categoryParent === topCatetory[0].categoryName);
+  console.log('하위필터링된 결과:', ingredientCategory);
+
+  const situationCategory = dummyCategoriesData.filter(dummyCategoriesData => dummyCategoriesData.categoryParent === topCatetory[1].categoryName);
+  console.log('하위필터링된 결과:', situationCategory);
+
+  
+  // const ingredientCategoryTitle = dummyCategoriesData[0]?.categoryId;
+  // const situationCategoryTitle = dummyCategoriesData[1]?.categoryId;
 
   // const ingredientCategory = dummyCategoriesData.find(item => item.id === 1)?.children || [];
   // const situationCategory = dummyCategoriesData.find(item => item.id === 2)?.children || [];
@@ -25,9 +41,9 @@ function Header() {
 
   // API에서 데이터 
   interface Category {
-    categoryId: number;
-    categoryName: string;
-    categoryParent: string | null; // categoryParent가 문자열 또는 null일 수 있다고 가정
+    categoryId: number
+    categoryName: string
+    categoryParent: string
   }
 
   // 카테고리 navbar API 가져오기
@@ -121,48 +137,48 @@ function Header() {
             <span className="mx-7 cursor-pointer">레시피</span>
           </Link>
         </li>
-        {/* <li>
+        <li>
           <div className="dropdown">
-            <button className="dropbtn">{ingredientCategoryTitle}</button>
+            <button className="dropbtn">{topCatetory[0]?.categoryName}</button>
             <div className="dropdown-content">
               {ingredientCategory.map((item) => {
                 return (
                   <>
                     <Link
-                      to={`/category/${item.name}`}
+                      to={`/category/${item.categoryName}`}
                       className="block px-4 py-1 "
                     >
-                      {item.name}
+                      {item.categoryName}
                     </Link>
                   </>
                 )
               })}
             </div>
           </div>
-        </li> */}
+        </li>
         <li>
           <div className="dropdown">
-            {/* <button className="dropbtn">{situationCategoryTitle}</button>
+            <button className="dropbtn">{topCatetory[1]?.categoryName}</button>
             <div className="dropdown-content">
               {
                 situationCategory.map((item) => {
                   return (
                     <>
                       <Link
-                        to={`/category/${item.name}`}
+                        to={`/category/${item.categoryName}`}
                         className="block px-4 py-1 "
                       >
-                        {item.name}
+                        {item.categoryName}
                       </Link>
                     </>
                   )
                 })
               }
-            </div> */}
+            </div>
           </div>
         </li>
         <li>
-          <Link to="/">
+          <Link to="/category/크리스마스">
             <span className="mx-7 cursor-pointer">SPECIAL</span>
           </Link>
         </li>
@@ -189,6 +205,6 @@ function Header() {
         </Link>
       </div>
     </div>
-  )
+  );
 }
 export default Header
