@@ -143,7 +143,11 @@ const dummyCategoriesData: Category[] = [
       "categoryId": 6,
       "categoryName": "크리스마스",
       "categoryParent": "상황별"
-      },
+      }
+]
+
+export { dummyData , reviewModel, dummyCategoriesData };
+
   // {
   //   id: 1,
   //   name: '재료별',
@@ -175,6 +179,3 @@ const dummyCategoriesData: Category[] = [
   //     { id: 4, name: '간편요리' },
   //   ],
   // },
-]
-
-export { dummyData , reviewModel, dummyCategoriesData };
