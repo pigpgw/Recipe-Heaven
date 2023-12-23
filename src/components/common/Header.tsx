@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { dummyCategoriesData } from '../../../public/dummy'
 import useUserStore from './userStore'
@@ -21,19 +21,6 @@ function Header() {
   // console.log('ingredientCategory', ingredientCategory)
   // console.log('situationCategoryTitle', situationCategoryTitle)
   // console.log('situationCategory', situationCategory)
-
-  //test
-
-
-  useEffect(()=>{
-    async function test(){
-      const data = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      console.log("test data: ",data)
-    }
-    
-  },[])
-
-
 
 
   // API에서 데이터 
