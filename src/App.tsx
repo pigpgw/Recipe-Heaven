@@ -43,7 +43,7 @@ function App() {
             <Route path="testComments" element={<MyComments />} />
             <Route path="test" element={<LikedRecipes />} />
           </Route>
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:itemId" element={<Detail />} />
           <Route path="/category" element={<RecipeCategoryList />} />
           <Route path="/login" element={<Login />} />
           <Route path="search" element={<RecipeSearchList />} />
