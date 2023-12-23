@@ -86,14 +86,16 @@ function UploadRecipe() {
       img: 'hi',
       portion: portion,
       leadTime: leadTime,
-      // setCgIngredient: categoryIg,
-      // setCgSituation: categorySt,
+      setCgIngredient: categoryIg,
+      setCgSituation: categorySt,
       level: level,
       ingredient: ingredients,
       step: recipeSequenceItems,
       // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
     }
   }
+
+  
 
   const submit = async () => {
     try {
@@ -107,6 +109,8 @@ function UploadRecipe() {
       console.log('success, Data', recipeData)
       console.log('전송 성공')
     } catch (e) {
+      const recipeData = createRecipeData()
+      console.log('fail, Data', recipeData)
       console.log('error', e)
     }
   }
