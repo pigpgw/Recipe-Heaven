@@ -47,29 +47,53 @@ function Header() {
   }
 
   // 카테고리 navbar API 가져오기
-  async function getCategoryData(): Promise<Category[]> {
-    try {
-      const res = await axios.get('http://kdt-sw-7-team06.elicecoding.com/category');
-      console.log('APIsadasdasd 성공', res);
-      return res.data // 데이터를 Category 배열 타입으로 캐스팅
-      console.log("이건 또 왜 안뜨냐")
-      console.log('res.data: ', res.data)
-    } catch (error) {
-      console.error('API 실패', error);
-      throw error; // 필요시 에러를 다시 던질 수 있습니다.
-    }
-  }
+  // async function getCategoryData(): Promise<Category[]> {
+  //   try {
+  //     const res = await axios.get('http://kdt-sw-7-team06.elicecoding.com/category');
+  //     console.log('APIsadasdasd 성공', res);
+  //     return res.data // 데이터를 Category 배열 타입으로 캐스팅
+  //     console.log("이건 또 왜 안뜨냐")
+  //     console.log('res.data: ', res.data)
+  //   } catch (error) {
+  //     console.error('API 실패', error);
+  //     throw error; // 필요시 에러를 다시 던질 수 있습니다.
+  //   }
+  // }
 
-  getCategoryData()
-    .then(apiResponse => {
-      // "categoryParent"가 "null"인 항목 필터링
-      // console.log("필터링")
-      const topLevelCategories = apiResponse.filter(category => category.categoryParent === null);
-      console.log('필터링된 결과:', topLevelCategories);
-    })
-    .catch(error => {
-      console.error('에러:', error);
-    });
+  // getCategoryData()
+  //   .then(apiResponse => {
+  //     // "categoryParent"가 "null"인 항목 필터링
+  //     // console.log("필터링")
+  //     const topLevelCategories = apiResponse.filter(category => category.categoryParent === null);
+  //     console.log('필터링된 결과:', topLevelCategories);
+  //   })
+  //   .catch(error => {
+  //     console.error('에러:', error);
+  //   });
+
+
+  //검색 키워드 걸리게하기
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // 검색 버튼을 클릭했을 때 실행되는 함수
+  const handleSearch = () => {
+    // 검색어가 비어있지 않으면 URL에 검색어를 추가하고 해당 페이지로 이동
+    if (searchTerm.trim() !== '') {
+      navigate(`/search/${searchTerm.trim()}`);
+    }
+  };
+
+  // 검색어 입력 필드의 값이 변경될 때 실행되는 함수
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // 검색어 입력 필드에서 Enter 키를 눌렀을 때 실행되는 함수
+  const handleKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   //마이페이지, 글쓰기 아이콘 로그인 판별
   const { token } = useUserStore();
@@ -120,17 +144,22 @@ function Header() {
           placeholder="검색어를 입력해주세요"
           className="items-center border-none outline-none ml-4 text-xs"
           size={25}
+          value={searchTerm}
+          onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
-        <button id="submit" aria-label="submit" className="">
-          <Link to="/search">
+        <button id="submit" aria-label="submit" className="" onClick={handleSearch}>
+        <Link to={`/search/${searchTerm.trim()}`}>
             <img
               src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
               className="w-4 top-2 right-3 m-0 ml-5 justify-end"
+              alt="search"
             />
           </Link>
         </button>
       </div>
 
+      {/* navbar 카테고리 */}
       <ul className="navbar items-center flex ml-8 text-lg font-bold">
         <li>
           <Link to="/">
