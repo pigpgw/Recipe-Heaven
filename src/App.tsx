@@ -38,23 +38,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <Routes>
-<<<<<<< HEAD
-        <Route path="/" element={<Main />} />
-        <Route path="/test" element={<LikedRecipes />} />
-        <Route path="/detail" element={<Detail />} />
-        <Route path="/category" element={<RecipeCategoryList />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="search" element={<RecipeSearchList />} />
-        <Route path="category" element={<RecipeCategoryList />} />
-        <Route path="login" element={<Login />} />
-        <Route path="/delete" element={<DeleteUser />} />
-        <Route path="nickname" element={<NicknameEdit />} />
-        <Route path="oauth" element={<Callback />} />
-        <Route path="uploadrecipe" element={<UploadRecipe />} />
-        <Route path="admin_caterory" element={<CategoryManagement />} />
-        
-        {/* <Route path="signUp" element={<Signup />} /> */}
-=======
         <Route element={<AppLayout />}>
           <Route path="/" element={<Main />} />
           <Route path="/my" element={<Mypage />}>
@@ -72,8 +55,8 @@ function App() {
           <Route path="oauth" element={<Callback />} />
           <Route path="uploadrecipe" element={<UploadRecipe />} />
           {/* <Route path="signUp" element={<Signup />} /> */}
+          <Route path="admin_caterory" element={<CategoryManagement />} />
         </Route>
->>>>>>> e731ee872aaa75d7d08d96aeeb3a055eec287199
       </Routes>
       <Toaster
         position="top-center"
