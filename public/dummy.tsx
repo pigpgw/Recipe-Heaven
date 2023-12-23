@@ -146,7 +146,33 @@ const dummyCategoriesData: Category[] = [
       }
 ]
 
-export { dummyData , reviewModel, dummyCategoriesData };
+const forModifyDummyData = [
+  {
+    recipeName: 'asdasd',
+    img: 'hi',
+    portion: '132123',
+    leadTime: '213123',
+    setCgIngredient: '',
+    setCgSituation: '파티요리',
+    level: '12313',
+    ingredient: [
+      {
+        item: 'adsdasd',
+        unit: 'fdssdf',
+      },
+    ],
+    step: [
+      {
+        stepNum: 1,
+        des: 'asdasd',
+        imgUrl:
+          'blob:http://localhost:5182/5a3f0f8a-9471-4a3c-93c4-f22d85ee2503',
+      },
+    ],
+  },
+]
+
+export { dummyData , reviewModel, dummyCategoriesData ,forModifyDummyData };
 
   // {
   //   id: 1,
