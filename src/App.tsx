@@ -19,6 +19,7 @@ import LikedRecipes from './pages/myPage/LikedRecipes'
 import MyComments from './pages/myPage/myComments'
 import DeleteUser from './pages/user/deleteUser'
 import Mypage from './components/myPage/myPage'
+import ModifyRecipe from './pages/ModifyPage'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { Toaster } from 'react-hot-toast'
@@ -67,6 +68,7 @@ function App() {
           <Route path="/delete" element={<DeleteUser />} />
           <Route path="oauth" element={<Callback />} />
           <Route path="uploadrecipe" element={<UploadRecipe />} />
+          <Route path="/modify" element={<ModifyRecipe />} />
           {/* <Route path="signUp" element={<Signup />} /> */}
         </Route>
       </Routes>
