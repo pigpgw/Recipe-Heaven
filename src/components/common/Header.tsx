@@ -22,7 +22,7 @@ function Header() {
   // console.log('situationCategoryTitle', situationCategoryTitle)
   // console.log('situationCategory', situationCategory)
 
-  // API에서 데이터 가져오기
+  // API에서 데이터 
   interface Category {
     categoryId: number;
     categoryName: string;
@@ -32,8 +32,8 @@ function Header() {
   // 카테고리 navbar API 가져오기
   async function getCategoryData(): Promise<Category[]> {
     try {
-      const res = await axios.get('/category');
-      console.log('API 성공', res);
+      const res = await axios.get('http://kdt-sw-7-team06.elicecoding.com/category');
+      console.log('APIsadasdasd 성공', res);
       return res.data // 데이터를 Category 배열 타입으로 캐스팅
       console.log("이건 또 왜 안뜨냐")
       console.log('res.data: ', res.data)
