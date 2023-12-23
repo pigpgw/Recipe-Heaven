@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { QueryFunction } from '@tanstack/react-query'
+import { TempRecipe } from './APIResponsesTypes'
 
-const fetchTestComment: QueryFunction<string> = async ({ queryKey }) => {
-  const { keyword, category, items, page } = queryKey[1]
+const fetchTestComment: QueryFunction<TempRecipe[]> = async ({ queryKey }) => {
+  // NOTE 유저아이디 스토어에서 가져오기
 
   try {
     const apiRes = await axios.get(
-      `https://jsonplaceholder.typicode.com/comments/1`,
+      `https://jsonplaceholder.typicode.com/comments?_limit=10`,
     )
 
     if (apiRes.status !== 200) {

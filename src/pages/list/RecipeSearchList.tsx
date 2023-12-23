@@ -11,6 +11,7 @@ import RecipeItem from '../../components/list/RecipeItem'
 import useIntersect from '../../components/list/useIntersect'
 import ErrorBoundary from '../../components/error/ErrorBoundary'
 import LoadingSpinner from '../../components/common/LoadingSpinner'
+import { useStore, LikedState } from '../../components/store/store'
 
 function RecipeSearchList() {
   // const { keyword } = useParams<{ keyword: string }>()
@@ -20,6 +21,11 @@ function RecipeSearchList() {
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
   const [test, setTests] = useState<string[]>([])
   const keyword = '피자'
+
+  const { likedRecipes, toggleLikedRecipe }: LikedState = useStore((state) => ({
+    likedRecipes: state.likedRecipes,
+    toggleLikedRecipe: state.toggleLikedRecipe,
+  }))
 
   useEffect(() => {
     if (!keyword) {
