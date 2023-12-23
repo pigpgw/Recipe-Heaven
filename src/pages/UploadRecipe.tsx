@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { dummyCategoriesData } from '../../public/dummy'
 import axios from 'axios'
-import { error } from 'console'
 
 function UploadRecipe() {
   const ingredientCategoryTitle = dummyCategoriesData[0].name
@@ -14,28 +13,30 @@ function UploadRecipe() {
   )[0].children
 
   interface Ingredient {
-    item: string;
-    unit: string;
+    item: string
+    unit: string
   }
 
   interface RecipeSequenceItem {
-    stepNum: number;
-    des: string;
-    imgUrl: string;
+    stepNum: number
+    des: string
+    imgUrl: string
   }
 
   const [recipeName, setRecipeName] = useState<String>('')
   const [recipeMainImg, setRecipeMainImg] = useState<String>('')
-  const [portion, setPortion] = useState<Number>(0)
-  const [leadTime, setLeadTime] = useState<Number>(0)
-  const [level, setLevel] = useState<Number>(0)
-  const [ingredients, setIngredients] =
-    useState<Ingredient[]>([{ item: '', unit: '' }])
+  const [portion, setPortion] = useState<Number>()
+  const [leadTime, setLeadTime] = useState<Number>()
+  const [level, setLevel] = useState<Number>()
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    { item: '', unit: '' },
+  ])
   const [categoryIg, setCategoryIg] = useState<String>('')
   const [categorySt, setCategorySt] = useState<String>('')
   const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
-  const [recipeSequenceItems, setRecipeSequenceItems] =
-    useState<RecipeSequenceItem[]>([{ stepNum: 1, des: '', imgUrl: '' }])
+  const [recipeSequenceItems, setRecipeSequenceItems] = useState<
+    RecipeSequenceItem[]
+  >([{ stepNum: 1, des: '', imgUrl: '' }])
 
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
@@ -43,8 +44,8 @@ function UploadRecipe() {
   }
 
   const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
-      setMainImageVisible(true)
-      setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
+    setMainImageVisible(true)
+    setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
   }
 
   function addRecipeSequenceBtnHandler() {
@@ -56,14 +57,18 @@ function UploadRecipe() {
     setRecipeSequenceItems([...recipeSequenceItems, newItem])
   }
 
-  const handleStepChange = (index:number, key:string, value:string) => {
+  const handleStepChange = (index: number, key: string, value: string) => {
     const updatedSteps = [...recipeSequenceItems]
     updatedSteps[index][key] = value
     setRecipeSequenceItems(updatedSteps)
     console.log('recipe steps', recipeSequenceItems)
   }
 
-  const handleIngredientChange = (index:number, key:string, value:string) => {
+  const handleIngredientChange = (
+    index: number,
+    key: string,
+    value: string,
+  ) => {
     const updatedIngredients = [...ingredients]
     updatedIngredients[index][key] = value
     setIngredients(updatedIngredients)
@@ -156,8 +161,9 @@ function UploadRecipe() {
           <div className="recipe-box">
             <div className="item-title">레시피 제목</div>
             <input
+              className="add-ingredient-input"
               type="text"
-              placeholder="예) 소고기 미역국"
+              placeholder="예) 크리스마스 케이크"
               value={recipeName}
               onChange={(e) => {
                 setRecipeName(e.target.value)
@@ -211,7 +217,7 @@ function UploadRecipe() {
               <input
                 className="infoInput"
                 type="text"
-                placeholder="인원"
+                placeholder="시간"
                 value={leadTime}
                 onChange={(e) => {
                   setLeadTime(e.target.value)
@@ -223,7 +229,7 @@ function UploadRecipe() {
               <input
                 className="infoInput"
                 type="text"
-                placeholder="인원"
+                placeholder="난이도"
                 value={level}
                 onChange={(e) => {
                   setLevel(e.target.value)
@@ -281,44 +287,47 @@ function UploadRecipe() {
                   <div key={index} className="add-sequence-item">
                     <div className="add-sequence-item-title">{`Step ${item.stepNum}`}</div>
 
-                    <input
-                      className="add-sequence-item-input"
-                      type="text"
-                      placeholder="Example) Remove the fat from the beef and cut it into appropriate sizes."
-                      value={item.des}
-                      onChange={(e) =>
-                        handleStepChange(index, 'des', e.target.value)
-                      }
-                    />
-
-                    <input
-                      id={`imageInput_${index}`}
-                      className="add-sequence-item-img-input"
-                      type="file"
-                      accept="image/*"
-                      onChange={(e) =>
-                        handleStepChange(
-                          index,
-                          'imgUrl',
-                          URL.createObjectURL(e.target.files[0]),
-                        )
-                      }
-                    />
-                    {item.imgUrl === '' && (
-                      <label
-                        htmlFor={`imageInput_${index}`}
-                        className="add-sequence-item-img-input-btn"
-                      >
-                        +
-                      </label>
-                    )}
-                    {item.imgUrl && (
-                      <img
-                        src={item.imgUrl}
-                        alt={`Step ${item.stepNum}`}
-                        className="recipe-step-image"
+                    <div className="input-Sequence-item-box">
+                      <textarea
+                        className="add-sequence-item-input"
+                        rows={3}
+                        placeholder="예) 계란은 흰자와 노른자를 분리해준후 계란 흰자에 설탕을 넣어주면서 머랭을 만들어 줍니다.
+이때 레몬즙을 넣으면 좀더 단단한 머랭이 만들어집니다."
+                        value={item.des}
+                        onChange={(e) =>
+                          handleStepChange(index, 'des', e.target.value)
+                        }
                       />
-                    )}
+
+                      <input
+                        id={`imageInput_${index}`}
+                        className="add-sequence-item-img-input"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) =>
+                          handleStepChange(
+                            index,
+                            'imgUrl',
+                            URL.createObjectURL(e.target.files[0]),
+                          )
+                        }
+                      />
+                      {item.imgUrl === '' && (
+                        <label
+                          htmlFor={`imageInput_${index}`}
+                          className="add-sequence-item-img-input-btn"
+                        >
+                          +
+                        </label>
+                      )}
+                      {item.imgUrl && (
+                        <img
+                          src={item.imgUrl}
+                          alt={`Step ${item.stepNum}`}
+                          className="recipe-step-image"
+                        />
+                      )}
+                    </div>
                   </div>
                 )
               })}
@@ -333,7 +342,14 @@ function UploadRecipe() {
           </div>
         </div>
 
-        <div onClick={submit}>저장</div>
+        <div className="saveBtnBox">
+          <div className="saveBtn" onClick={submit}>
+            레시피 등록
+          </div>
+          <div className="cancelBtn" onClick={submit}>
+            취소
+          </div>
+        </div>
       </div>
     </>
   )
