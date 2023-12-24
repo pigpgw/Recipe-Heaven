@@ -61,6 +61,7 @@ function Header() {
     // 검색어가 비어있지 않으면 URL에 검색어를 추가하고 해당 페이지로 이동
     if (searchTerm.trim() !== '') {
       navigate(`/search/${searchTerm.trim()}`);
+      setSearchTerm('');
     }
   };
 
@@ -81,7 +82,7 @@ function Header() {
   const { administration } = useUserStore();
   const navigate = useNavigate();
 
-  console.log('Token:', token);
+  // console.log('Token:', token);
 
   const mypageIconClick = () => {
     if (token) {
