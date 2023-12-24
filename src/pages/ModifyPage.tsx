@@ -47,9 +47,6 @@ function ModifyRecipe() {
   const [ingredients, setIngredients] = useState<Ingredient[]>(
     FkData.ingredient,
   )
-  const [ingredients, setIngredients] = useState<Ingredient[]>(
-    FkData.ingredient,
-  )
   const [categoryIg, setCategoryIg] = useState<String>(FkData.categoryIg)
   const [categorySt, setCategorySt] = useState<String>(FkData.categorySt)
   const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
@@ -61,15 +58,7 @@ function ModifyRecipe() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
   }
-
-  const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files[0]
-    if (selectedFile) {
-      setMainImageVisible(true)
-      setRecipeMainImg(URL.createObjectURL(selectedFile))
-      console.log('대표 이미지 랜더링 성공')
-    }
-  }
+  
   const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files[0]
     if (selectedFile) {
