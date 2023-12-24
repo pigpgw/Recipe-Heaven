@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import StarRating from './StarRating'
 import toast from 'react-hot-toast'
 
-const Review = () => {
+const Comment = () => {
   const [selectedRating, setSelectedRating] = useState(0)
   const [commentContent, setCommentContent] = useState('')
 
@@ -24,8 +24,8 @@ const Review = () => {
     const formData = new FormData()
     formData.append('commentContent', commentContent)
 
-    setSelectedRating(0)
-    setCommentContent('')
+    console.log(commentContent)
+    console.log(selectedRating)
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -48,4 +48,4 @@ const Review = () => {
     </form>
   )
 }
-export default Review
+export default Comment
