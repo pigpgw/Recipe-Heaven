@@ -131,7 +131,7 @@ function Header() {
   };
 
   return (
-    <div id="header" className="flex mt-3 items-center w-full justify-center">
+    <div id="header" className="flex pt-1 items-center w-full justify-center bg-white">
       <link rel="stylesheet" href="./src/components/navbar.css"></link>
       <div className="logo">
         <Link to="/">
