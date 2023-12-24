@@ -46,18 +46,17 @@ function MyComments() {
     setCheckedItems((prevCheckedItems) => {
       if (checked) {
         return [...prevCheckedItems, commentId]
-      } else {
-        return prevCheckedItems.filter((id) => id !== commentId)
       }
+      return prevCheckedItems.filter((id) => id !== commentId)
     })
   }
 
   const handleAllCheck = (checked) => {
     if (checked) {
       setCheckedItems(commentList.map((comment) => comment.id))
-    } else {
-      setCheckedItems([])
+      return
     }
+    setCheckedItems([])
   }
 
   const handelDelete = () => {
