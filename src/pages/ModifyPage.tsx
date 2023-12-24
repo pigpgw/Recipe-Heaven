@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategoriesData , forModifyDummyData } from '../../public/dummy'
+import { dummyCategorList, previousData } from '../../public/dummy'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 function ModifyRecipe() {
   // 카테고리 데이터 가져오는 api 구현 필요 등록 페이지에서 사용자가 어떤 재료이며 상황인지 받아와야함
-  const ingredientCategoryTitle = dummyCategoriesData[0].name
-  const situationCategoryTitle = dummyCategoriesData[1].name
-  const ingredientCategory = dummyCategoriesData.filter(
-    (item) => item.id === 1,
-  )[0].children
-  const situationCategory = dummyCategoriesData.filter(
-    (item) => item.id === 2,
-  )[0].children
+  const ingredientCategoryTitle = dummyCategorList[0].name
+  const situationCategoryTitle = dummyCategorList[1].name
+  const ingredientCategory = dummyCategorList.filter((item) => item.id === 1)[0]
+    .children
+  const situationCategory = dummyCategorList.filter((item) => item.id === 2)[0]
+    .children
 
   interface Ingredient {
     item: string
@@ -24,7 +22,7 @@ function ModifyRecipe() {
     des: string
     imgUrl: string
   }
-  
+
   // const { recipeId } = useParams()
   //   useEffect(() => {
   //     const fetchData = async () => {
@@ -38,7 +36,7 @@ function ModifyRecipe() {
   //     }
   //   })
 
-  const FkData = forModifyDummyData[0];
+  const FkData = previousData[0]
 
   const [recipeName, setRecipeName] = useState<String>(FkData.recipeName)
   console.log('sadasdasdasdasd', recipeName)
@@ -46,7 +44,9 @@ function ModifyRecipe() {
   const [portion, setPortion] = useState<Number>(FkData.portion)
   const [leadTime, setLeadTime] = useState<Number>(FkData.leadTime)
   const [level, setLevel] = useState<Number>(FkData.level)
-  const [ingredients, setIngredients] = useState<Ingredient[]>(FkData.ingredient)
+  const [ingredients, setIngredients] = useState<Ingredient[]>(
+    FkData.ingredient,
+  )
   const [categoryIg, setCategoryIg] = useState<String>(FkData.categoryIg)
   const [categorySt, setCategorySt] = useState<String>(FkData.categorySt)
   const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
@@ -59,14 +59,14 @@ function ModifyRecipe() {
     mainBtn.click()
   }
 
-const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
-  const selectedFile = event.target.files[0]
-  if (selectedFile) {
-    setMainImageVisible(true)
-    setRecipeMainImg(URL.createObjectURL(selectedFile))
-    console.log("대표 이미지 랜더링 성공")
+  const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files[0]
+    if (selectedFile) {
+      setMainImageVisible(true)
+      setRecipeMainImg(URL.createObjectURL(selectedFile))
+      console.log('대표 이미지 랜더링 성공')
+    }
   }
-}
 
   function addRecipeSequenceBtnHandler() {
     const newItem = {
@@ -102,8 +102,8 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
   function createRecipeData() {
     return {
       recipeName: recipeName,
-      // img: recipeMainImg,
-      img: 'hi',
+      img: recipeMainImg,
+      // img: 'hi',
       portion: portion,
       leadTime: leadTime,
       setCgIngredient: categoryIg,
@@ -120,7 +120,8 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
       const recipeData = createRecipeData()
 
       await axios.post(
-        'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
+        // 'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
+        'https://jsonplaceholder.typicode.com/posts',
         recipeData,
       )
 
@@ -153,11 +154,9 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
       />
       <div className="w-full flex items-center justify-center flex-col">
         <div className="main-container">
-          {/* main img upload container */}
           <p className="main-title">레시피 등록</p>
           <div className="main-uploadImg-bg">
-            {/* Use recipeMainImg state to display the uploaded image */}
-            {mainImgVisible ? (
+            {recipeMainImg.length !== 0 ? (
               <img
                 src={recipeMainImg}
                 className="main-imgUpload-btn-box"
@@ -198,6 +197,7 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
             <div className="item-title">카테고리</div>
             <select
               className="select-item"
+              defaultValue={FkData.setCgIngredient}
               onChange={(e) => {
                 setCategoryIg(e.target.value)
               }}
@@ -209,6 +209,7 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
             </select>
             <select
               className="select-item"
+              defaultValue={FkData.setCgSituation}
               onChange={(e) => {
                 setCategorySt(e.target.value)
               }}
@@ -230,7 +231,7 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
                 placeholder="인원"
                 value={portion}
                 onChange={(e) => {
-                  setPortion(e.target.value)
+                  setPortion(Number(e.target.value))
                 }}
               />
             </div>
@@ -242,7 +243,7 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
                 placeholder="시간"
                 value={leadTime}
                 onChange={(e) => {
-                  setLeadTime(e.target.value)
+                  setLeadTime(Number(e.target.value))
                 }}
               />
             </div>
@@ -254,7 +255,7 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
                 placeholder="난이도"
                 value={level}
                 onChange={(e) => {
-                  setLevel(e.target.value)
+                  setLevel(Number(e.target.value))
                 }}
               />
             </div>
@@ -327,11 +328,7 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
                         type="file"
                         accept="image/*"
                         onChange={(e) =>
-                          handleStepChange(
-                            index,
-                            'imgUrl',
-                            URL.createObjectURL(e.target.files[0]),
-                          )
+                          handleStepChange(index, 'imgUrl', e.target.files[0])
                         }
                       />
                       {item.imgUrl === '' && (
@@ -368,9 +365,9 @@ const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
           <div className="saveBtn" onClick={submit}>
             레시피 등록
           </div>
-          <div className="cancelBtn" onClick={submit}>
-            취소
-          </div>
+          <Link to="/">
+            <div className="cancelBtn">취소</div>
+          </Link>
         </div>
       </div>
     </>
