@@ -146,7 +146,7 @@ const dummyCategoriesData: Category[] = [
       }
 ]
 
-const forModifyDummyData = [
+export const forModifyDummyData = [
   {
     recipeName: 'asdasd',
     img: 'hi',

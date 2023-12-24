@@ -10,34 +10,14 @@ import './navbar.css';
 function Header() {
   //카테고리 navbar 더미데이터 가져오기
   dummyCategoriesData.map((item) => {
-    console.log("더미수정item", item)
   });
-  console.log("더미dummyCategoriesData[0]", dummyCategoriesData[0])
-  console.log("더미dummyCategoriesData[1]", dummyCategoriesData[1])
-  console.log("더미dummyCategoriesData[5]", dummyCategoriesData[5])
-  console.log("더미dummyCategoriesData", dummyCategoriesData)
 
   //categoryParent=null 필터링해서 상위카테고리로 만들기
   const topCatetory = dummyCategoriesData.filter(dummyCategoriesData => dummyCategoriesData.categoryParent === 'null');
-  console.log('필터링된 결과:', topCatetory);
 
   const ingredientCategory = dummyCategoriesData.filter(dummyCategoriesData => dummyCategoriesData.categoryParent === topCatetory[0].categoryName);
-  console.log('하위필터링된 결과:', ingredientCategory);
 
   const situationCategory = dummyCategoriesData.filter(dummyCategoriesData => dummyCategoriesData.categoryParent === topCatetory[1].categoryName);
-  console.log('하위필터링된 결과:', situationCategory);
-
-  
-  // const ingredientCategoryTitle = dummyCategoriesData[0]?.categoryId;
-  // const situationCategoryTitle = dummyCategoriesData[1]?.categoryId;
-
-  // const ingredientCategory = dummyCategoriesData.find(item => item.id === 1)?.children || [];
-  // const situationCategory = dummyCategoriesData.find(item => item.id === 2)?.children || [];
-
-  // console.log('ingredientCategoryTitle', ingredientCategoryTitle)
-  // console.log('ingredientCategory', ingredientCategory)
-  // console.log('situationCategoryTitle', situationCategoryTitle)
-  // console.log('situationCategory', situationCategory)
 
 
   // API에서 데이터 
