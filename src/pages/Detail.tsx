@@ -13,21 +13,21 @@ function Detail() {
   const sequenceImgList: string[] = dummyData.sequenceImg
   const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
 
-          // <Route path="/detail/:itemId" element={<Detail />} />
-  //  item id 값 url에서 읽어오기 
-  const { itemId } = useParams();
-
+  // <Route path="/detail/:itemId" element={<Detail />} />
+  //  item id 값 url에서 읽어오기
+  const { itemId } = useParams()
 
   useEffect(() => {
     async function getData() {
-      const data = await axios.get('https://jsonplaceholder.typicode.com/posts?userId=3')
-      console.log("data",data)
+      const data = await axios.get(
+        'https://jsonplaceholder.typicode.com/posts?userId=3',
+      )
+      console.log('data', data)
       // let params = new URL(document.location).searchParams
       // let name = params.get('name')
-
     }
     getData()
-  },[])
+  }, [])
 
   type ReviewModel = {
     reviewId: string
