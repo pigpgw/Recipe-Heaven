@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import StarRating from './StarRating'
 import toast from 'react-hot-toast'
+import { usePostCommentMutation } from '../mutation/useCommentsMutation'
 
 const WriteComment = () => {
   const [selectedRating, setSelectedRating] = useState(0)
   const [commentContent, setCommentContent] = useState('')
+
+  const { postComment, isPosting } = usePostCommentMutation()
 
   const handleRatingChange = (rating: number): void => {
     setSelectedRating(rating)
@@ -21,9 +24,7 @@ const WriteComment = () => {
       return
     }
 
-    const formData = new FormData()
-    formData.append('commentContent', commentContent)
-
+    postComment({ name: 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ' })
     setSelectedRating(0)
     setCommentContent('')
   }
@@ -44,7 +45,9 @@ const WriteComment = () => {
           onChange={(e) => setCommentContent(e.target.value)}
         />
       </div>
-      <button type="submit">작성완료</button>
+      <button type="submit" disabled={isPosting}>
+        작성완료
+      </button>
     </form>
   )
 }
