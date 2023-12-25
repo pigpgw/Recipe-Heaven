@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import useUserStore from './userStore'
 import axios from 'axios';
@@ -52,6 +52,7 @@ function Header() {
   //     console.error('에러:', error);
   //   });
 
+  const headerRef = useRef(null);
 
   //검색 키워드 걸리게하기
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -113,13 +114,13 @@ function Header() {
   };
 
   return (
-    <div id="header" className="flex pt-1 items-center w-full justify-center bg-white">
+    <div id="header" ref={headerRef} className="flex pt-1 items-center w-full justify-center bg-white">
       <div className="logo">
         <Link to="/">
           <img className="w-40" src="./src/assets/common/logo.png" alt="logo" />
         </Link>
       </div>
-      <div className="mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
+      <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
         <input
           type="text"
           placeholder="검색어를 입력해주세요"
