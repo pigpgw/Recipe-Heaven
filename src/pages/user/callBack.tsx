@@ -26,9 +26,9 @@ function Callback() {
 
           // 토큰 로직 자리
 
-          // navigate('/dashboard'); 
+          // navigate('/'); 
         } catch (error) {
-          console.error('서버로 인가 코드를 전송하는 과정에서 오류가 발생:', error);
+          console.error('서버 응답 오류:', error);
         }
       } else {
         console.error('인가 코드를 찾을 수 없음');
