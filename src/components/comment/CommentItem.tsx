@@ -73,7 +73,7 @@ const CommentItem = ({ comment }: TempRecipe) => {
       ) : (
         <div className="flex flex-col">
           <div>유저아이디는{comment.id}</div>
-          <StarRating selectedRating={comment.postId} />
+          <StarRating selectedRating={comment.postId} readOnly={true} />
           <div>{commentContent}</div>
           <div>{formattedDate}</div>
         </div>
