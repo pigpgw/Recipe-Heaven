@@ -43,6 +43,7 @@ const WriteComment = () => {
           name="commentContent"
           value={commentContent}
           onChange={(e) => setCommentContent(e.target.value)}
+          className="w-full p-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500 resize-none"
         />
       </div>
       <button type="submit" disabled={isPosting}>
