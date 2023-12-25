@@ -23,6 +23,7 @@ function RankItem() {
         enabled: !!category,
       })
 
+    console.log('데이터 확인: ', data)
     //   if(!data) {
     //     throw new Error('에러')
     //   } 
@@ -33,9 +34,6 @@ function RankItem() {
       setTests([...data])
     }, [data,category])
     
-        useEffect(() => {
-            console.log("hi")
-        })
     // console.log('data')
     // console.log(data)
     // console.log('test')
@@ -44,7 +42,6 @@ function RankItem() {
       
     return (
         <div className="flex flex-col items-center mb-24">
-            {/* <span className="text-2xl font-bold my-7">이달의 인기 레시피 {'>'}</span> */}
             <div className="grid w-full max-w-5xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 sm:gap-x-6 sm:gap-y-6 ">
                 {test.length ? (
                     test.map((recipe, idx) => (
