@@ -1,51 +1,73 @@
 import React, { useState } from 'react'
-import StarRating from './StarRating'
-import toast from 'react-hot-toast'
+import WriteComment from './WriteComment'
+import { Comment } from '../../fetch/APIResponsesTypes'
+import { useQuery } from '@tanstack/react-query'
+import fetchTestComment from '../../fetch/fetchTestComment'
 
 const Comment = () => {
-  const [selectedRating, setSelectedRating] = useState(0)
-  const [commentContent, setCommentContent] = useState('')
+  // const { data, isLoading, isError } = useQuery<Comment[]>({
+  //   queryKey: ['comments'],
+  //   queryFn: fetchTestComment,
+  // })
+  const comments = [
+    {
+      id: 1,
+      star: 5,
+      comment: 'Excellent service!',
+      deletedAt: null,
+      reviewId: 1,
+      createdAt: '2023-12-20T00:59:02.044Z',
+      updatedAt: '2023-12-20T00:59:02.044Z',
+      userId: 'skswwwwksk',
+    },
+    {
+      id: 2,
+      star: 4,
+      comment: 'The product exceeded my expectations.',
+      deletedAt: null,
+      reviewId: 2,
+      createdAt: '2023-12-20T01:15:42.112Z',
+      updatedAt: '2023-12-20T01:15:42.112Z',
+      userId: 'skswwwwksk',
+    },
+    {
+      id: 3,
 
-  const handleRatingChange = (rating: number): void => {
-    setSelectedRating(rating)
-  }
+      star: 3,
+      comment: "It's decent, but could be improved.",
+      deletedAt: null,
+      reviewId: 3,
+      createdAt: '2023-12-20T02:30:18.759Z',
+      updatedAt: '2023-12-20T02:30:18.759Z',
+      userId: 'skswwwwksk',
+    },
+    {
+      id: 4,
+      star: 5,
+      comment: "I'm extremely satisfied with the purchase!",
+      deletedAt: null,
+      reviewId: 4,
+      createdAt: '2023-12-20T04:45:57.208Z',
+      updatedAt: '2023-12-20T04:45:57.208Z',
+      userId: 'sksksk',
+    },
+    {
+      id: 5,
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    if (selectedRating === 0) {
-      toast.error('별점을 입력해주세요')
-      return
-    }
-    if (commentContent.trim() === '') {
-      toast.error('내용을 입력해주세요')
-      return
-    }
+      star: 2,
+      comment: 'Disappointed. Not what I expected.',
+      deletedAt: null,
+      reviewId: 5,
+      createdAt: '2023-12-20T06:20:35.510Z',
+      updatedAt: '2023-12-20T06:20:35.510Z',
+      userId: 'sksksk',
+    },
+  ]
 
-    const formData = new FormData()
-    formData.append('commentContent', commentContent)
-
-    console.log(commentContent)
-    console.log(selectedRating)
-  }
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="starRating">별점:</label>
-        <StarRating
-          selectedRating={selectedRating}
-          onRatingChange={handleRatingChange}
-        />
-      </div>
-      <div>
-        <textarea
-          id="commentContent"
-          name="commentContent"
-          value={commentContent}
-          onChange={(e) => setCommentContent(e.target.value)}
-        />
-      </div>
-      <button type="submit">작성완료</button>
-    </form>
+    <div>
+      <WriteComment />
+    </div>
   )
 }
 export default Comment
