@@ -29,7 +29,6 @@ export const AppRoutes = () => {
           <Route path="/my/liked" element={<LikedRecipes />} />
         </Route>
         <Route path="/detail/:recipeId" element={<Detail />} />
-        <Route path="/category" element={<RecipeCategoryList />} />
         <Route path="/login" element={<Login />} />
         <Route path="search/:keyword" element={<SearchErrorBoundary />} />
         <Route
