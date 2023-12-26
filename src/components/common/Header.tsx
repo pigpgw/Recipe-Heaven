@@ -6,12 +6,12 @@ import { QueryFunction } from '@tanstack/react-query'
 import { dummyCategoriesData } from '../../../public/dummy'
 import './navbar.css'
 import MainSearch from '../main/MainSearch'
-import { Toast } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 // import { create } from 'zustand';
 
 function Header() {
   //카테고리 navbar 더미데이터 가져오기
-  dummyCategoriesData.map((item) => {})
+  dummyCategoriesData.map((item) => { })
 
   //categoryParent=null 필터링해서 상위카테고리로 만들기
   const topCatetory = dummyCategoriesData.filter(
@@ -70,7 +70,6 @@ function Header() {
       navigate(`/search/${searchTerm.trim()}`)
       setSearchTerm('')
     } else {
-      //경고창 뜨게 하기
       toast.error('검색어를 입력해주세요')
     }
   }
@@ -208,7 +207,6 @@ function Header() {
                 size={25}
                 value={searchTerm}
                 onChange={handleInputChange}
-                // onKeyPress={handleKeyPress}
               />
               <button
                 id="submit"
@@ -216,13 +214,11 @@ function Header() {
                 className=""
                 onClick={handleSearch}
               >
-                <Link to={`/search/${searchTerm.trim()}`}>
-                  <img
-                    src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-                    className="w-4 top-2 right-3 m-0 ml-5 justify-end"
-                    alt="search"
-                  />
-                </Link>
+                <img
+                  src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                  className="w-4 top-2 right-3 m-0 ml-5 justify-end"
+                  alt="search"
+                />
               </button>
             </div>
           </div>
