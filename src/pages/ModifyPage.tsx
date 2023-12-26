@@ -58,7 +58,7 @@ function ModifyRecipe() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
   }
-  
+
   const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files[0]
     if (selectedFile) {
