@@ -1,34 +1,53 @@
 import React, { ChangeEvent, useEffect } from 'react'
 import { useState } from 'react'
-import { dummyData, reviewModel } from '../../public/dummy'
 import DetailHeader from '../components/detail/DetailHeader'
 import DetailMainList from '../components/detail/DetailMainList'
-import DetailMainReview from '../components/detail/DetailMainReview'
 import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Comment from '../components/comment/Comment'
 
 function Detail() {
-  const explaincontentList: string[] = dummyData.sequenceExplain
-  const sequenceImgList: string[] = dummyData.sequenceImg
-  const filterdCommentList = reviewModel.filter((_) => _.recipeId == 0)
+  // const [inputValue, setInputValue] = useState<string>('')
+  const [fetchData, setFetchData] = useState()
+  const [explaincontentList, setExplaincontentList] = useState([])
+  const [sequenceImgList, setSequenceImgList] = useState([])
+  const [ingredientNameList, setIngredientNameList] = useState([])
+  const [ingredientUnitList, setingredientUnitList] = useState([])
+  const [myBlogContent, setMyBlogContent] = useState(true)
+  const [showOptions, setShowOptions] = useState(false)
 
-  // <Route path="/detail/:itemId" element={<Detail />} />
-  //  item id 값 url에서 읽어오기
-  const { itemId } = useParams()
+  // fetch data 타입 처리 우선적
+
+  const { recipeId } = useParams()
 
   useEffect(() => {
     async function getData() {
-      const data = await axios.get(
-        'https://jsonplaceholder.typicode.com/posts?userId=3',
-      )
-      console.log('data', data)
-      // let params = new URL(document.location).searchParams
-      // let name = params.get('name')
+      try {
+        const res = await axios.get(
+          `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
+        )
+
+        setFetchData(res.data)
+        if (res.data && res.data.step) {
+          const step = res.data.step
+          const ingredient = res.data.ingredient
+          const explainList = step.map((item) => item.des)
+          const imgList = step.map((item) => item.imgUrl)
+          const ingNameList = ingredient.map((item) => item.item)
+          const ingUnitList = ingredient.map((item) => item.unit)
+          setIngredientNameList(ingNameList)
+          setingredientUnitList(ingUnitList)
+          setExplaincontentList(explainList)
+          setSequenceImgList(imgList)
+        }
+      } catch (error) {
+        console.error('Error fetching recipe data:', error)
+      }
     }
+
     getData()
-  }, [])
+  }, [recipeId])
 
   type ReviewModel = {
     reviewId: string
@@ -38,33 +57,6 @@ function Detail() {
     comment: string
     time: string
   }
-
-  const [inputValue, setInputValue] = useState<string>('')
-  const [comments, setComments] = useState<ReviewModel[]>(filterdCommentList)
-
-  // 본인이 작성한 글이라 가정
-  const [myBlogContent, setMyBlogContent] = useState(true)
-
-  function getInputValueHandler(e: ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value)
-  }
-
-  function addCommentsHandler() {
-    const previousCommentsList = [...comments]
-    const dummyUserComments: ReviewModel = {
-      reviewId: 'ceads',
-      recipeId: 0,
-      id: 1,
-      start: 4,
-      comment: inputValue,
-      time: '하하',
-    }
-    previousCommentsList.push(dummyUserComments)
-    setComments(previousCommentsList)
-    setInputValue('')
-  }
-
-  const [showOptions, setShowOptions] = useState(false)
 
   const handleMoreClick = () => {
     setShowOptions(!showOptions)
@@ -79,14 +71,7 @@ function Detail() {
     // Handle the delete functionality
     console.log('Delete clicked')
   }
-
-  async function getDetailData() {
-    const res = await axios.get('/recipe/:recipeId')
-  }
-
-  useEffect(() => {
-    getDetailData()
-  }, [])
+  
 
   return (
     // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
@@ -119,12 +104,14 @@ function Detail() {
               <IoIosMore className="w-10 h-10 cursor-pointer" />
               {showOptions && (
                 <div className="absolute right-6 bottom-8 bg-white border border-gray-300 shadow-md p-2">
-                  <button
-                    className="block w-full text-left py-1 px-1 hover:bg-gray-100"
-                    onClick={handleEditClick}
-                  >
-                    Edit
-                  </button>
+                  <Link to={`/modify/${recipeId}`}>
+                    <button
+                      className="block w-full text-left py-1 px-1 hover:bg-gray-100"
+                      onClick={handleEditClick}
+                    >
+                      Edit
+                    </button>
+                  </Link>
                   <button
                     className="block w-full text-left py-1 px-1 hover:bg-gray-100 text-red-500"
                     onClick={handleDeleteClick}
@@ -136,34 +123,12 @@ function Detail() {
             </div>
           </div>
         )}
-        <DetailHeader />
+        <DetailHeader fetchData={fetchData} />
         <DetailMainList
           explaincontentList={explaincontentList}
           sequenceImgList={sequenceImgList}
         />
         <Comment />
-        {/* <DetailMainReview totalReview={comments} />
-
-        <div className="w-full min-w-[10rem] p-5 flex items-center justify-center">
-          <div className="w-[7rem] h-[7rem] flex flex-wrap items-center justify-center text-4xl border-solid border-2 border-black-800">
-            +
-          </div>
-          <div className="w-4/6 h-[7rem] flex items-center justify-center">
-            <input
-              value={inputValue}
-              onChange={getInputValueHandler}
-              className="min-w-[35rem] h-[7rem] border-solid border-2 border-black-600"
-              placeholder="무엇이 궁금하신가요 댓글을 남겨주세요"
-            />
-            <button
-              onClick={addCommentsHandler}
-              className="border-solid w-[7rem] h-[7rem] border-2 border-black-600 p-6"
-            >
-              등록
-            </button>
-          </div>
-        </div>
-         */}
       </div>
     </div>
   )
