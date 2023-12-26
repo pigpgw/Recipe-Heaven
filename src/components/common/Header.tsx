@@ -52,8 +52,6 @@ function Header() {
   //     console.error('에러:', error);
   //   });
 
-  const headerRef = useRef(null);
-
   //검색 키워드 걸리게하기
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -113,6 +111,32 @@ function Header() {
     }
   };
 
+  //검색바 스크롤
+  const [isVisible, setIsVisible] = useState(true);
+  const [height, setHeight] = useState(0);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenToScroll);
+    return () => window.removeEventListener("scroll", listenToScroll);
+  }, []);
+
+  const listenToScroll = () => {
+    let heightToHideFrom = 200;
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    setHeight(winScroll);
+    console.log('winScroll', winScroll)
+
+    if (winScroll < heightToHideFrom) {
+      isVisible && setIsVisible(false);
+    } else {
+      setIsVisible(true);
+      if (headerRef.current) {
+        headerRef.current.classList.remove('hidden');
+      }
+    }
+  };
+
   return (
     <div id="header" ref={headerRef} className="flex pt-1 items-center w-full justify-center bg-white">
       <div className="logo">
@@ -120,7 +144,7 @@ function Header() {
           <img className="w-40" src="./src/assets/common/logo.png" alt="logo" />
         </Link>
       </div>
-      <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
+      {/* <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
         <input
           type="text"
           placeholder="검색어를 입력해주세요"
@@ -139,7 +163,34 @@ function Header() {
             />
           </Link>
         </button>
-      </div>
+      </div> */}
+
+
+      {/* 스크롤 적용 수정코드 */}
+      {isVisible && (
+        <div id="hide">
+          <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
+            <input
+              type="text"
+              placeholder="검색어를 입력해주세요"
+              className="items-center border-none outline-none ml-4 text-xs"
+              size={25}
+              value={searchTerm}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress}
+            />
+            <button id="submit" aria-label="submit" className="" onClick={handleSearch}>
+              <Link to={`/search/${searchTerm.trim()}`}>
+                <img
+                  src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                  className="w-4 top-2 right-3 m-0 ml-5 justify-end"
+                  alt="search"
+                />
+              </Link>
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* navbar 카테고리 */}
       <ul className="navbar items-center flex ml-8 text-lg font-bold">

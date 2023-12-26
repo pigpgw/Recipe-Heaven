@@ -4,7 +4,6 @@ import MainSearch from '../components/main/MainSearch'
 import Footer from '../components/common/Footer'
 import RankItem from '../components/main/RankItem'
 import { Link } from 'react-router-dom'
-import SearchHidden from '../components/main/SearchHidden'
 
 function Main() {
   return (
@@ -18,7 +17,6 @@ function Main() {
           className="w-[64rem]"
         />
       </div>
-      <SearchHidden />
       <Link to="/search">
         {/* 경로변경필요 */}
         <span className="flex flex-col items-center text-2xl font-bold my-7">
