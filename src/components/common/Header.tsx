@@ -71,6 +71,7 @@ function Header() {
       navigate(`/search/${searchTerm.trim()}`)
       setSearchTerm('')
     } else {
+      //경고창 뜨게 하기
       toast.error('검색어를 입력해주세요')
     }
   }
@@ -201,6 +202,7 @@ function Header() {
                 size={25}
                 value={searchTerm}
                 onChange={handleInputChange}
+              // onKeyPress={handleKeyPress}
               />
               <button
                 id="submit"
