@@ -5,6 +5,7 @@ import axios from 'axios';
 import { QueryFunction } from '@tanstack/react-query'
 import { dummyCategoriesData } from '../../../public/dummy'
 import './navbar.css';
+import MainSearch from '../main/MainSearch'
 // import { create } from 'zustand';
 
 function Header() {
@@ -114,7 +115,14 @@ function Header() {
   //검색바 스크롤
   const [isVisible, setIsVisible] = useState(true);
   const [height, setHeight] = useState(0);
-  const headerRef = useRef(null);
+  // const headerRef = useRef(null);
+
+  // const [hasMainSearch, setHasMainSearch] = useState(true);
+  // console.log("제발요", hasMainSearch)
+
+  // useEffect(() => {
+  //   setIsVisible(hasMainSearch);
+  // }, [hasMainSearch]);
 
   useEffect(() => {
     window.addEventListener("scroll", listenToScroll);
@@ -125,26 +133,26 @@ function Header() {
     let heightToHideFrom = 200;
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     setHeight(winScroll);
-    console.log('winScroll', winScroll)
 
     if (winScroll < heightToHideFrom) {
-      isVisible && setIsVisible(false);
+      isVisible && setIsVisible(false); //Hidden
     } else {
-      setIsVisible(true);
-      if (headerRef.current) {
-        headerRef.current.classList.remove('hidden');
-      }
+      setIsVisible(true); //스크롤 올라가면 다시 나타나게하기
+      // if (headerRef.current) {
+      //   // headerRef.current.classList.remove('hidden');
+      // }
     }
   };
 
   return (
-    <div id="header" ref={headerRef} className="flex pt-1 items-center w-full justify-center bg-white">
-      <div className="logo">
-        <Link to="/">
-          <img className="w-40" src="./src/assets/common/logo.png" alt="logo" />
-        </Link>
-      </div>
-      {/* <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
+    <div className='w-[1024px] flex items-center mx-auto'>
+      <div id="header" className="flex pt-1 items-center w-full justify-between bg-white">
+        <div className="logo ml-1">
+          <Link to="/">
+            <img className="w-40" src="./src/assets/common/logo.png" alt="logo" />
+          </Link>
+        </div>
+        {/* <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
         <input
           type="text"
           placeholder="검색어를 입력해주세요"
@@ -166,64 +174,44 @@ function Header() {
       </div> */}
 
 
-      {/* 스크롤 적용 수정코드 */}
-      {isVisible && (
-        <div id="hide">
-          <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
-            <input
-              type="text"
-              placeholder="검색어를 입력해주세요"
-              className="items-center border-none outline-none ml-4 text-xs"
-              size={25}
-              value={searchTerm}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-            />
-            <button id="submit" aria-label="submit" className="" onClick={handleSearch}>
-              <Link to={`/search/${searchTerm.trim()}`}>
-                <img
-                  src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-                  className="w-4 top-2 right-3 m-0 ml-5 justify-end"
-                  alt="search"
-                />
-              </Link>
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* navbar 카테고리 */}
-      <ul className="navbar items-center flex ml-8 text-lg font-bold">
-        <li>
-          <Link to="/">
-            <span className="mx-7 cursor-pointer">레시피</span>
-          </Link>
-        </li>
-        <li>
-          <div className="dropdown">
-            <button className="dropbtn">{topCatetory[0]?.categoryName}</button>
-            <div className="dropdown-content">
-              {ingredientCategory.map((item) => {
-                return (
-                  <>
-                    <Link
-                      to={`/category/${item.categoryName}`}
-                      className="block px-4 py-1 "
-                    >
-                      {item.categoryName}
-                    </Link>
-                  </>
-                )
-              })}
+        {/* 스크롤 적용 수정코드 */}
+        {isVisible && (
+          <div id="hide">
+            <div className="HSB ml-10 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
+              <input
+                type="text"
+                placeholder="검색어를 입력해주세요"
+                className="items-center border-none outline-none ml-4 text-xs"
+                size={25}
+                value={searchTerm}
+                onChange={handleInputChange}
+                onKeyPress={handleKeyPress}
+              />
+              <button id="submit" aria-label="submit" className="" onClick={handleSearch}>
+                <Link to={`/search/${searchTerm.trim()}`}>
+                  <img
+                    src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+                    className="w-4 top-2 right-3 m-0 ml-5 justify-end"
+                    alt="search"
+                  />
+                </Link>
+              </button>
             </div>
           </div>
-        </li>
-        <li>
-          <div className="dropdown">
-            <button className="dropbtn">{topCatetory[1]?.categoryName}</button>
-            <div className="dropdown-content">
-              {
-                situationCategory.map((item) => {
+        )}
+
+        {/* navbar 카테고리 */}
+        <ul className="navbar items-center flex ml-auto text-lg font-bold">
+          <li>
+            <Link to="/">
+              <span className="mx-7 cursor-pointer">레시피</span>
+            </Link>
+          </li>
+          <li>
+            <div className="dropdown">
+              <button className="dropbtn">{topCatetory[0]?.categoryName}</button>
+              <div className="dropdown-content">
+                {ingredientCategory.map((item) => {
                   return (
                     <>
                       <Link
@@ -234,37 +222,70 @@ function Header() {
                       </Link>
                     </>
                   )
-                })
-              }
+                })}
+              </div>
+            </div>
+          </li>
+          <li>
+            <div className="dropdown">
+              <button className="dropbtn">{topCatetory[1]?.categoryName}</button>
+              <div className="dropdown-content">
+                {
+                  situationCategory.map((item) => {
+                    return (
+                      <>
+                        <Link
+                          to={`/category/${item.categoryName}`}
+                          className="block px-4 py-1 "
+                        >
+                          {item.categoryName}
+                        </Link>
+                      </>
+                    )
+                  })
+                }
+              </div>
+            </div>
+          </li>
+          <li>
+            <Link to="/category/크리스마스">
+              <span className="mx-7 cursor-pointer">SPECIAL</span>
+            </Link>
+          </li>
+        </ul>
+        <span className="justify-end">|</span>
+
+        {/* 마이페이지/글쓰기 아이콘 */}
+        <div className="flex items-center justify-end">
+          <div className="dropdown">
+            <button className="dropbtn">
+              <img
+                className="mr-2"
+                src="./src/assets/ico_user.png"
+                alt=""
+                onClick={mypageIconClick}
+              />
+            </button>
+            <div className="dropdown-content">
+
+              <Link to="/" className="block px-3 py-1 ">
+                마이페이지
+              </Link>
+              <Link to="/" className="block px-4 py-1 ">
+                로그아웃
+              </Link>
             </div>
           </div>
-        </li>
-        <li>
-          <Link to="/category/크리스마스">
-            <span className="mx-7 cursor-pointer">SPECIAL</span>
-          </Link>
-        </li>
-      </ul>
-      <span className="mr-7">|</span>
 
-      {/* 마이페이지/글쓰기 아이콘 */}
-      <div className="flex items-center">
-        <Link to="/">
-          <img
-            className="mr-4"
-            src="./src/assets/ico_user.png"
-            alt=""
-            onClick={mypageIconClick}
-          />
-        </Link>
-        <Link to="/">
-          <img
-            className="mr-4"
-            src="./src/assets/rcp_write.png"
-            alt=""
-            onClick={writingIconClick}
-          />
-        </Link>
+          <Link to="/">
+            <img
+              className="mr-1"
+              src="./src/assets/rcp_write.png"
+              alt=""
+              onClick={writingIconClick}
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
