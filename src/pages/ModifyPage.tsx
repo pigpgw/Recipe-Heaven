@@ -5,6 +5,13 @@ import { Link, useParams } from 'react-router-dom'
 
 function ModifyRecipe() {
   // 카테고리 데이터 가져오는 api 구현 필요 등록 페이지에서 사용자가 어떤 재료이며 상황인지 받아와야함
+
+  const FkData = previousData[0]
+  // const [FkData,setFkData] = useState()
+
+  if (!FkData) {
+    return null
+  }
   const ingredientCategoryTitle = dummyCategorList[0].name
   const situationCategoryTitle = dummyCategorList[1].name
   const ingredientCategory = dummyCategorList.filter((item) => item.id === 1)[0]
@@ -23,23 +30,8 @@ function ModifyRecipe() {
     imgUrl: string
   }
 
-  // const { recipeId } = useParams()
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       try {
-  //         const res = aait axios.get(
-  //           `http://kdt-sw-7-team06.elicecoding.com:3000/${recipeId}`,
-  //         )
-  //       } catch (error) {
-  //         console.error('Error fetching recipe data:', error)
-  //       }
-  //     }
-  //   })
-
-  const FkData = previousData[0]
 
   const [recipeName, setRecipeName] = useState<String>(FkData.recipeName)
-  console.log('sadasdasdasdasd', recipeName)
   const [recipeMainImg, setRecipeMainImg] = useState<String>(FkData.img)
   const [portion, setPortion] = useState<Number>(FkData.portion)
   const [leadTime, setLeadTime] = useState<Number>(FkData.leadTime)
@@ -54,11 +46,30 @@ function ModifyRecipe() {
     RecipeSequenceItem[]
   >(FkData.step)
 
+  const { recipeId } = useParams()
+  useEffect(() => {
+    const getPreviousData = async () => {
+      try {
+        // state에 get으로 받은 데이터 저장 후 핸들링 ->ㅎ
+        const res = await axios.get(
+          `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
+        )
+        console.log('수정페이지 데이터 get', res.data)
+        // setFkData(res.data)
+      } catch (error) {
+        console.error('Error fetching recipe data:', error)
+      }
+    }
+    getPreviousData()
+  }, [])
+
+  console.log('안녕하세요 더미 데이터입니다', FkData)
+
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
   }
-  
+
   const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files[0]
     if (selectedFile) {
@@ -92,7 +103,7 @@ function ModifyRecipe() {
     const updatedIngredients = [...ingredients]
     updatedIngredients[index][key] = value
     setIngredients(updatedIngredients)
-    console.log('ingredient', ingredients)
+    // console.log('ingredient', ingredients)
   }
 
   const addIngredient = () => {
@@ -114,22 +125,22 @@ function ModifyRecipe() {
       // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
     }
   }
-
-  const submit = async () => {
+  // console.log("변경된 데이터 확인",createRecipeData())
+  const patchUserData = async () => {
     try {
       const recipeData = createRecipeData()
 
-      await axios.post(
+      await axios.patch(
         // 'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
-        'https://jsonplaceholder.typicode.com/posts',
+        'https://jsonplaceholder.typicode.com/posts/1',
         recipeData,
       )
 
       console.log('success, Data', recipeData)
-      console.log('전송 성공')
+      console.log('수정 데이터 전송 성공')
     } catch (e) {
       const recipeData = createRecipeData()
-      console.log('fail, Data', recipeData)
+      console.log('수정 데이터 전송 실패', recipeData)
       console.log('error', e)
     }
   }
@@ -362,7 +373,8 @@ function ModifyRecipe() {
         </div>
 
         <div className="saveBtnBox">
-          <div className="saveBtn" onClick={submit}>
+          {/* 수정 데이터 전송 */}
+          <div className="saveBtn" onClick={patchUserData}>
             레시피 등록
           </div>
           <Link to="/">

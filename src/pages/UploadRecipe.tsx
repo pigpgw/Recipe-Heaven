@@ -46,6 +46,7 @@ function UploadRecipe() {
   const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
     setMainImageVisible(true)
     setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
+    
   }
 
   function addRecipeSequenceBtnHandler() {
@@ -123,6 +124,8 @@ function UploadRecipe() {
       console.log('error', e)
     }
   }
+
+  // console.log('window.location.href', window.location)
 
   return (
     <>

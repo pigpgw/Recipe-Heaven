@@ -28,14 +28,14 @@ export const AppRoutes = () => {
           <Route path="/my/myComments" element={<MyComments />} />
           <Route path="/my/liked" element={<LikedRecipes />} />
         </Route>
-        <Route path="/detail/:itemId" element={<Detail />} />
+        <Route path="/detail/:recipeId" element={<Detail />} />
         <Route path="/category" element={<RecipeCategoryList />} />
         <Route path="/login" element={<Login />} />
         <Route path="search/:keyword" element={<RecipeSearchList />} />
         <Route path="/delete" element={<DeleteUser />} />
         <Route path="oauth" element={<Callback />} />
         <Route path="uploadrecipe" element={<UploadRecipe />} />
-        <Route path="/modify" element={<ModifyRecipe />} />
+        <Route path="/modify/:recipeId" element={<ModifyRecipe />} />
         <Route path="admin_caterory" element={<CategoryManagement />} />
       </Route>
     </Routes>
