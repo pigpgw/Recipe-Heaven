@@ -22,21 +22,11 @@ function RankItem() {
     enabled: !!category,
   })
 
-  console.log('데이터 확인: ', data)
-  //   if(!data) {
-  //     throw new Error('에러')
-  //   }
-  //   console.log('data', data)
-
+  // console.log('데이터 확인: ', data)
+ 
   useEffect(() => {
     if (data) setTests([...data])
   }, [data, category])
-
-  // console.log('data')
-  // console.log(data)
-  // console.log('test')
-  // console.log(test)
-  //   setTests(data)
 
   return (
     <div className="flex flex-col items-center mb-24">
