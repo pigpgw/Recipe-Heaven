@@ -118,11 +118,6 @@ function Header() {
   // const headerRef = useRef(null);
 
   // const [hasMainSearch, setHasMainSearch] = useState(true);
-  // console.log("제발요", hasMainSearch)
-
-  // useEffect(() => {
-  //   setIsVisible(hasMainSearch);
-  // }, [hasMainSearch]);
 
   useEffect(() => {
     window.addEventListener("scroll", listenToScroll);
