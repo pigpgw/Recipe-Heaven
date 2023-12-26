@@ -6,6 +6,7 @@ import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
 import { Link, useParams } from 'react-router-dom'
 import Comment from '../components/comment/Comment'
+import '../../src/components/uploadRecipe/uploadRecipe.css'
 
 function Detail() {
   // const [inputValue, setInputValue] = useState<string>('')
