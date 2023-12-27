@@ -291,7 +291,7 @@ function Header() {
               </div>
             )}
           </div>
-          <Link to="/">
+          <Link to="uploadrecipe">
             <img
               className="mr-1"
               src="./src/assets/rcp_write.png"
