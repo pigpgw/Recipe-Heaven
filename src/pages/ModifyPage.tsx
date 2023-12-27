@@ -41,15 +41,13 @@ function ModifyRecipe() {
 
   const { recipeId } = useParams()
 
+  // 이전에 등록한 사용자 데이터 가져오기
   useEffect(() => {
     const getPreviousData = async () => {
       try {
         const res = await axios.get(
           `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
         )
-
-        console.log('받아온 데이터 확인', res.data)
-
         setFkData(res.data)
         setRecipeName(res.data.recipeName)
         setRecipeMainImg(res.data.img)
@@ -61,7 +59,7 @@ function ModifyRecipe() {
         setCategorySt(res.data.categorySt)
         setRecipeSequenceItems(res.data.step)
       } catch (error) {
-        console.error('Error fetching recipe data:', error)
+        console.error('이전 레시피 정보 가져오기 실패', error)
       }
     }
 
