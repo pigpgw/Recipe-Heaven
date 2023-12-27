@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { dummyCategorList } from '../../public/dummy'
 import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 function UploadRecipe() {
   const ingredientCategoryTitle = dummyCategorList[0].name
@@ -46,7 +46,6 @@ function UploadRecipe() {
   const previewImg = (event: ChangeEvent<HTMLInputElement>) => {
     setMainImageVisible(true)
     setRecipeMainImg(URL.createObjectURL(event.target.files[0]))
-    
   }
 
   function addRecipeSequenceBtnHandler() {
@@ -83,11 +82,12 @@ function UploadRecipe() {
   function createRecipeData() {
     return {
       recipeName: recipeName,
-      img: recipeMainImg,
+      // img: recipeMainImg,
+      img:"asdasd",
       portion: portion,
       leadTime: leadTime,
-      setCgIngredient: categoryIg,
-      setCgSituation: categorySt,
+      // setCgIngredient: categoryIg,
+      // setCgSituation: categorySt,
       level: level,
       ingredient: ingredients,
       step: recipeSequenceItems,
@@ -95,36 +95,39 @@ function UploadRecipe() {
     }
   }
 
+    const { recipeId } = useParams()
+
   const submit = async () => {
     try {
       const recipeData = createRecipeData()
-      const formData = new FormData()
-      formData.append('recipeName', recipeName)
-      formData.append('img', recipeMainImg)
-      formData.append('portion', portion)
-      formData.append('portion', portion)
-      formData.append('leadTime', leadTime)
-      formData.append('setCgIngredient', categoryIg)
-      formData.append('setCgSituation', categorySt)
-      formData.append('level', level)
-      formData.append('ingredient', JSON.stringify(ingredients))
-      formData.append('step', JSON.stringify(recipeSequenceItems))
+      // const formData = new FormData()
+      // formData.append('recipeName', recipeName.toString())
+      // formData.append('img', recipeMainImg)
+      // formData.append('portion', portion.toString())
+      // formData.append('portion', portion.toString())
+      // formData.append('leadTime', leadTime.toString())
+      // // formData.append('setCgIngredient', categoryIg)
+      // // formData.append('setCgSituation', categorySt)
+      // formData.append('level', level.toString())
+      // formData.append('ingredient', JSON.stringify(ingredients))
+      // formData.append('step', JSON.stringify(recipeSequenceItems))
 
       await axios.post(
-        // 'http://kdt-sw-7-team06.elicecoding.com:3000/recipe/insert',
-        'https://jsonplaceholder.typicode.com/posts',
-        formData,
+        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
+        // 'https://jsonplaceholder.typicode.com/recipes',
+        // formData,
+        recipeData,
       )
       console.log('success, json data', recipeData)
-      console.log('success, form Data', formData)
+      // console.log('success, form Data', formData)
       console.log('전송 성공')
     } catch (e) {
-      // const recipeData = createRecipeData()
-      console.log('fail, Data', formData)
+      const recipeData = createRecipeData()
+      console.log('전송 대 실패', recipeData)
       console.log('error', e)
     }
   }
-
+    console.log('esradsasdasd', recipeId)
   // console.log('window.location.href', window.location)
 
   return (
@@ -309,7 +312,9 @@ function UploadRecipe() {
                         type="file"
                         accept="image/*"
                         onChange={(e) =>
-                          handleStepChange(index, 'imgUrl', e.target.files[0])
+                          // file로 입력
+                          // handleStepChange(index, 'imgUrl', e.target.files[0])
+                          handleStepChange(index, 'imgUrl', "ㅇㅇㅇ")
                         }
                       />
                       {item.imgUrl === '' && (
@@ -322,7 +327,7 @@ function UploadRecipe() {
                       )}
                       {item.imgUrl && (
                         <img
-                          src={URL.createObjectURL(item.imgUrl)}
+                          // src={URL.createObjectURL(item.imgUrl)}
                           alt={`Step ${item.stepNum}`}
                           className="recipe-step-image"
                         />

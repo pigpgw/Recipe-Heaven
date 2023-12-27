@@ -6,6 +6,7 @@ import axios from 'axios'
 import { IoIosMore } from 'react-icons/io'
 import { Link, useParams } from 'react-router-dom'
 import Comment from '../components/comment/Comment'
+import '../../src/components/uploadRecipe/uploadRecipe.css'
 
 function Detail() {
   // const [inputValue, setInputValue] = useState<string>('')
@@ -67,11 +68,18 @@ function Detail() {
     console.log('Edit clicked')
   }
 
-  const handleDeleteClick = () => {
-    // Handle the delete functionality
-    console.log('Delete clicked')
+
+const handleDeleteClick = async () => {
+  try {
+    const res = await axios.delete(
+      `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
+    )
+    console.log('레시피 삭제', res)
+
+  } catch (e) {
+    console.log('삭제 실패', e)
   }
-  
+}
 
   return (
     // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
