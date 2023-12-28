@@ -4,30 +4,49 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '../store/store'
 import axios from 'axios'
 import { QueryFunction } from '@tanstack/react-query'
-import { dummyCategoriesData } from '../../../public/dummy'
+import { dummyCategoriesData, realCategoryList } from '../../../public/dummy'
 import './navbar.css'
 import MainSearch from '../main/MainSearch'
 import toast from 'react-hot-toast'
 // import { create } from 'zustand';
 
+
 function Header() {
   //카테고리 navbar 더미데이터 가져오기
-  dummyCategoriesData.map((item) => { })
+  dummyCategoriesData.map((item) => {})
 
   //categoryParent=null 필터링해서 상위카테고리로 만들기
   const topCatetory = dummyCategoriesData.filter(
     (dummyCategoriesData) => dummyCategoriesData.categoryParent === 'null',
   )
 
-  const ingredientCategory = dummyCategoriesData.filter(
-    (dummyCategoriesData) =>
-      dummyCategoriesData.categoryParent === topCatetory[0].categoryName,
-  )
+  // const ingredientCategory = dummyCategoriesData.filter(
+  //   (dummyCategoriesData) =>
+  //     dummyCategoriesData.categoryParent === topCatetory[0].categoryName,
+  // )
 
-  const situationCategory = dummyCategoriesData.filter(
-    (dummyCategoriesData) =>
-      dummyCategoriesData.categoryParent === topCatetory[1].categoryName,
-  )
+  // const situationCategory = dummyCategoriesData.filter(
+  //   (dummyCategoriesData) =>
+  //     dummyCategoriesData.categoryParent === topCatetory[1].categoryName,
+  // )
+
+  const ingredientCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('재료별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
+
+  const situationCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('상황별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
+    console.log('ingredientCategoryList', ingredientCategoryList)
+    console.log('situationCategoryList', situationCategoryList)
 
   // // API에서 데이터
   // interface Category {
@@ -114,38 +133,39 @@ function Header() {
   }
 
   //검색바 스크롤
-  const [isVisible, setIsVisible] = useState(true);
-  const [isMain, setIsMain] = useState<boolean>(true); // 메인화면 판별
-  const [height, setHeight] = useState(0);
+  const [isVisible, setIsVisible] = useState(true)
+  const [isMain, setIsMain] = useState<boolean>(true) // 메인화면 판별
+  const [height, setHeight] = useState(0)
 
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    setIsMain(pathname === '/');
-  }, [pathname]);
+    setIsMain(pathname === '/')
+  }, [pathname])
 
   useEffect(() => {
     const listenToScroll = () => {
-      let heightToHideFrom = 200;
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      setHeight(winScroll);
+      let heightToHideFrom = 200
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop
+      setHeight(winScroll)
 
       if (isMain) {
         if (winScroll < heightToHideFrom) {
-          isVisible && setIsVisible(false); // Hidden
+          isVisible && setIsVisible(false) // Hidden
         } else {
           // Scroll up, show again
-          setIsVisible(true);
+          setIsVisible(true)
         }
       } else {
-        setIsVisible(true);
+        setIsVisible(true)
       }
-    };
+    }
 
-    window.addEventListener('scroll', listenToScroll);
+    window.addEventListener('scroll', listenToScroll)
 
-    return () => window.removeEventListener('scroll', listenToScroll);
-  }, [isMain]);
+    return () => window.removeEventListener('scroll', listenToScroll)
+  }, [isMain])
 
   return (
     <div className="w-[1024px] flex items-center mx-auto">
@@ -194,7 +214,7 @@ function Header() {
                 size={25}
                 value={searchTerm}
                 onChange={handleInputChange}
-              // onKeyPress={handleKeyPress}
+                // onKeyPress={handleKeyPress}
               />
               <button
                 id="submit"
@@ -225,14 +245,14 @@ function Header() {
                 {topCatetory[0]?.categoryName}
               </button>
               <div className="dropdown-content">
-                {ingredientCategory.map((item) => {
+                {ingredientCategoryList.map((item) => {
                   return (
                     <>
                       <Link
-                        to={`/category/${item.categoryName}`}
+                        to={`/category/${item}`}
                         className="block px-4 py-1 "
                       >
-                        {item.categoryName}
+                        {item}
                       </Link>
                     </>
                   )
@@ -246,14 +266,14 @@ function Header() {
                 {topCatetory[1]?.categoryName}
               </button>
               <div className="dropdown-content">
-                {situationCategory.map((item) => {
+                {situationCategoryList.map((item) => {
                   return (
                     <>
                       <Link
-                        to={`/category/${item.categoryName}`}
+                        to={`/category/${item}`}
                         className="block px-4 py-1 "
                       >
-                        {item.categoryName}
+                        {item}
                       </Link>
                     </>
                   )

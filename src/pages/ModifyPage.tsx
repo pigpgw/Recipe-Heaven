@@ -146,17 +146,6 @@ function ModifyRecipe() {
     }
   }
 
-  // console.log('State values after setting:', {
-  //   recipeName,
-  //   recipeMainImg,
-  //   portion,
-  //   leadTime,
-  //   level,
-  //   ingredients,
-  //   categoryIg,
-  //   categorySt,
-  //   recipeSequenceItems,
-  // })
 
   // const formData = new FormData()
   // formData.append('recipeName', recipeName)
