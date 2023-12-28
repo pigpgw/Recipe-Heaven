@@ -162,26 +162,6 @@ function Header() {
             />
           </Link>
         </div>
-        {/* <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
-        <input
-          type="text"
-          placeholder="검색어를 입력해주세요"
-          className="items-center border-none outline-none ml-4 text-xs"
-          size={25}
-          value={searchTerm}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-        />
-        <button id="submit" aria-label="submit" className="" onClick={handleSearch}>
-        <Link to={`/search/${searchTerm.trim()}`}>
-            <img
-              src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-              className="w-4 top-2 right-3 m-0 ml-5 justify-end"
-              alt="search"
-            />
-          </Link>
-        </button>
-      </div> */}
 
         {/* 스크롤 적용 수정코드 */}
         {isVisible && (
@@ -194,7 +174,7 @@ function Header() {
                 size={25}
                 value={searchTerm}
                 onChange={handleInputChange}
-              // onKeyPress={handleKeyPress}
+                onKeyPress={handleKeyPress}
               />
               <button
                 id="submit"

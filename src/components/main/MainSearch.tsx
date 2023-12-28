@@ -43,6 +43,7 @@ function MainSearch() {
           size={65}
           value={searchTerm}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
         />
           <button id="submit" aria-label="submit" className="" onClick={handleSearch}
 >
