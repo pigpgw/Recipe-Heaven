@@ -20,10 +20,13 @@ const Comment = ({ recipeId }: { recipeId: number }) => {
   }, [isLoading, data])
 
   return (
-    <div className="w-3/5">
+    <div className="w-5/6 flex flex-col items-center justify-center">
       <WriteComment />
       {commentList?.map((comment) => (
-        <div key={comment.reviewId} className="w-full">
+        <div
+          key={comment.reviewId}
+          className="w-full flex flex-col items-center justify-center"
+        >
           <CommentItem review={comment} />
         </div>
       ))}

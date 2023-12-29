@@ -64,6 +64,7 @@ function ModifyRecipe() {
         setCategoryIg(res.data.categoryIg)
         setCategorySt(res.data.categorySt)
         setRecipeSequenceItems(res.data.step)
+        console.log("수정 페이지 이전 데이터 체크",res.data)
       } catch (error) {
         console.error('이전 레시피 정보 가져오기 실패', error)
       }
@@ -128,8 +129,8 @@ function ModifyRecipe() {
       img: recipeMainImg,
       portion: portion,
       leadTime: leadTime,
-      // setCgIngredient: categoryIg,
-      // setCgSituation: categorySt,
+      setCgIngredient: categoryIg,
+      setCgSituation: categorySt,
       level: level,
       ingredient: ingredients,
       step: recipeSequenceItems,
@@ -165,7 +166,7 @@ function ModifyRecipe() {
           />
           <div className="w-full flex items-center justify-center flex-col">
             <div className="main-container">
-              <p className="main-title">레시피 등록</p>
+              <p className="main-title">레시피 수정</p>
               <div className="main-uploadImg-bg">
                 {recipeMainImg && recipeMainImg.length !== 0 ? (
                   <img

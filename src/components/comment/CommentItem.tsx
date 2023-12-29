@@ -57,7 +57,7 @@ const CommentItem = ({ review }: { review: Comment }) => {
               onRatingChange={handleRatingChange}
             />
           </div>
-          <div className="flex flex-row">
+          <div className="flex flex-row ">
             <div>
               <textarea
                 id="commentContent"
@@ -67,8 +67,8 @@ const CommentItem = ({ review }: { review: Comment }) => {
                 className="p-2 w-[42rem] rounded border border-gray-300 focus:outline-none resize-none"
               />
             </div>
-            <div className="ml-2">
-              <button type="submit" disabled={isUpdating}>
+            <div className="ml-3">
+              <button type="submit" className='center' disabled={isUpdating}>
                 완료
               </button>
             </div>

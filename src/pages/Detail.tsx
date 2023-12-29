@@ -86,9 +86,11 @@ function Detail() {
     reviews: any[]
   }
 
-  const { recipeId } = useParams<{ recipeId: string }>()
+  // const { recipeId } = useParams<{ recipeId: string }>()
+    const { recipeId } = useParams()
 
   useEffect(() => {
+    console.log('recipeId', recipeId)
     async function getData() {
       try {
         const res = await axios.get(

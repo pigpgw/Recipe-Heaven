@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { realCategoryList } from '../../public/dummy'
 import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function UploadRecipe() {
   const ingredientCategoryList = realCategoryList
@@ -81,7 +81,6 @@ function UploadRecipe() {
     const updatedIngredients = [...ingredients]
     updatedIngredients[index][key] = value
     setIngredients(updatedIngredients)
-    console.log('ingredient', ingredients)
   }
 
   const addIngredient = () => {
@@ -91,18 +90,20 @@ function UploadRecipe() {
   function createRecipeData() {
     return {
       recipeName: recipeName,
-      // img: recipeMainImg,
-      img: 'asdasd',
+      img: recipeMainImg,
+      // img: 'asdasd',
       portion: portion,
       leadTime: leadTime,
-      // setCgIngredient: categoryIg,
-      // setCgSituation: categorySt,
+      setCgIngredient: categoryIg,
+      setCgSituation: categorySt,
       level: level,
       ingredient: ingredients,
       step: recipeSequenceItems,
       // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
     }
   }
+
+
 
   const { recipeId } = useParams()
 
@@ -113,7 +114,7 @@ function UploadRecipe() {
         `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
         recipeData,
       )
-      console.log('success, json data', recipeData)
+      console.log('레시피 등록 성공!', recipeData)
       console.log('전송 성공')
     } catch (e) {
       const recipeData = createRecipeData()
@@ -305,10 +306,15 @@ function UploadRecipe() {
                         className="add-sequence-item-img-input"
                         type="file"
                         accept="image/*"
-                        onChange={(e) =>
-                          // file로 입력
-                          // handleStepChange(index, 'imgUrl', e.target.files[0])
-                          handleStepChange(index, 'imgUrl', 'ㅇㅇㅇ')
+                        onChange={
+                          (e) =>
+                            // file로 입력
+                            handleStepChange(
+                              index,
+                              'imgUrl',
+                              URL.createObjectURL(e.target.files[0]),
+                            )
+                          // handleStepChange(index, 'imgUrl', 'ㅇㅇㅇ')
                         }
                       />
                       {item.imgUrl === '' && (
@@ -321,7 +327,7 @@ function UploadRecipe() {
                       )}
                       {item.imgUrl && (
                         <img
-                          // src={URL.createObjectURL(item.imgUrl)}
+                          src={item.imgUrl}
                           alt={`Step ${item.stepNum}`}
                           className="recipe-step-image"
                         />

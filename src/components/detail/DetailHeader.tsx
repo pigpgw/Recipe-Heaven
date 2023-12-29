@@ -2,7 +2,6 @@ import React from 'react'
 import { FaRegClock } from 'react-icons/fa6'
 import { IoIosPeople } from 'react-icons/io'
 import { TbStarsFilled } from 'react-icons/tb'
-import { dummyData } from '../../../public/dummy'
 
 function DetailHeader({ fetchData }) {
   if (!fetchData) {
@@ -10,13 +9,14 @@ function DetailHeader({ fetchData }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-center min-w-[50rem]">
+    <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6">
       <div className="w-2/5 p-6 min-w-[25rem]">
         {/* 서버에서 이미지 받아오기 */}
         <img
           className="w-full h-[30rem]"
           // 수정 필요
-          src="../src/assets/detail/cake.jpeg"
+          // src="../src/assets/detail/cake.jpeg"
+          src={`../src/assets/common/크리스마스/당근라페샌드위치/main.jpeg`}
           alt=""
         />
       </div>
