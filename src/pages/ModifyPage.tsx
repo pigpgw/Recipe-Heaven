@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategorList } from '../../public/dummy'
+import { realCategoryList } from '../../public/dummy'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 import '../../src/components/uploadRecipe/uploadRecipe.css'
 
 function ModifyRecipe() {
-  // 카테고리 데이터 가져오는 api 구현 필요 등록 페이지에서 사용자가 어떤 재료이며 상황인지 받아와야함
+  const ingredientCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('재료별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
 
-  const [FkData, setFkData] = useState(null)
-  const ingredientCategoryTitle = dummyCategorList[0].name
-  const situationCategoryTitle = dummyCategorList[1].name
-  const ingredientCategory = dummyCategorList.filter((item) => item.id === 1)[0]
-    .children
-  const situationCategory = dummyCategorList.filter((item) => item.id === 2)[0]
-    .children
+  const situationCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('상황별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
 
   interface Ingredient {
     item: string
@@ -25,7 +31,7 @@ function ModifyRecipe() {
     des: string
     imgUrl: string
   }
-
+  const [FkData, setFkData] = useState(null)
   const [recipeName, setRecipeName] = useState<String>()
   const [recipeMainImg, setRecipeMainImg] = useState<String>()
   const [recipeMainImgPreview, setRecipeMainImgPreview] = useState<String>()
@@ -65,6 +71,10 @@ function ModifyRecipe() {
 
     getPreviousData()
   }, [recipeId])
+
+  useEffect(() => {
+    console.log('FkData', FkData)
+  })
 
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
@@ -203,9 +213,9 @@ function ModifyRecipe() {
                     setCategoryIg(e.target.value)
                   }}
                 >
-                  <option value="none">{ingredientCategoryTitle}</option>
-                  {ingredientCategory.map((item) => {
-                    return <option value={item.name}>{item.name}</option>
+                  <option value="none">재료별</option>
+                  {ingredientCategoryList.map((item) => {
+                    return <option value={item}>{item}</option>
                   })}
                 </select>
                 <select
@@ -215,9 +225,9 @@ function ModifyRecipe() {
                     setCategorySt(e.target.value)
                   }}
                 >
-                  <option value="none">{situationCategoryTitle}</option>
-                  {situationCategory.map((item) => {
-                    return <option value={item.name}>{item.name}</option>
+                  <option value="none">상황별</option>
+                  {situationCategoryList.map((item) => {
+                    return <option value={item}>{item}</option>
                   })}
                 </select>
               </div>

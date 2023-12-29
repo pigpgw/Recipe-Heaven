@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { dummyCategorList } from '../../public/dummy'
+import { realCategoryList } from '../../public/dummy'
 import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link, useParams } from 'react-router-dom'
 
 function UploadRecipe() {
-  const ingredientCategoryTitle = dummyCategorList[0].name
-  const situationCategoryTitle = dummyCategorList[1].name
-  const ingredientCategory = dummyCategorList.filter((item) => item.id === 1)[0]
-    .children
-  const situationCategory = dummyCategorList.filter((item) => item.id === 2)[0]
-    .children
+  const ingredientCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('재료별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
+
+  const situationCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('상황별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
 
   interface Ingredient {
     item: string
@@ -100,26 +109,11 @@ function UploadRecipe() {
   const submit = async () => {
     try {
       const recipeData = createRecipeData()
-      // const formData = new FormData()
-      // formData.append('recipeName', recipeName.toString())
-      // formData.append('img', recipeMainImg)
-      // formData.append('portion', portion.toString())
-      // formData.append('portion', portion.toString())
-      // formData.append('leadTime', leadTime.toString())
-      // // formData.append('setCgIngredient', categoryIg)
-      // // formData.append('setCgSituation', categorySt)
-      // formData.append('level', level.toString())
-      // formData.append('ingredient', JSON.stringify(ingredients))
-      // formData.append('step', JSON.stringify(recipeSequenceItems))
-
       await axios.post(
         `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
-        // 'https://jsonplaceholder.typicode.com/recipes',
-        // formData,
         recipeData,
       )
       console.log('success, json data', recipeData)
-      // console.log('success, form Data', formData)
       console.log('전송 성공')
     } catch (e) {
       const recipeData = createRecipeData()
@@ -187,9 +181,9 @@ function UploadRecipe() {
                 setCategoryIg(e.target.value)
               }}
             >
-              <option value="none">{ingredientCategoryTitle}</option>
-              {ingredientCategory.map((item) => {
-                return <option value={item.name}>{item.name}</option>
+              <option value="none">재료별</option>
+              {ingredientCategoryList.map((item) => {
+                return <option value={item}>{item}</option>
               })}
             </select>
             <select
@@ -198,9 +192,9 @@ function UploadRecipe() {
                 setCategorySt(e.target.value)
               }}
             >
-              <option value="none">{situationCategoryTitle}</option>
-              {situationCategory.map((item) => {
-                return <option value={item.name}>{item.name}</option>
+              <option value="none">상황별</option>
+              {situationCategoryList.map((item) => {
+                return <option value={item}>{item}</option>
               })}
             </select>
           </div>
