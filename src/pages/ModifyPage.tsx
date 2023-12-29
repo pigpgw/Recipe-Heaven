@@ -145,19 +145,6 @@ function ModifyRecipe() {
     }
   }
 
-
-  // const formData = new FormData()
-  // formData.append('recipeName', recipeName)
-  // formData.append('img', recipeMainImg)
-  // formData.append('portion', portion)
-  // formData.append('portion', portion)
-  // formData.append('leadTime', leadTime)
-  // formData.append('setCgIngredient', categoryIg)
-  // formData.append('setCgSituation', categorySt)
-  // formData.append('level', level)
-  // formData.append('ingredient', JSON.stringify(ingredients))
-  // formData.append('step', JSON.stringify(recipeSequenceItems))
-
   return (
     <>
       {FkData && (

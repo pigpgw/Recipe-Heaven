@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '../store/store'
 import axios from 'axios'
 import { QueryFunction } from '@tanstack/react-query'
-import { dummyCategoriesData, realCategoryList } from '../../../public/dummy'
+import { realCategoryList } from '../../../public/dummy'
 import './navbar.css'
 import MainSearch from '../main/MainSearch'
 import toast from 'react-hot-toast'
@@ -12,24 +12,6 @@ import toast from 'react-hot-toast'
 
 
 function Header() {
-  //카테고리 navbar 더미데이터 가져오기
-  dummyCategoriesData.map((item) => {})
-
-  //categoryParent=null 필터링해서 상위카테고리로 만들기
-  const topCatetory = dummyCategoriesData.filter(
-    (dummyCategoriesData) => dummyCategoriesData.categoryParent === 'null',
-  )
-
-  // const ingredientCategory = dummyCategoriesData.filter(
-  //   (dummyCategoriesData) =>
-  //     dummyCategoriesData.categoryParent === topCatetory[0].categoryName,
-  // )
-
-  // const situationCategory = dummyCategoriesData.filter(
-  //   (dummyCategoriesData) =>
-  //     dummyCategoriesData.categoryParent === topCatetory[1].categoryName,
-  // )
-
   const ingredientCategoryList = realCategoryList
     .filter((item) => {
       return item.categoryName?.indexOf('재료별') === 0
@@ -45,8 +27,6 @@ function Header() {
     .map((item) => {
       return item.categoryName?.split('_')[1]
     })
-    console.log('ingredientCategoryList', ingredientCategoryList)
-    console.log('situationCategoryList', situationCategoryList)
 
   // // API에서 데이터
   // interface Category {
@@ -222,7 +202,7 @@ function Header() {
           <li>
             <div className="dropdown">
               <button className="dropbtn">
-                {topCatetory[0]?.categoryName}
+                재료별
               </button>
               <div className="dropdown-content">
                 {ingredientCategoryList.map((item) => {
@@ -243,7 +223,7 @@ function Header() {
           <li>
             <div className="dropdown">
               <button className="dropbtn">
-                {topCatetory[1]?.categoryName}
+                상황별
               </button>
               <div className="dropdown-content">
                 {situationCategoryList.map((item) => {

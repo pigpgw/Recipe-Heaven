@@ -1,7 +1,5 @@
 import React from 'react'
-import Header from '../components/common/Header'
 import MainSearch from '../components/main/MainSearch'
-import Footer from '../components/common/Footer'
 import RankItem from '../components/main/RankItem'
 import { Link } from 'react-router-dom'
 
