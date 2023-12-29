@@ -15,20 +15,21 @@ function Main() {
           className="w-[64rem]"
         />
       </div>
-      <Link to="/search">
-        {/* 경로변경필요 */}
-        <span className="flex flex-col items-center text-2xl font-bold my-7">
-          이달의 인기 레시피 {'>'}
-        </span>
-      </Link>
-      <RankItem />
-      <Link to="/category/해산물">
-        {/* 경로변경필요 */}
-        <span className="flex flex-col items-center text-2xl font-bold my-7">
-          바다를 품은 레시피 {'>'}
-        </span>
-      </Link>
-      <RankItem />
+
+      {/* 경로변경필요 */}
+      <span className="flex flex-col items-center text-2xl font-bold my-7">
+        <Link to="/search/모든레시피">
+          <p> 이달의 인기 레시피 {'>'}</p>
+        </Link>
+      </span>
+      <RankItem topic={'테스트'} />
+      {/* 경로변경필요 */}
+      <span className="flex flex-col items-center text-2xl font-bold my-7">
+        <Link to="/category/해산물">
+          <p> 바다를 품은 레시피 {'>'}</p>
+        </Link>
+      </span>
+      <RankItem topic={'해산물'} />
     </div>
   )
 }
