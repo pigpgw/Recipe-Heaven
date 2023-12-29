@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import WriteComment from './WriteComment'
 import { Comment } from '../../fetch/APIResponsesTypes'
 import { useQuery } from '@tanstack/react-query'
-import fetchTestComment from '../../fetch/fetchMyComment'
+import fetchTestComment from '../../fetch/fetchTestComment'
 import CommentItem from './CommentItem'
 
 const Comment = ({ recipeId }: { recipeId: number }) => {
