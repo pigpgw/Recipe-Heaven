@@ -1,10 +1,5 @@
 import React from 'react'
 
-// type DetailMainProps = {
-//   explaincontentList: string[]
-//   sequenceImgList: string[]
-// }
-
 function DetailMain({ explaincontentList, sequenceImgList }) {
   console.log('sequenceImgList', sequenceImgList)
   return (
@@ -26,12 +21,6 @@ function DetailMain({ explaincontentList, sequenceImgList }) {
     </div>
   )
 }
-
-// type FoodMakingListProps = {
-//   sequenseImgUrl: string
-//   explainText: string
-//   index: number
-// }
 
 function FoodMakingList({
   sequenseImgUrl,
