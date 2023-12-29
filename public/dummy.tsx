@@ -23,89 +23,6 @@ const dummyData = {
   Like: 23,
 }
 
-const reviewModel = [
-  {
-    reviewId: 'ceads',
-    recipeId: 4,
-    id: 1,
-    start: 4,
-    comment: "It's so delicious",
-    time: 'October 22, 2022',
-  },
-  {
-    reviewId: 'asdjf',
-    recipeId: 5,
-    id: 2,
-    start: 5,
-    comment: 'Amazing recipe!',
-    time: 'November 5, 2022',
-  },
-  {
-    reviewId: 'qwery',
-    recipeId: 0,
-    id: 3,
-    start: 3,
-    comment: 'Not bad, but could be better',
-    time: 'December 12, 2022',
-  },
-  {
-    reviewId: 'zxcvb',
-    recipeId: 0,
-    id: 4,
-    start: 5,
-    comment: 'Absolutely loved it!',
-    time: 'January 8, 2023',
-  },
-  {
-    reviewId: 'plmok',
-    recipeId: 9,
-    id: 5,
-    start: 4,
-    comment: 'Good taste, easy to make',
-    time: 'February 14, 2023',
-  },
-  {
-    reviewId: 'uytre',
-    recipeId: 6,
-    id: 6,
-    start: 4,
-    comment: 'Delicious and satisfying',
-    time: 'March 3, 2023',
-  },
-  {
-    reviewId: 'nbvcs',
-    recipeId: 8,
-    id: 7,
-    start: 2,
-    comment: 'Could use more flavor',
-    time: 'April 19, 2023',
-  },
-  {
-    reviewId: 'hgfds',
-    recipeId: 3,
-    id: 8,
-    start: 5,
-    comment: 'Perfect recipe, will make again!',
-    time: 'May 7, 2023',
-  },
-  {
-    reviewId: 'lkjhg',
-    recipeId: 1,
-    id: 9,
-    start: 3,
-    comment: 'Decent, but not my favorite',
-    time: 'June 25, 2023',
-  },
-  {
-    reviewId: 'mnbvc',
-    recipeId: 10,
-    id: 10,
-    start: 4,
-    comment: 'Tasty and quick to prepare',
-    time: 'July 11, 2023',
-  },
-]
-
 //헤더 카테고리 navbar 관련
 interface Category {
   categoryId: number
@@ -121,7 +38,7 @@ const dummyCategoriesData: Category[] = [
   },
   {
     categoryId: 2,
-    categoryName: '소고기',
+    categoryName: '육류',
     categoryParent: '재료별',
   },
   {
@@ -131,43 +48,13 @@ const dummyCategoriesData: Category[] = [
   },
   {
     categoryId: 4,
-    categoryName: '일상',
+    categoryName: '특별한날',
     categoryParent: '상황별',
   },
   {
     categoryId: 5,
-    categoryName: '돼지고기',
-    categoryParent: '재료별',
-  },
-  {
-    categoryId: 6,
-    categoryName: '닭고기',
-    categoryParent: '재료별',
-  },
-  {
-    categoryId: 6,
     categoryName: '해산물',
     categoryParent: '재료별',
-  },
-  {
-    categoryId: 6,
-    categoryName: '채소',
-    categoryParent: '재료별',
-  },
-  {
-    categoryId: 6,
-    categoryName: '파티요리',
-    categoryParent: '상황별',
-  },
-  {
-    categoryId: 6,
-    categoryName: '다이어트',
-    categoryParent: '상황별',
-  },
-  {
-    categoryId: 6,
-    categoryName: '간편요리',
-    categoryParent: '상황별',
   },
   {
     categoryId: 6,
@@ -194,6 +81,49 @@ const dummyCategorList = [
       { id: 2, name: 'Lunch' },
       { id: 3, name: 'Dinner' },
     ],
+  },
+]
+
+const realCategoryList = [
+  {
+    id: 1,
+    categoryName: '재료별_소고기',
+  },
+  {
+    id: 2,
+    categoryName: '재료별_돼지고기',
+  },
+  {
+    id: 3,
+    categoryName: '재료별_닭고기',
+  },
+  {
+    id: 4,
+    categoryName: '재료별_해산물',
+  },
+  {
+    id: 5,
+    categoryName: '재료별_채소류',
+  },
+  {
+    id: 6,
+    categoryName: '상황별_일상',
+  },
+  {
+    id: 7,
+    categoryName: '상황별_특별한날',
+  },
+  {
+    id: 8,
+    categoryName: '상황별_다이어트',
+  },
+  {
+    id: 9,
+    categoryName: '상황별_간편요리',
+  },
+  {
+    id: 10,
+    categoryName: '상황별_크리스마스',
   },
 ]
 
@@ -231,10 +161,12 @@ const previousData = [
   },
 ]
 
+
+
 export {
   dummyData,
-  reviewModel,
   dummyCategoriesData,
   previousData,
   dummyCategorList,
+  realCategoryList,
 }

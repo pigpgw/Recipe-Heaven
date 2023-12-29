@@ -10,15 +10,14 @@ import MainSearch from '../main/MainSearch'
 import toast from 'react-hot-toast'
 // import { create } from 'zustand';
 
-
 function Header() {
-  //카테고리 navbar 더미데이터 가져오기
-  dummyCategoriesData.map((item) => {})
+  // //카테고리 navbar 더미데이터 가져오기
+  // dummyCategoriesData.map((item) => {})
 
-  //categoryParent=null 필터링해서 상위카테고리로 만들기
-  const topCatetory = dummyCategoriesData.filter(
-    (dummyCategoriesData) => dummyCategoriesData.categoryParent === 'null',
-  )
+  // //categoryParent=null 필터링해서 상위카테고리로 만들기
+  // const topCatetory = dummyCategoriesData.filter(
+  //   (dummyCategoriesData) => dummyCategoriesData.categoryParent === 'null',
+  // )
 
   // const ingredientCategory = dummyCategoriesData.filter(
   //   (dummyCategoriesData) =>
@@ -45,8 +44,8 @@ function Header() {
     .map((item) => {
       return item.categoryName?.split('_')[1]
     })
-    console.log('ingredientCategoryList', ingredientCategoryList)
-    console.log('situationCategoryList', situationCategoryList)
+  console.log('ingredientCategoryList', ingredientCategoryList)
+  console.log('situationCategoryList', situationCategoryList)
 
   // // API에서 데이터
   // interface Category {
@@ -210,9 +209,7 @@ function Header() {
           </li>
           <li>
             <div className="dropdown">
-              <button className="dropbtn">
-                {topCatetory[0]?.categoryName}
-              </button>
+              <button className="dropbtn">재료별</button>
               <div className="dropdown-content">
                 {ingredientCategoryList.map((item) => {
                   return (
@@ -231,9 +228,7 @@ function Header() {
           </li>
           <li>
             <div className="dropdown">
-              <button className="dropbtn">
-                {topCatetory[1]?.categoryName}
-              </button>
+              <button className="dropbtn">상황별</button>
               <div className="dropdown-content">
                 {situationCategoryList.map((item) => {
                   return (

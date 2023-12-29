@@ -3,10 +3,9 @@ import { RecipeCard } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
 
 const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
-  const { category, items, page } = queryKey[1]
+  const { category, items, page, keyword } = queryKey[1]
 
   try {
-    // 카테고리가 있으면 카테고리 키워드가 있으면 키워드
     let apiRes
 
     if (category) {
@@ -18,9 +17,12 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
       apiRes = await axios.get(
         `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
       )
+      if (keyword !== '모든레시피')
+        return apiRes.data.filter((recipe) =>
+          recipe.recipeName.includes(keyword),
+        )
     }
 
-    console.log(apiRes.data)
     return apiRes.data
   } catch (error) {
     console.error(error)
