@@ -5,15 +5,28 @@ import { QueryFunction } from '@tanstack/react-query'
 const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
   const { category, items, page, keyword } = queryKey[1]
 
-  // 현재 카테고리 상태는 category = '돼지고기'
-  // categoryId = 3
+  try {
+    const categoryApiRes = await axios.get(
+      'http://kdt-sw-7-team06.elicecoding.com:3000/categorys',
+    )
+    categoryApiRes.data.filter((item) => {
+      item.categoryName.indexOf(category) !== -1
+    })
+    return categoryApiRes.data.filter((item) => {
+      item.categoryName.indexOf(category) !== -1
+    })
+  } catch (e) {
+    console.log('category api get error', e)
+  }
 
   try {
     let apiRes
 
     if (category) {
       apiRes = await axios.get(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${categoryId}`,
+        `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${
+          categoryApiRes().categoryId
+        }`,
         // `http://kdt-sw-7-team06.elicecoding.com:3000/top-categorys/${category}`,
       )
       // return apiRes.data.recipes
