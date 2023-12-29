@@ -76,7 +76,7 @@ function ModifyRecipe() {
     if (selectedFile) {
       setMainImageVisible(true)
       // setRecipeMainImg(selectedFile)
-      setRecipeMainImg("현재는 응애입니다")
+      setRecipeMainImg('현재는 응애입니다')
       setRecipeMainImgPreview(URL.createObjectURL(recipeMainImg))
     }
   }
@@ -142,21 +142,9 @@ function ModifyRecipe() {
       const recipeData = createRecipeData()
       console.log('오류 기념 보낸 데이터 체크', recipeData)
       console.error('오류 문구 확인', error)
-
     }
   }
 
-  // console.log('State values after setting:', {
-  //   recipeName,
-  //   recipeMainImg,
-  //   portion,
-  //   leadTime,
-  //   level,
-  //   ingredients,
-  //   categoryIg,
-  //   categorySt,
-  //   recipeSequenceItems,
-  // })
 
   // const formData = new FormData()
   // formData.append('recipeName', recipeName)

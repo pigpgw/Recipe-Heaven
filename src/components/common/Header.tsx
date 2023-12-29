@@ -353,7 +353,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '../store/store'
 import axios from 'axios'
 import { QueryFunction } from '@tanstack/react-query'
-import { dummyCategoriesData } from '../../../public/dummy'
+import { dummyCategoriesData, realCategoryList } from '../../../public/dummy'
 import './navbar.css'
 import MainSearch from '../main/MainSearch'
 import toast from 'react-hot-toast'
@@ -368,15 +368,33 @@ function Header() {
     (dummyCategoriesData) => dummyCategoriesData.categoryParent === 'null',
   )
 
-  const ingredientCategory = dummyCategoriesData.filter(
-    (dummyCategoriesData) =>
-      dummyCategoriesData.categoryParent === topCatetory[0].categoryName,
-  )
+  // const ingredientCategory = dummyCategoriesData.filter(
+  //   (dummyCategoriesData) =>
+  //     dummyCategoriesData.categoryParent === topCatetory[0].categoryName,
+  // )
 
-  const situationCategory = dummyCategoriesData.filter(
-    (dummyCategoriesData) =>
-      dummyCategoriesData.categoryParent === topCatetory[1].categoryName,
-  )
+  // const situationCategory = dummyCategoriesData.filter(
+  //   (dummyCategoriesData) =>
+  //     dummyCategoriesData.categoryParent === topCatetory[1].categoryName,
+  // )
+
+  const ingredientCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('재료별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
+
+  const situationCategoryList = realCategoryList
+    .filter((item) => {
+      return item.categoryName?.indexOf('상황별') === 0
+    })
+    .map((item) => {
+      return item.categoryName?.split('_')[1]
+    })
+  console.log('ingredientCategoryList', ingredientCategoryList)
+  console.log('situationCategoryList', situationCategoryList)
 
   // // API에서 데이터
   // interface Category {
@@ -549,26 +567,6 @@ function Header() {
             />
           </Link>
         </div>
-        {/* <div className="HSB mx-4 my-4 w-60 h-10 p-1.5 rounded-full border border-solid space-between">
-        <input
-          type="text"
-          placeholder="검색어를 입력해주세요"
-          className="items-center border-none outline-none ml-4 text-xs"
-          size={25}
-          value={searchTerm}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
-        />
-        <button id="submit" aria-label="submit" className="" onClick={handleSearch}>
-        <Link to={`/search/${searchTerm.trim()}`}>
-            <img
-              src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-              className="w-4 top-2 right-3 m-0 ml-5 justify-end"
-              alt="search"
-            />
-          </Link>
-        </button>
-      </div> */}
 
         {/* 스크롤 적용 수정코드 */}
         {isVisible && (
@@ -612,14 +610,14 @@ function Header() {
                 {topCatetory[0]?.categoryName}
               </button>
               <div className="dropdown-content">
-                {ingredientCategory.map((item) => {
+                {ingredientCategoryList.map((item) => {
                   return (
                     <>
                       <Link
-                        to={`/category/${item.categoryName}`}
+                        to={`/category/${item}`}
                         className="block px-4 py-1 "
                       >
-                        {item.categoryName}
+                        {item}
                       </Link>
                     </>
                   )
@@ -633,14 +631,14 @@ function Header() {
                 {topCatetory[1]?.categoryName}
               </button>
               <div className="dropdown-content">
-                {situationCategory.map((item) => {
+                {situationCategoryList.map((item) => {
                   return (
                     <>
                       <Link
-                        to={`/category/${item.categoryName}`}
+                        to={`/category/${item}`}
                         className="block px-4 py-1 "
                       >
-                        {item.categoryName}
+                        {item}
                       </Link>
                     </>
                   )
