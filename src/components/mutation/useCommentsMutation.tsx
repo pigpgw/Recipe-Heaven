@@ -14,7 +14,7 @@ export const usePostCommentMutation = () => {
     void,
     Error
   >({
-    mutationFn: (postData: Comment) => fetchPostComment(postData),
+    mutationFn: (postData: Comment) => fetchPostComment('postData'),
     onMutate: async (postData: Comment) => {
       await queryClient.cancelQueries({ queryKey: ['comments'] })
       const previousComments = queryClient.getQueriesData<Comment[]>([
@@ -84,8 +84,12 @@ export const useUpdateCommentMutation = () => {
     Error,
     Comment
   >({
-    mutationFn: (updatedComment: Comment) => fetchPostComment('update'),
+    mutationFn: (updatedComment: Comment) => fetchPostComment(updatedComment),
     onMutate: async (updatedComment: Comment) => {
+      if (!updatedComment || !updatedComment.reviewId) {
+        throw new Error('Invalid comment data provided for update.')
+      }
+
       await queryClient.cancelQueries({ queryKey: ['comments'] })
       const previousComments = queryClient.getQueriesData<Comment[]>([
         'comments',

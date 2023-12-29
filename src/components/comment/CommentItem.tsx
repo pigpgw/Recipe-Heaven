@@ -68,7 +68,7 @@ const CommentItem = ({ review }: { review: Comment }) => {
               />
             </div>
             <div className="ml-3">
-              <button type="submit" className='center' disabled={isUpdating}>
+              <button type="submit" className="center" disabled={isUpdating}>
                 완료
               </button>
             </div>

@@ -6,11 +6,14 @@ import { usePostCommentMutation } from '../mutation/useCommentsMutation'
 const WriteComment = () => {
   const [selectedRating, setSelectedRating] = useState(0)
   const [commentContent, setCommentContent] = useState('')
-
   const { postComment, isPosting } = usePostCommentMutation()
 
   const handleRatingChange = (rating: number): void => {
     setSelectedRating(rating)
+  }
+
+  function getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -23,8 +26,12 @@ const WriteComment = () => {
       toast.error('내용을 입력해주세요')
       return
     }
-
-    postComment({ comment: commentContent, star: selectedRating })
+    const randomNum = getRandomInt(1000, 2000)
+    postComment({
+      comment: commentContent,
+      star: selectedRating,
+      reviewId: randomNum,
+    })
     setSelectedRating(0)
     setCommentContent('')
   }
