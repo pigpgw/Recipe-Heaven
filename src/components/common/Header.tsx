@@ -67,17 +67,6 @@ function Header() {
   //   }
   // }
 
-  // getCategoryData()
-  //   .then(apiResponse => {
-  //     // "categoryParent"가 "null"인 항목 필터링
-  //     // console.log("필터링")
-  //     const topLevelCategories = apiResponse.filter(category => category.categoryParent === null);
-  //     console.log('필터링된 결과:', topLevelCategories);
-  //   })
-  //   .catch(error => {
-  //     console.error('에러:', error);
-  //   });
-
   //검색 키워드 걸리게하기
   const [searchTerm, setSearchTerm] = useState<string>('')
 
