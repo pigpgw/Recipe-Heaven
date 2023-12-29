@@ -135,8 +135,8 @@ function ModifyRecipe() {
       ingredient: ingredients,
       step: recipeSequenceItems,
       // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
-      aveStar: 4,
-      recipeId: 1,
+      // aveStar: 4,
+      // recipeId: 1,
     }
   }
   // console.log("변경된 데이터 확인",createRecipeData())

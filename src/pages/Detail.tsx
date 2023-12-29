@@ -137,27 +137,10 @@ function Detail() {
     // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
     // id 를 활용해 레시피와 댓글 가져오기
 
-    <div className="flex flex-col items-center justify-center bg-red-400 min-w-[480px]">
+    <div className="flex flex-col items-center justify-center min-w-[480px]">
       <div className="w-5/6 bg-white h-90 flex flex-wrap items-center justify-center min-w-[800px]">
-        <div>
-          <button
-            onClick={() => {
-              setMyBlogContent(true)
-            }}
-            className="p-5"
-          >
-            내 글에 접속
-          </button>
-          <button
-            onClick={() => {
-              setMyBlogContent(false)
-            }}
-          >
-            다른사람 글
-          </button>
-        </div>
         {myBlogContent && (
-          <div className="w-full">
+          <div className="w-full mt-14">
             <div
               className="float-right px-10 relative top-5"
               onClick={handleMoreClick}

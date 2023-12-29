@@ -11,8 +11,8 @@ function DetailHeader({ fetchData }) {
   console.log('fetchData', fetchData.img)
 
   return (
-    <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6">
-      <div className="w-2/5 p-6 min-w-[25rem]">
+    <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6 ml-[5rem]">
+      <div className="w-2/5 px-6 min-w-[25rem]">
         {/* 서버에서 이미지 받아오기 */}
         <img
           className="w-full h-[30rem]"
@@ -24,18 +24,18 @@ function DetailHeader({ fetchData }) {
           alt=""
         />
       </div>
-      <div className="w-3/5 p-8">
+      <div className="w-3/5">
         <div className="w-full">
           <div className="flex justify-between">
             <div className="text-2xl font-bold">
-              요리명 : {fetchData.recipeName}
+              {fetchData.recipeName}
             </div>
             <div className="flex justify-center items-center p-2">
-              <img
-                className="w-[2rem]"
-                src="./src/assets/detail/다운로드.png"
+              {/* <img
+                className="w-[3rem] h-[3rem]"
+                src="../src/assets/detail/다운로드.png"
                 alt=""
-              />
+              /> */}
               <h4 className="p-1">{fetchData.Like}</h4>
             </div>
           </div>
@@ -69,20 +69,18 @@ function DetailHeader({ fetchData }) {
         </div>
 
         <div className="py-2">
-          <p className="text-1xl py-4 font-extrabold">
+          <p className="text-1xl py-2 font-extrabold">
             재료 및 분량{' '}
             <span className="text-orange-600">{fetchData.portion}</span>
           </p>
-          <div className="h-[14rem] bg-gray-100 p-7 font-medium">
-            <div className="flex w-full">
-              {fetchData?.ingredient?.map((item, index) => {
-                return (
-                  <div key={index} className="p-2">
-                    {item.item} {item.unit}
-                  </div>
-                )
-              })}
-            </div>
+          <div className="bg-gray-100 px-8 pt-3 font-medium flex flex-wrap w-10/12 min-h-[19rem]">
+            {fetchData?.ingredient?.map((item, index) => {
+              return (
+                <div key={index} className="p-2 w-1/2">
+                  {`${item.item} ${item.unit}`}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
