@@ -44,7 +44,7 @@ function FoodMakingList({
       {sequenseImgUrl ? (
         <div className="flex  justify-center p-10 flex-wrap w-full">
           <div className="w-9/12 px-2 py-2 flex">
-            <div className="text-2xl w-7 h-10 bg-orange-600 flex items-center justify-center rounded-3xl">
+            <div className="text-2xl w-10 h-10 bg-orange-600 flex items-center justify-center rounded-3xl">
               {index + 1}
             </div>
             <p className="px-5 m-2  min-w-[15rem]">{explainText}</p>
@@ -67,6 +67,9 @@ function FoodMakingList({
               {index + 1}
             </div>
             <p className="px-5 m-2  min-w-[15rem]">{explainText}</p>
+          </div>
+          <div className="w-3/12 min-w-[10rem]">
+            <div className="w-[22rem] h-[15rem] rounded-2xl"></div>
           </div>
         </div>
       )}
