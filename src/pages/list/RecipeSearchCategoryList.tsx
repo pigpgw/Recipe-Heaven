@@ -42,11 +42,11 @@ function RecipeSearchCategoryList() {
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   useEffect(() => {
-    if (!isLoading && !isError && data && data?.length) {
-      // setRecipes((prev) => [...prev, ...data])
-      setRecipes(data)
-      setIsLoadingMore(false)
-    }
+      if (!isLoading && !isError && data && data?.length) {
+        // setRecipes((prev) => [...prev, ...data])
+        setRecipes(data)
+        setIsLoadingMore(false)
+      }
   }, [isLoading, isError, data])
 
   const intersectRef = useIntersect(
