@@ -275,23 +275,23 @@ function Header() {
             </button>
             {accessToken && (
               <div className="dropdown-content">
-                <Link to="/" className="block px-3 py-1 ">
+                <Link to="/my" className="block px-3 py-1 ">
                   마이페이지
                 </Link>
-                <Link to="/"> <button onClick={logout} className="block px-4 py-1">
+                <Link to="/"> <button onClick={logout} className="block px-3 py-1">
                   로그아웃</button>
                 </Link>
               </div>
             )}
           </div>
-          <Link to="uploadrecipe">
+          <button className="dropbtn2">
             <img
               className="mr-1"
               src="https://lh3.google.com/u/0/d/1MbdaCOcC1cppV4aKUSeeYKSA2MZ7wNKF=w1028-h912-iv1"
               alt=""
               onClick={writingIconClick}
             />
-          </Link>
+          </button>
         </div>
       </div>
     </div>

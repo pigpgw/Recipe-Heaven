@@ -19,6 +19,8 @@ function RecipeSearchCategoryList() {
   const [recipes, setRecipes] = useState<RecipeCard[]>([])
   const { likedRecipes, toggleLikedRecipe }: StoreState = useStore()
 
+  console.log("category",category)
+
   useEffect(() => {
     if (!category) {
       throw new Error('검색어를 입력해주세요')
@@ -40,10 +42,11 @@ function RecipeSearchCategoryList() {
   const [isLoadingMore, setIsLoadingMore] = useState(false)
 
   useEffect(() => {
-    if (!isLoading && !isError && data && data?.length) {
-      setRecipes((prev) => [...prev, ...data])
-      setIsLoadingMore(false)
-    }
+      if (!isLoading && !isError && data && data?.length) {
+        // setRecipes((prev) => [...prev, ...data])
+        setRecipes(data)
+        setIsLoadingMore(false)
+      }
   }, [isLoading, isError, data])
 
   const intersectRef = useIntersect(

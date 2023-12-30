@@ -9,12 +9,13 @@ import { RecipeCard } from '../../fetch/APIResponsesTypes'
 
 const RecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
   const { isLiked }: StoreState = useStore()
-  console.log("recipe",recipe)
+  // console.log("recipe",recipe)
+    // console.log('recipeId', recipe.recipeId)
   const { toggleRecipeLiked } = useToggleLikeMutation(recipe.recipeId)
 
   const getRandomStarRating = () => {
     // 소수점 한 자리까지 표시
-    const randomRating = (Math.random() * 2 + 3).toFixed(1);
+    const randomRating = (Math.random() + 4).toFixed(1);
     return randomRating;
   };
 
