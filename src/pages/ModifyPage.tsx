@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { realCategoryList } from '../../public/dummy'
 import axios from 'axios'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import '../../src/components/uploadRecipe/uploadRecipe.css'
 
 function ModifyRecipe() {
@@ -64,7 +64,7 @@ function ModifyRecipe() {
         setCategoryIg(res.data.categoryIg)
         setCategorySt(res.data.categorySt)
         setRecipeSequenceItems(res.data.step)
-        console.log("수정 페이지 이전 데이터 체크",res.data)
+        console.log('수정 페이지 이전 데이터 체크', res.data)
       } catch (error) {
         console.error('이전 레시피 정보 가져오기 실패', error)
       }
@@ -140,6 +140,8 @@ function ModifyRecipe() {
     }
   }
   // console.log("변경된 데이터 확인",createRecipeData())
+
+  const navigate = useNavigate()
   const patchUserData = async () => {
     try {
       const recipeData = createRecipeData()
@@ -149,6 +151,7 @@ function ModifyRecipe() {
         recipeData,
       )
       console.log('레시피 수정 성공및 보낸 데이터 확인', recipeData)
+      navigate('/')
     } catch (error) {
       const recipeData = createRecipeData()
       console.log('오류 기념 보낸 데이터 체크', recipeData)

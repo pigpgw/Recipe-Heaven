@@ -103,8 +103,7 @@ function UploadRecipe() {
     }
   }
 
-
-
+  const navigate = useNavigate()
   const { recipeId } = useParams()
 
   const submit = async () => {
@@ -116,6 +115,7 @@ function UploadRecipe() {
       )
       console.log('레시피 등록 성공!', recipeData)
       console.log('전송 성공')
+      navigate('/')
     } catch (e) {
       const recipeData = createRecipeData()
       console.log('전송 대 실패', recipeData)
@@ -126,7 +126,7 @@ function UploadRecipe() {
   // console.log('window.location.href', window.location)
 
   useEffect(() => {
-    console.log(createRecipeData());
+    console.log(createRecipeData())
   })
 
   return (
