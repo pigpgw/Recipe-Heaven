@@ -268,30 +268,30 @@ function Header() {
             <button className="dropbtn">
               <img
                 className="mr-2"
-                src="/src/assets/ico_user.png"
+                src="./src/assets/ico_user.png"
                 alt=""
                 onClick={mypageIconClick}
               />
             </button>
             {accessToken && (
               <div className="dropdown-content">
-                <Link to="/" className="block px-3 py-1 ">
+                <Link to="/my" className="block px-3 py-1 ">
                   마이페이지
                 </Link>
-                <Link to="/"> <button onClick={logout} className="block px-4 py-1">
+                <Link to="/"> <button onClick={logout} className="block px-3 py-1">
                   로그아웃</button>
                 </Link>
               </div>
             )}
           </div>
-          <Link to="uploadrecipe">
+          <button className="dropbtn2">
             <img
               className="mr-1"
-              src="/src/assets/rcp_write.png"
+              src="./src/assets/rcp_write.png"
               alt=""
               onClick={writingIconClick}
             />
-          </Link>
+          </button>
         </div>
       </div>
     </div>
