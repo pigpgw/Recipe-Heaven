@@ -9,7 +9,8 @@ import { RecipeCard } from '../../fetch/APIResponsesTypes'
 
 const RecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
   const { isLiked }: StoreState = useStore()
-  console.log("recipe",recipe)
+  // console.log("recipe",recipe)
+    // console.log('recipeId', recipe.recipeId)
   const { toggleRecipeLiked } = useToggleLikeMutation(recipe.recipeId)
 
   const getRandomStarRating = () => {
