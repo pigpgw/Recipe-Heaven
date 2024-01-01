@@ -12,10 +12,10 @@ function DetailHeader({ fetchData }) {
 
   return (
     <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6 ml-[5rem]">
-      <div className="w-2/5 px-6 min-w-[25rem]">
+      <div className="w-2/5 px-6 min-w-[22rem]">
         {/* 서버에서 이미지 받아오기 */}
         <img
-          className="min-w-[27rem] h-[30rem]"
+          className="min-w-[24rem] h-[30rem]"
           // 수정 필요
           // src="../src/assets/detail/cake.jpeg"
           // src={`../src/assets/common/크리스마스/당근라페샌드위치/main.jpeg`}

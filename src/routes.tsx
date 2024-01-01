@@ -14,7 +14,6 @@ import MyRecipes from './pages/myPage/MyRecipes'
 import DeleteUser from './pages/user/deleteUser'
 import Mypage from './pages/myPage/Mypage'
 import ModifyRecipe from './pages/ModifyPage'
-import CategoryManagement from './pages/admin/CategoryMenagement'
 import SearchCategotyErrorBoundary from './pages/list/RecipeSearchCategoryList'
 import SearchErrorBoundary from './pages/list/RecipeSearchList'
 
@@ -39,7 +38,7 @@ export const AppRoutes = () => {
         <Route path="oauth" element={<Callback />} />
         <Route path="uploadrecipe" element={<UploadRecipe />} />
         <Route path="/modify/:recipeId" element={<ModifyRecipe />} />
-        <Route path="admin_caterory" element={<CategoryManagement />} />
+        {/* <Route path="admin_caterory" element={<CategoryManagement />} /> */}
       </Route>
     </Routes>
   )
