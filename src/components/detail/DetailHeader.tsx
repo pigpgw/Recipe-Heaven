@@ -16,11 +16,7 @@ function DetailHeader({ fetchData }) {
         {/* 서버에서 이미지 받아오기 */}
         <img
           className="min-w-[24rem] h-[30rem]"
-          // 수정 필요
-          // src="../src/assets/detail/cake.jpeg"
-          // src={`../src/assets/common/크리스마스/당근라페샌드위치/main.jpeg`}
           src={fetchData.img}
-          // src="https://lh3.google.com/u/0/d/1wIHHKzAMpOqm6vHVebqBu_oAYq0-oKL8=w2880-h1392-iv1"
           alt=""
         />
       </div>

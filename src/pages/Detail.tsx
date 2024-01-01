@@ -3,14 +3,11 @@ import { useState, useEffect } from 'react'
 import DetailHeader from '../components/detail/DetailHeader'
 import DetailMainList from '../components/detail/DetailMainList'
 import axios from 'axios'
-import { IoIosMore } from 'react-icons/io'
 import { Link, useParams } from 'react-router-dom'
 import Comment from '../components/comment/Comment'
 import '../../src/components/uploadRecipe/uploadRecipe.css'
-import { realCategoryList } from '../../public/dummy'
 
 function Detail() {
-  // const [inputValue, setInputValue] = useState<string>('')
   const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
   const [explaincontentList, setExplaincontentList] = useState<string[]>([])
   const [sequenceImgList, setSequenceImgList] = useState<string[]>([])
@@ -69,7 +66,7 @@ function Detail() {
           setSequenceImgList(imgList)
         }
       } catch (error) {
-        console.error('Error fetching recipe data:', error)
+        console.error('상세 레시피 데이터 가져오기 실패:', error)
       }
     }
 
@@ -92,9 +89,6 @@ function Detail() {
   }
 
   return (
-    // 랜더링시 사용자가 클릭한 레시피에 해당하는 페이지 등장
-    // id 를 활용해 레시피와 댓글 가져오기
-
     <div className="flex flex-col items-center justify-center min-w-[480px]">
       <div className="w-5/6 bg-white h-90 flex flex-wrap items-center justify-center min-w-[800px]">
         {myBlogContent && (
@@ -104,7 +98,6 @@ function Detail() {
               onClick={handleMoreClick}
             >
               <div className="w-14 h-14 cursor-pointer mr-20">더보기</div>
-              {/* <IoIosMore className="w-10 h-10 cursor-pointer" /> */}
               {showOptions && (
                 <div className="absolute right-6 bottom-8 bg-white border border-gray-300 shadow-md p-2">
                   <Link to={`/modify/${recipeId}`}>

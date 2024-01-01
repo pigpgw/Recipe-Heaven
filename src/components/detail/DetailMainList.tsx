@@ -1,17 +1,13 @@
 import React from 'react'
 
 function DetailMain({ explaincontentList, sequenceImgList }) {
-  console.log('sequenceImgList', sequenceImgList)
   return (
     <div className="flex flex-col bg-white w-5/6">
       {explaincontentList.map((item, index) => {
-        // console.log(sequenceImgList[index])
-        // const imageIndex = index + 1
         return (
           <div key={index}>
             <FoodMakingList
               sequenseImgUrl={sequenceImgList[index]}
-              // sequenseImgUrl={imageIndex}
               explainText={item}
               index={index}
             />
@@ -42,9 +38,6 @@ function FoodMakingList({
           <div className="w-3/12 min-w-[10rem]">
             <img
               className="w-[25rem] h-[15rem] rounded-2xl"
-              // src={sequenseImgUrl}
-              // src="../src/assets/common/logo.png"
-              // src={`../src/assets/common/크리스마스/당근라페샌드위치/sandwich${sequenseImgUrl}.jpeg`}
               src={sequenseImgUrl}
               alt=""
             />
