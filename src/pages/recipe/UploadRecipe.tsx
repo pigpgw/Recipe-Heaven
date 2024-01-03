@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { realCategoryList } from '../../../public/dummy'
 import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { categoryFetchData } from '../../fetch/fetchCategory'
 
 function UploadRecipe() {
-  const ingredientCategoryList = realCategoryList
-    .filter((item) => {
-      return item.categoryName?.indexOf('재료별') === 0
-    })
-    .map((item) => {
-      return item.categoryName?.split('_')[1]
-    })
+  useEffect(() => {
+    categoryFetchData().then(
+      ({ ingredientCategoryList, situationCategoryList }) => {
+        setCategoryData({ ingredientCategoryList, situationCategoryList })
+      },
+    )
+  }, [])
 
-  const situationCategoryList = realCategoryList
-    .filter((item) => {
-      return item.categoryName?.indexOf('상황별') === 0
-    })
-    .map((item) => {
-      return item.categoryName?.split('_')[1]
-    })
+  const [categoryData, setCategoryData] = useState<CategoryData>({
+    ingredientCategoryList: [],
+    situationCategoryList: [],
+  })
 
   interface Ingredient {
     item: string
@@ -122,12 +119,6 @@ function UploadRecipe() {
       console.log('error', e)
     }
   }
-  console.log('esradsasdasd', recipeId)
-  // console.log('window.location.href', window.location)
-
-  useEffect(() => {
-    console.log(createRecipeData())
-  })
 
   return (
     <>
@@ -187,8 +178,12 @@ function UploadRecipe() {
               }}
             >
               <option value="none">재료별</option>
-              {ingredientCategoryList.map((item) => {
-                return <option value={item}>{item}</option>
+              {categoryData.ingredientCategoryList.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                )
               })}
             </select>
             <select
@@ -198,8 +193,12 @@ function UploadRecipe() {
               }}
             >
               <option value="none">상황별</option>
-              {situationCategoryList.map((item) => {
-                return <option value={item}>{item}</option>
+              {categoryData.situationCategoryList.map((item, index) => {
+                return (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                )
               })}
             </select>
           </div>

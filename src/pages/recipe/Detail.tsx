@@ -8,14 +8,6 @@ import Comment from '../../components/comment/Comment'
 import '../../../src/components/uploadRecipe/uploadRecipe.css'
 
 function Detail() {
-  const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
-  const [explaincontentList, setExplaincontentList] = useState<string[]>([])
-  const [sequenceImgList, setSequenceImgList] = useState<string[]>([])
-  const [ingredientNameList, setIngredientNameList] = useState<string[]>([])
-  const [ingredientUnitList, setIngredientUnitList] = useState<string[]>([])
-  const [myBlogContent, setMyBlogContent] = useState(true)
-  const [showOptions, setShowOptions] = useState(false)
-
   interface Step {
     des: string
     imgUrl: string
@@ -42,6 +34,13 @@ function Detail() {
     reviews: any[]
   }
 
+  const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
+  const [explaincontentList, setExplaincontentList] = useState<string[]>([])
+  const [sequenceImgList, setSequenceImgList] = useState<string[]>([])
+  const [ingredientNameList, setIngredientNameList] = useState<string[]>([])
+  const [ingredientUnitList, setIngredientUnitList] = useState<string[]>([])
+  const [myBlogContent, setMyBlogContent] = useState(true)
+  const [showOptions, setShowOptions] = useState(false)
   const { recipeId } = useParams()
 
   useEffect(() => {

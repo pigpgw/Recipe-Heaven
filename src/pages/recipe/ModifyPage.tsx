@@ -1,26 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { realCategoryList } from '../../../public/dummy'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import '../../../src/components/uploadRecipe/uploadRecipe.css'
+import { categoryFetchData } from '../../fetch/fetchCategory'
 
 function ModifyRecipe() {
-  const ingredientCategoryList = realCategoryList
-    .filter((item) => {
-      return item.categoryName?.indexOf('재료별') === 0
-    })
-    .map((item) => {
-      return item.categoryName?.split('_')[1]
-    })
-
-  const situationCategoryList = realCategoryList
-    .filter((item) => {
-      return item.categoryName?.indexOf('상황별') === 0
-    })
-    .map((item) => {
-      return item.categoryName?.split('_')[1]
-    })
-
   interface Ingredient {
     item: string
     unit: string
@@ -44,6 +28,10 @@ function ModifyRecipe() {
   const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
   const [recipeSequenceItems, setRecipeSequenceItems] =
     useState<RecipeSequenceItem[]>()
+  const [categoryData, setCategoryData] = useState<CategoryData>({
+    ingredientCategoryList: [],
+    situationCategoryList: [],
+  })
 
   const { recipeId } = useParams()
 
@@ -77,6 +65,14 @@ function ModifyRecipe() {
     console.log('FkData', FkData)
   })
 
+  useEffect(() => {
+    categoryFetchData().then(
+      ({ ingredientCategoryList, situationCategoryList }) => {
+        setCategoryData({ ingredientCategoryList, situationCategoryList })
+      },
+    )
+  }, [])
+
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
     mainBtn.click()
@@ -105,7 +101,6 @@ function ModifyRecipe() {
     const updatedSteps = [...recipeSequenceItems]
     updatedSteps[index][key] = value
     setRecipeSequenceItems(updatedSteps)
-    console.log('recipe steps', recipeSequenceItems)
   }
 
   const handleIngredientChange = (
@@ -116,7 +111,6 @@ function ModifyRecipe() {
     const updatedIngredients = [...ingredients]
     updatedIngredients[index][key] = value
     setIngredients(updatedIngredients)
-    // console.log('ingredient', ingredients)
   }
 
   const addIngredient = () => {
@@ -139,7 +133,6 @@ function ModifyRecipe() {
       // recipeId: 1,
     }
   }
-  // console.log("변경된 데이터 확인",createRecipeData())
 
   const navigate = useNavigate()
   const patchUserData = async () => {
@@ -218,7 +211,7 @@ function ModifyRecipe() {
                   }}
                 >
                   <option value="none">재료별</option>
-                  {ingredientCategoryList.map((item) => {
+                  {categoryData.ingredientCategoryList.map((item) => {
                     return <option value={item}>{item}</option>
                   })}
                 </select>
@@ -230,7 +223,7 @@ function ModifyRecipe() {
                   }}
                 >
                   <option value="none">상황별</option>
-                  {situationCategoryList.map((item) => {
+                  {categoryData.situationCategoryList.map((item) => {
                     return <option value={item}>{item}</option>
                   })}
                 </select>

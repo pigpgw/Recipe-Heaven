@@ -1,53 +1,27 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-// import useUserStore from './userStore'
 import { useStore } from '../store/store'
 import axios from 'axios'
-import { QueryFunction } from '@tanstack/react-query'
-import { realCategoryList } from '../../../public/dummy'
 import './navbar.css'
-import MainSearch from '../main/MainSearch'
 import toast from 'react-hot-toast'
+import { categoryFetchData } from '../../fetch/fetchCategory'
+import MainSearch from '../main/MainSearch'
+import { QueryFunction } from '@tanstack/react-query'
 // import { create } from 'zustand';
 
 function Header() {
-  const ingredientCategoryList = realCategoryList
-    .filter((item) => {
-      return item.categoryName?.indexOf('재료별') === 0
-    })
-    .map((item) => {
-      return item.categoryName?.split('_')[1]
-    })
-
-  const situationCategoryList = realCategoryList
-    .filter((item) => {
-      return item.categoryName?.indexOf('상황별') === 0
-    })
-    .map((item) => {
-      return item.categoryName?.split('_')[1]
-    })
-
-  // // API에서 데이터
-  // interface Category {
-  //   categoryId: number
-  //   categoryName: string
-  //   categorySub: any[]
-  // }
-
-  // // 카테고리 navbar API 가져오기
-  // async function getCategoryData(): Promise<Category[]>{
-  //   try {
-  //     const res = await axios.get('http://kdt-sw-7-team06.elicecoding.com:3000/top-categorys');
-  //     console.log('APIsadasdasd 성공', res);
-  //     return res.data // 데이터를 Category 배열 타입으로 캐스팅
-  //   } catch (error) {
-  //     console.error('API 실패', error);
-  //     throw error; // 필요시 에러를 다시 던질 수 있습니다.
-  //   }
-  // }
-
   //검색 키워드 걸리게하기
   const [searchTerm, setSearchTerm] = useState<string>('')
+  const [categoryData, setCategoryData] = useState<CategoryData>({
+    ingredientCategoryList: [],
+    situationCategoryList: [],
+  })
+  //검색바 스크롤
+  const [isVisible, setIsVisible] = useState(true)
+  const [isMain, setIsMain] = useState<boolean>(true) // 메인화면 판별
+  const [height, setHeight] = useState(0)
+
+  const { pathname } = useLocation()
 
   // 검색 버튼을 클릭했을 때 실행되는 함수
   const handleSearch = () => {
@@ -106,31 +80,22 @@ function Header() {
       // 카카오의 사용자 로그아웃 POST 요청
       const response = await axios.post(
         'https://kapi.kakao.com/v1/user/logout',
-        null,  // 요청 본문 x
+        null, // 요청 본문 x
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
-        }
-      );
-  
-      toast.success('로그아웃에 성공했습니다.')
-  
-      clearToken();
+        },
+      )
 
+      toast.success('로그아웃에 성공했습니다.')
+
+      clearToken()
     } catch (error) {
       toast.error('로그아웃에 실패했습니다.')
     }
-  };
-  
-
-  //검색바 스크롤
-  const [isVisible, setIsVisible] = useState(true)
-  const [isMain, setIsMain] = useState<boolean>(true) // 메인화면 판별
-  const [height, setHeight] = useState(0)
-
-  const { pathname } = useLocation()
+  }
 
   useEffect(() => {
     setIsMain(pathname === '/')
@@ -160,6 +125,14 @@ function Header() {
     return () => window.removeEventListener('scroll', listenToScroll)
   }, [isMain])
 
+  useEffect(() => {
+    categoryFetchData().then(
+      ({ ingredientCategoryList, situationCategoryList }) => {
+        setCategoryData({ ingredientCategoryList, situationCategoryList })
+      },
+    )
+  }, [])
+
   return (
     <div className="w-[1024px] flex items-center mx-auto">
       <div
@@ -171,7 +144,8 @@ function Header() {
             <img
               className="w-40"
               // src="/src/assets/common/logo.png"
-              src="https://lh3.google.com/u/0/d/1sx5CYydeoylWfPSt1CrwOtWC8-gNcCbl=w1920-h912-iv1" alt="logo"
+              src="https://lh3.google.com/u/0/d/1sx5CYydeoylWfPSt1CrwOtWC8-gNcCbl=w1920-h912-iv1"
+              alt="logo"
             />
           </Link>
         </div>
@@ -214,11 +188,9 @@ function Header() {
           </li>
           <li>
             <div className="dropdown">
-              <button className="dropbtn">
-                재료별
-              </button>
+              <button className="dropbtn">재료별</button>
               <div className="dropdown-content">
-                {ingredientCategoryList.map((item) => {
+                {categoryData.ingredientCategoryList.map((item) => {
                   return (
                     <>
                       <Link
@@ -235,11 +207,9 @@ function Header() {
           </li>
           <li>
             <div className="dropdown">
-              <button className="dropbtn">
-                상황별
-              </button>
+              <button className="dropbtn">상황별</button>
               <div className="dropdown-content">
-                {situationCategoryList.map((item) => {
+                {categoryData.situationCategoryList.map((item) => {
                   return (
                     <>
                       <Link
@@ -278,8 +248,11 @@ function Header() {
                 <Link to="/my" className="block px-3 py-1 ">
                   마이페이지
                 </Link>
-                <Link to="/"> <button onClick={logout} className="block px-3 py-1">
-                  로그아웃</button>
+                <Link to="/">
+                  {' '}
+                  <button onClick={logout} className="block px-3 py-1">
+                    로그아웃
+                  </button>
                 </Link>
               </div>
             )}
