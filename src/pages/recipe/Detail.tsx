@@ -1,11 +1,11 @@
 import react from 'react'
 import { useState, useEffect } from 'react'
-import DetailHeader from '../components/detail/DetailHeader'
-import DetailMainList from '../components/detail/DetailMainList'
+import DetailHeader from '../../components/detail/DetailHeader'
+import DetailMainList from '../../components/detail/DetailMainList'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
-import Comment from '../components/comment/Comment'
-import '../../src/components/uploadRecipe/uploadRecipe.css'
+import Comment from '../../components/comment/Comment'
+import '../../../src/components/uploadRecipe/uploadRecipe.css'
 
 function Detail() {
   const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)

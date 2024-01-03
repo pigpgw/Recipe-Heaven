@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { realCategoryList } from '../../public/dummy'
+import { realCategoryList } from '../../../public/dummy'
 import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link, useNavigate, useParams } from 'react-router-dom'

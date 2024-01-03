@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { realCategoryList } from '../../public/dummy'
+import { realCategoryList } from '../../../public/dummy'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import '../../src/components/uploadRecipe/uploadRecipe.css'
+import '../../../src/components/uploadRecipe/uploadRecipe.css'
 
 function ModifyRecipe() {
   const ingredientCategoryList = realCategoryList
