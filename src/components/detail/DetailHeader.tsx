@@ -8,8 +8,6 @@ function DetailHeader({ fetchData }) {
     return null
   }
 
-  console.log('fetchData', fetchData.img)
-
   return (
     <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6 ml-[5rem]">
       <div className="w-2/5 px-6 min-w-[22rem]">
@@ -27,11 +25,7 @@ function DetailHeader({ fetchData }) {
               {fetchData.recipeName}
             </div>
             <div className="flex justify-center items-center p-2">
-              {/* <img
-                className="w-[3rem] h-[3rem]"
-                src="../src/assets/detail/다운로드.png"
-                alt=""
-              /> */}
+
               <h4 className="p-1">{fetchData.Like}</h4>
             </div>
           </div>

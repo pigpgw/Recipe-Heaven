@@ -2,7 +2,7 @@ import react from 'react'
 import { useState, useEffect } from 'react'
 import DetailHeader from '../../components/detail/DetailHeader'
 import DetailMainList from '../../components/detail/DetailMainList'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Comment from '../../components/comment/Comment'
 import '../../../src/components/uploadRecipe/uploadRecipe.css'
 import { fetchDetailRecipe } from '../../fetch/fetchGetDetailRecipe'
@@ -10,7 +10,6 @@ import { deleteRecipe } from '../../fetch/fetchDeleteDetailRecipe'
 import { Step, Ingredient, RecipeDetail } from '../../fetch/DetailRecipeTypes'
 
 function Detail() {
-
   const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
   const [explaincontentList, setExplaincontentList] = useState<string[]>([])
   const [sequenceImgList, setSequenceImgList] = useState<string[]>([])
@@ -33,6 +32,7 @@ function Detail() {
       setIngredientUnitList(ingUnitList)
       setExplaincontentList(explainList)
       setSequenceImgList(imgList)
+      console.log('res', res)
     })
     console.log('recipeId', recipeId)
   }, [recipeId])
@@ -40,10 +40,11 @@ function Detail() {
   const handleMoreClick = () => {
     setShowOptions(!showOptions)
   }
-
+  const navigate = useNavigate()
   const handleDeleteClick = async () => {
     try {
       const result = await deleteRecipe(recipeId)
+      navigate('/')
       console.log('레시피 삭제', result)
     } catch (e) {
       console.log('삭제 실패', e)
