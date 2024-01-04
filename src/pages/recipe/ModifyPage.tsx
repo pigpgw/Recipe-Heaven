@@ -3,10 +3,10 @@ import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import '../../../src/components/uploadRecipe/uploadRecipe.css'
 import { categoryFetchData } from '../../fetch/fetchCategory'
-import { Ingredient , RecipeSequenceItem } from '../../fetch/DetailRecipeTypes'
+import { Ingredient, RecipeSequenceItem } from '../../fetch/DetailRecipeTypes'
+import { getPreviousRecipeData } from '../../fetch/fetchGetPreDetailRecipe'
 
 function ModifyRecipe() {
-  
   const [FkData, setFkData] = useState(null)
   const [recipeName, setRecipeName] = useState<String>()
   const [recipeMainImg, setRecipeMainImg] = useState<String>()
@@ -29,33 +29,24 @@ function ModifyRecipe() {
 
   // 이전에 등록한 사용자 데이터 가져오기
   useEffect(() => {
-    const getPreviousData = async () => {
-      try {
-        const res = await axios.get(
-          `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
-        )
-        setFkData(res.data)
-        setRecipeName(res.data.recipeName)
-        setRecipeMainImg(res.data.img)
-        setPortion(res.data.portion)
-        setLeadTime(res.data.leadTime)
-        setLevel(res.data.level)
-        setIngredients(res.data.ingredient)
-        setCategoryIg(res.data.categoryIg)
-        setCategorySt(res.data.categorySt)
-        setRecipeSequenceItems(res.data.step)
-        console.log('수정 페이지 이전 데이터 체크', res.data)
-      } catch (error) {
-        console.error('이전 레시피 정보 가져오기 실패', error)
-      }
+    try {
+      const res = getPreviousRecipeData(recipeId).then((res) => {
+        setFkData(res)
+        setRecipeName(res.recipeName)
+        setRecipeMainImg(res.img)
+        setPortion(res.portion)
+        setLeadTime(res.leadTime)
+        setLevel(res.level)
+        setIngredients(res.ingredient)
+        setCategoryIg(res.categoryIg)
+        setCategorySt(res.categorySt)
+        setRecipeSequenceItems(res.step)
+      })
+      console.log('수정 페이지 이전 데이터 체크', res)
+    } catch (error) {
+      console.error('이전 레시피 정보 가져오기 실패', error)
     }
-
-    getPreviousData()
   }, [recipeId])
-
-  useEffect(() => {
-    console.log('FkData', FkData)
-  })
 
   useEffect(() => {
     categoryFetchData().then(
@@ -202,9 +193,15 @@ function ModifyRecipe() {
                     setCategoryIg(e.target.value)
                   }}
                 >
-                  <option value="none">재료별</option>
+                  <option key="none" value="none">
+                    재료별
+                  </option>
                   {categoryData.ingredientCategoryList.map((item) => {
-                    return <option value={item}>{item}</option>
+                    return (
+                      <option key={item} value={item}>
+                        {item}
+                      </option>
+                    )
                   })}
                 </select>
                 <select
@@ -214,10 +211,14 @@ function ModifyRecipe() {
                     setCategorySt(e.target.value)
                   }}
                 >
-                  <option value="none">상황별</option>
-                  {categoryData.situationCategoryList.map((item) => {
-                    return <option value={item}>{item}</option>
-                  })}
+                  <option key="none" value="none">
+                    상황별
+                  </option>
+                  {categoryData.situationCategoryList.map((item) => (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -379,7 +380,7 @@ function ModifyRecipe() {
             <div className="saveBtnBox">
               {/* 수정 데이터 전송 */}
               <div className="saveBtn" onClick={patchUserData}>
-                레시피 등록
+                레시피 수정
               </div>
               <Link to="/">
                 <div className="cancelBtn">취소</div>
