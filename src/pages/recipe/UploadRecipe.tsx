@@ -3,8 +3,32 @@ import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { categoryFetchData } from '../../fetch/fetchCategory'
+import {Ingredient , RecipeSequenceItem} from '../../fetch/DetailRecipeTypes'
 
 function UploadRecipe() {
+  
+  const [recipeName, setRecipeName] = useState<String>('')
+  const [recipeMainImg, setRecipeMainImg] = useState<String>('')
+  const [portion, setPortion] = useState<Number>()
+  const [leadTime, setLeadTime] = useState<Number>()
+  const [level, setLevel] = useState<Number>()
+  const [categoryIg, setCategoryIg] = useState<String>('')
+  const [categorySt, setCategorySt] = useState<String>('')
+  const [categoryData, setCategoryData] = useState<CategoryData>({
+    ingredientCategoryList: [],
+    situationCategoryList: [],
+  })
+  const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
+  const [ingredients, setIngredients] = useState<Ingredient[]>([
+    { item: '', unit: '' },
+  ])
+  const [recipeSequenceItems, setRecipeSequenceItems] = useState<
+    RecipeSequenceItem[]
+  >([{ stepNum: 1, des: '', imgUrl: '' }])
+
+  const navigate = useNavigate()
+  const { recipeId } = useParams()
+
   useEffect(() => {
     categoryFetchData().then(
       ({ ingredientCategoryList, situationCategoryList }) => {
@@ -12,37 +36,6 @@ function UploadRecipe() {
       },
     )
   }, [])
-
-  const [categoryData, setCategoryData] = useState<CategoryData>({
-    ingredientCategoryList: [],
-    situationCategoryList: [],
-  })
-
-  interface Ingredient {
-    item: string
-    unit: string
-  }
-
-  interface RecipeSequenceItem {
-    stepNum: number
-    des: string
-    imgUrl: string
-  }
-
-  const [recipeName, setRecipeName] = useState<String>('')
-  const [recipeMainImg, setRecipeMainImg] = useState<String>('')
-  const [portion, setPortion] = useState<Number>()
-  const [leadTime, setLeadTime] = useState<Number>()
-  const [level, setLevel] = useState<Number>()
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    { item: '', unit: '' },
-  ])
-  const [categoryIg, setCategoryIg] = useState<String>('')
-  const [categorySt, setCategorySt] = useState<String>('')
-  const [mainImgVisible, setMainImageVisible] = useState<boolean>(false)
-  const [recipeSequenceItems, setRecipeSequenceItems] = useState<
-    RecipeSequenceItem[]
-  >([{ stepNum: 1, des: '', imgUrl: '' }])
 
   function mainBtnClick() {
     const mainBtn = document.querySelector('.main-imgUpload-btn')
@@ -99,9 +92,6 @@ function UploadRecipe() {
       // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
     }
   }
-
-  const navigate = useNavigate()
-  const { recipeId } = useParams()
 
   const submit = async () => {
     try {

@@ -2,37 +2,14 @@ import react from 'react'
 import { useState, useEffect } from 'react'
 import DetailHeader from '../../components/detail/DetailHeader'
 import DetailMainList from '../../components/detail/DetailMainList'
-import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
 import Comment from '../../components/comment/Comment'
 import '../../../src/components/uploadRecipe/uploadRecipe.css'
+import { fetchDetailRecipe } from '../../fetch/fetchGetDetailRecipe'
+import { deleteRecipe } from '../../fetch/fetchDeleteDetailRecipe'
+import { Step, Ingredient, RecipeDetail } from '../../fetch/DetailRecipeTypes'
 
 function Detail() {
-  interface Step {
-    des: string
-    imgUrl: string
-    stepNum: number
-  }
-
-  interface Ingredient {
-    item: string
-    unit: string
-  }
-
-  interface RecipeDetail {
-    recipeId: number
-    recipeName: string
-    img: string
-    portion: number
-    leadTime: number
-    level: number
-    createdAt: string
-    updatedAt: string
-    deletedAt: string | null
-    ingredient: Ingredient[]
-    step: Step[]
-    reviews: any[]
-  }
 
   const [fetchData, setFetchData] = useState<RecipeDetail | null>(null)
   const [explaincontentList, setExplaincontentList] = useState<string[]>([])
@@ -44,32 +21,20 @@ function Detail() {
   const { recipeId } = useParams()
 
   useEffect(() => {
+    fetchDetailRecipe(recipeId).then((res) => {
+      setFetchData(res)
+      const step: Step[] = res.step
+      const explainList: string[] = step.map((item) => item.des)
+      const imgList: string[] = step.map((item) => item.imgUrl)
+      const ingredient: Ingredient[] = res.ingredient
+      const ingNameList: string[] = ingredient.map((item) => item.item)
+      const ingUnitList: string[] = ingredient.map((item) => item.unit)
+      setIngredientNameList(ingNameList)
+      setIngredientUnitList(ingUnitList)
+      setExplaincontentList(explainList)
+      setSequenceImgList(imgList)
+    })
     console.log('recipeId', recipeId)
-    async function getData() {
-      try {
-        const res = await axios.get(
-          `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
-        )
-        console.log('res data', res.data)
-        setFetchData(res.data)
-        if (res.data && res.data.step) {
-          const step: Step[] = res.data.step
-          const ingredient: Ingredient[] = res.data.ingredient
-          const explainList: string[] = step.map((item) => item.des)
-          const imgList: string[] = step.map((item) => item.imgUrl)
-          const ingNameList: string[] = ingredient.map((item) => item.item)
-          const ingUnitList: string[] = ingredient.map((item) => item.unit)
-          setIngredientNameList(ingNameList)
-          setIngredientUnitList(ingUnitList)
-          setExplaincontentList(explainList)
-          setSequenceImgList(imgList)
-        }
-      } catch (error) {
-        console.error('상세 레시피 데이터 가져오기 실패:', error)
-      }
-    }
-
-    getData()
   }, [recipeId])
 
   const handleMoreClick = () => {
@@ -78,10 +43,8 @@ function Detail() {
 
   const handleDeleteClick = async () => {
     try {
-      const res = await axios.delete(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
-      )
-      console.log('레시피 삭제', res)
+      const result = await deleteRecipe(recipeId)
+      console.log('레시피 삭제', result)
     } catch (e) {
       console.log('삭제 실패', e)
     }

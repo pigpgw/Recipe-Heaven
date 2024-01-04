@@ -3,18 +3,10 @@ import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import '../../../src/components/uploadRecipe/uploadRecipe.css'
 import { categoryFetchData } from '../../fetch/fetchCategory'
+import { Ingredient , RecipeSequenceItem } from '../../fetch/DetailRecipeTypes'
 
 function ModifyRecipe() {
-  interface Ingredient {
-    item: string
-    unit: string
-  }
-
-  interface RecipeSequenceItem {
-    stepNum: number
-    des: string
-    imgUrl: string
-  }
+  
   const [FkData, setFkData] = useState(null)
   const [recipeName, setRecipeName] = useState<String>()
   const [recipeMainImg, setRecipeMainImg] = useState<String>()
