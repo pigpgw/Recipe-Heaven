@@ -34,7 +34,7 @@ const LikedRecipes = () => {
     }
   }, [data])
 
-  const handleSingleCheck = (checked, recipeId: string) => {
+  const handleSingleCheck = (checked, recipeId: number) => {
     setCheckedItems((prevCheckedItems) => {
       if (checked) {
         return [...prevCheckedItems, recipeId]
@@ -89,7 +89,7 @@ const LikedRecipes = () => {
                   }
                 />
                 <div className="ml-3 my-3">
-                  <LikedRecipeItem recipe={recipe} />
+                  <LikedRecipeItem recipe={recipe} type={'like'} />
                 </div>
               </div>
             ))
