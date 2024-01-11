@@ -6,12 +6,15 @@ import {
   useDeleteCommentMutation,
 } from '../mutation/useCommentsMutation'
 import StarRating from './StarRating'
+import { useStore } from '../../components/store/store'
+
 
 const CommentItem = ({ review }: { review: Comment }) => {
   const momentDate = moment(review.createdAt)
   const formattedDate = momentDate.format('YYYY-MM-DD. h:mm')
+  const store = useStore()
 
-  const loginId = 5
+  const loginId = store.memberInfo.userId
 
   const [selectedRating, setSelectedRating] = useState(review.star || 0)
   const [commentContent, setCommentContent] = useState(review.comment || '')
@@ -88,10 +91,10 @@ const CommentItem = ({ review }: { review: Comment }) => {
             <div className="font-light">{commentContent}</div>
           </div>
           <div className="flex gap-2">
-            {!isEditing && loginId === 5 && (
+            {!isEditing && loginId === review.userId && (
               <button onClick={handleEditClick}>수정</button>
             )}
-            {loginId === 5 && (
+            {loginId === review.userId && (
               <button
                 onClick={() => {
                   deleteComment(review.reviewId)
