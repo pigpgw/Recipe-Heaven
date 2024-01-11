@@ -21,9 +21,8 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
     let apiRes
 
     if (category) {
-
-      const getApiId = await getCategoryApiData(category);
-      const getApData = getApiId[0].categoryId;
+      const getApiId = await getCategoryApiData(category)
+      const getApData = getApiId[0].categoryId
       apiRes = await axios.get(
         `http://kdt-sw-7-team06.elicecoding.com:3000/categorys/${getApData}`,
         // `http://kdt-sw-7-team06.elicecoding.com:3000/top-categorys/${category}`,
@@ -31,7 +30,7 @@ const fetchSearchRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
       return apiRes.data.recipes
     } else {
       apiRes = await axios.get(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
+        `http://kdt-sw-7-team06.elicecoding.com:8088/recipes`,
       )
       if (keyword !== '모든레시피') {
         return apiRes.data.filter((recipe) =>

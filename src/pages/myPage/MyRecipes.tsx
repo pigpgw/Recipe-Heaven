@@ -23,7 +23,6 @@ function MyRecipes() {
 
   const { data, isLoading, isError } = useQuery<RecipeCard[]>({
     queryKey: ['myRecipes'],
-    // 유저 아이디는 fetchFn에서 store에서
     queryFn: fetchMyRecipe,
   })
 
