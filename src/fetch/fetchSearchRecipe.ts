@@ -1,6 +1,6 @@
+import { QueryFunction } from '@tanstack/react-query'
 import axios from 'axios'
 import { RecipeCard } from './APIResponsesTypes'
-import { QueryFunction } from '@tanstack/react-query'
 const getCategoryApiData = async (id) => {
   try {
     const categoryApiRes = await axios.get(

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { useStore } from '../../components/store/store'
+import { useEffect } from 'react'
 import { toast } from 'react-hot-toast'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useStore } from '../../components/store/store'
 
 const Callback = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { setAccessToken } = useStore()
+  const { setAccessToken, setMemberInfo } = useStore()
 
   useEffect(() => {
     const sendAuthorizationCodeToServer = async (code: string) => {
@@ -17,7 +17,7 @@ const Callback = () => {
           {
             grant_type: 'authorization_code',
             client_id: '8c28dc1b469c8392a5e2773f5cc5dfdb',
-            redirect_uri: `http://kdt-sw-7-team06.elicecoding.com/oauth`,
+            redirect_uri: `http://localhost:5173/oauth`,
             code,
           },
           {
@@ -28,15 +28,21 @@ const Callback = () => {
         )
         // 토큰 스토어에서 받은 토큰 설정
         setAccessToken(response.data.access_token)
-        toast.success('로그인에 성공했습니다.')
+
+        const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
+        headers: {
+          Authorization: `Bearer ${response.data.access_token}`,
+        },
+      });
+      console.log(userResponse.data.id)
+      setMemberInfo(userResponse.data.id);
+        toast.success('로그인에 성공했습니다.');
         navigate('/')
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
         navigate('/login')
       }
     }
-
-    const domain = 'http://localhost:5173'
     const authorizationCode = new URLSearchParams(location.search).get('code')
 
     if (authorizationCode) {
