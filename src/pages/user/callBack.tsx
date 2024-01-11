@@ -29,14 +29,17 @@ const Callback = () => {
         // 토큰 스토어에서 받은 토큰 설정
         setAccessToken(response.data.access_token)
 
-        const userResponse = await axios.get('https://kapi.kakao.com/v2/user/me', {
-        headers: {
-          Authorization: `Bearer ${response.data.access_token}`,
-        },
-      });
-      console.log(userResponse.data.id)
-      setMemberInfo(userResponse.data.id);
-        toast.success('로그인에 성공했습니다.');
+        const userResponse = await axios.get(
+          'https://kapi.kakao.com/v2/user/me',
+          {
+            headers: {
+              Authorization: `Bearer ${response.data.access_token}`,
+            },
+          },
+        )
+        console.log(userResponse.data.id)
+        setMemberInfo(userResponse.data.id)
+        toast.success('로그인에 성공했습니다.')
         navigate('/')
       } catch (error) {
         toast.error('오류가 발생했습니다. 잠시 후 다시 시도해주세요.')
