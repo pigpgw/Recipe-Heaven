@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { RecipeCard } from './APIResponsesTypes'
 import { QueryFunction } from '@tanstack/react-query'
-import { useStore } from '../components/store/store'
 
 const fetchMyRecipe: QueryFunction<RecipeCard[]> = async ({ queryKey }) => {
   try {
