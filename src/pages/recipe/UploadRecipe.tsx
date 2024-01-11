@@ -3,10 +3,9 @@ import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { categoryFetchData } from '../../fetch/fetchCategory'
-import {Ingredient , RecipeSequenceItem} from '../../fetch/DetailRecipeTypes'
+import { Ingredient, RecipeSequenceItem } from '../../fetch/DetailRecipeTypes'
 
 function UploadRecipe() {
-  
   const [recipeName, setRecipeName] = useState<String>('')
   const [recipeMainImg, setRecipeMainImg] = useState<String>('')
   const [portion, setPortion] = useState<Number>()
@@ -56,11 +55,24 @@ function UploadRecipe() {
     setRecipeSequenceItems([...recipeSequenceItems, newItem])
   }
 
+    useEffect(() => {
+      console.log('recipeSequenceItems', recipeSequenceItems)
+      recipeSequenceItems?.forEach((item, index) => {
+        item.stepNum = index + 1
+      })
+    }, [recipeSequenceItems])
+
   const handleStepChange = (index: number, key: string, value: string) => {
     const updatedSteps = [...recipeSequenceItems]
     updatedSteps[index][key] = value
     setRecipeSequenceItems(updatedSteps)
     console.log('recipe steps', recipeSequenceItems)
+  }
+
+  const deleteStep = (index: number) => {
+    const updatedSteps = [...recipeSequenceItems]
+    updatedSteps.splice(index, 1)
+    setRecipeSequenceItems(updatedSteps)
   }
 
   const handleIngredientChange = (
@@ -325,6 +337,14 @@ function UploadRecipe() {
                           className="recipe-step-image"
                         />
                       )}
+                    </div>
+                    <div
+                      className="recipe-step-deleteBtn"
+                      onClick={() => {
+                        deleteStep(index)
+                      }}
+                    >
+                      X
                     </div>
                   </div>
                 )

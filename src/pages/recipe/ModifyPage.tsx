@@ -80,11 +80,26 @@ function ModifyRecipe() {
     setRecipeSequenceItems([...recipeSequenceItems, newItem])
   }
 
+  useEffect(() => {
+    console.log('recipeSequenceItems', recipeSequenceItems)
+    recipeSequenceItems?.forEach((item,index) => {
+      item.stepNum = index + 1
+    })
+  },[recipeSequenceItems])
+
+
   const handleStepChange = (index: number, key: string, value: string) => {
     const updatedSteps = [...recipeSequenceItems]
     updatedSteps[index][key] = value
     setRecipeSequenceItems(updatedSteps)
   }
+
+  const deleteStep = (index: number) => {
+    const updatedSteps = [...recipeSequenceItems]
+    updatedSteps.splice(index,1)
+    setRecipeSequenceItems(updatedSteps)
+  }
+
 
   const handleIngredientChange = (
     index: number,
@@ -134,6 +149,10 @@ function ModifyRecipe() {
       console.error('오류 문구 확인', error)
     }
   }
+
+  useEffect(() => {
+    console.log("step",recipeSequenceItems)
+  })
 
   return (
     <>
@@ -362,6 +381,14 @@ function ModifyRecipe() {
                               className="recipe-step-image"
                             />
                           )}
+                        </div>
+                        <div
+                          className="recipe-step-deleteBtn"
+                          onClick={() => {
+                            deleteStep(index)
+                          }}
+                        >
+                          X
                         </div>
                       </div>
                     )

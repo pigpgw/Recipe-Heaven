@@ -250,3 +250,9 @@
   color: black;
   border: 1px solid black;
 }
+
+.recipe-step-deleteBtn {
+  padding: 8px;
+  font-size: 20px;
+  font-weight: 800;
+}
