@@ -76,7 +76,7 @@ const CommentItem = ({ review }: { review: Comment }) => {
         </form>
       ) : (
         <div className="flex my-3">
-          <div className="flex flex-col w-[42rem] gap-1">
+          <div className="flex flex-col w-[42srem] gap-1">
             <div className="flex gap-2">
               <StarRating selectedRating={review.star} readOnly={true} />
               <span className="font-bold">{review.star}</span>
