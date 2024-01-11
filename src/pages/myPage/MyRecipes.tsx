@@ -9,8 +9,11 @@ import {
   useDeleteRecipesMutation,
 } from '../../components/mutation/useMyRecipesMutation'
 
+import { useStore } from '../../components/store/store'
+
 function MyRecipes() {
-  const userId = 1
+  const store = useStore()
+  const id = store.memberInfo
   const [recipeList, setRecipeList] = useState<RecipeCard[]>([])
   const [checkedItems, setCheckedItems] = useState<number[]>([])
 
@@ -37,7 +40,7 @@ function MyRecipes() {
 
   useEffect(() => {
     if (!isLoading && data && data?.length) {
-      setRecipeList(data)
+      setRecipeList(data.filter((recipe) => recipe.userId === id?.toString()))
     }
   }, [isLoading, data])
 
@@ -102,7 +105,7 @@ function MyRecipes() {
               </div>
             ))
           ) : (
-            <div>찜한 레시피가 없습니다</div>
+            <div>내가 작성한 레시피가 없습니다</div>
           )}
         </div>
       </div>
