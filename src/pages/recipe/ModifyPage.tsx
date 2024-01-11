@@ -123,7 +123,7 @@ function ModifyRecipe() {
       const recipeData = createRecipeData()
       console.log('Recipe Data:', recipeData)
       await axios.patch(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
+        `http://kdt-sw-7-team06.elicecoding.com:8088/recipes/${recipeId}`,
         recipeData,
       )
       console.log('레시피 수정 성공및 보낸 데이터 확인', recipeData)

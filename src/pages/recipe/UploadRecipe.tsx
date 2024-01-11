@@ -84,8 +84,8 @@ function UploadRecipe() {
       // img: 'asdasd',
       portion: portion,
       leadTime: leadTime,
-      setCgIngredient: categoryIg,
-      setCgSituation: categorySt,
+      // setCgIngredient: categoryIg,
+      // setCgSituation: categorySt,
       level: level,
       ingredient: ingredients,
       step: recipeSequenceItems,
@@ -97,7 +97,7 @@ function UploadRecipe() {
     try {
       const recipeData = createRecipeData()
       await axios.post(
-        `http://kdt-sw-7-team06.elicecoding.com:3000/recipes`,
+        `http://kdt-sw-7-team06.elicecoding.com:8088/recipes`,
         recipeData,
       )
       console.log('레시피 등록 성공!', recipeData)
