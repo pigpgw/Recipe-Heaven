@@ -48,7 +48,8 @@ export const useDeleteRecipeMutation = (id: number) => {
   const queryClient = useQueryClient()
   const { mutate: deleteRecipe, isPending: isDeleting } = useMutation<
     void,
-    Error
+    Error,
+    number
   >({
     mutationFn: () => fetchDeleteRecipe(id),
     onMutate: async () => {

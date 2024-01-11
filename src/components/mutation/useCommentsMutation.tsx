@@ -7,6 +7,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { Comment } from '../../fetch/APIResponsesTypes'
 import { fetchPostComment } from '../../fetch/fetchPostComment'
+import { fetchUpdateComment } from '../../fetch/fetchPostComment'
 
 export const usePostCommentMutation = () => {
   const queryClient = useQueryClient()
@@ -84,7 +85,7 @@ export const useUpdateCommentMutation = () => {
     Error,
     Comment
   >({
-    mutationFn: (updatedComment: Comment) => fetchPostComment(updatedComment),
+    mutationFn: (updatedComment: Comment) => fetchUpdateComment(updatedComment),
     onMutate: async (updatedComment: Comment) => {
       if (!updatedComment || !updatedComment.reviewId) {
         throw new Error('Invalid comment data provided for update.')

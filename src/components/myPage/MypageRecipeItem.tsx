@@ -1,11 +1,30 @@
 import React from 'react'
 import { RecipeCard } from '../../fetch/APIResponsesTypes'
 import { useDeleteRecipeMutation } from '../mutation/useMyRecipesMutation'
+import { useDeleteLikeMutation } from '../../components/mutation/useLikesMutation'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
-const MypageRecipeItem = ({ recipe }: { recipe: RecipeCard }) => {
-  const { deleteRecipe, isDeleting } = useDeleteRecipeMutation(recipe.recipeId)
+const MypageRecipeItem = ({
+  recipe,
+  type,
+}: {
+  recipe: RecipeCard
+  type: string
+}) => {
+  let deleteRecipe
+  let isDeleting
+
+  if (type === 'like') {
+    const likeMutation = useDeleteLikeMutation(recipe.recipeId)
+    deleteRecipe = likeMutation.deleteRecipe
+    isDeleting = likeMutation.isDeleting
+  } else {
+    const recipeMutation = useDeleteRecipeMutation(recipe.recipeId)
+    deleteRecipe = recipeMutation.deleteRecipe
+    isDeleting = recipeMutation.isDeleting
+  }
+
   const momentDate = moment(recipe.createdAt)
   const formattedDate = momentDate.format('YYYY-MM-DD. h:mm')
 
