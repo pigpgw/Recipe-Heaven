@@ -3,7 +3,7 @@ import axios from 'axios'
 export const fetchCategoryData = async () => {
   try {
     const fetchData = await axios.get(
-      'http://kdt-sw-7-team06.elicecoding.com:3000/categorys',
+      'http://kdt-sw-7-team06.elicecoding.com:8088/categories',
     )
     return fetchData.data
   } catch (e) {
