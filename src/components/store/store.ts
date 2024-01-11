@@ -1,17 +1,24 @@
-import { access } from 'fs/promises'
 import { create } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
-import LikedRecipes from '../../pages/myPage/LikedRecipes'
 
 export interface StoreState {
   likedRecipes: number[]
   toggleLikedRecipe: (recipeId: number) => void
   isLiked: (recipeId: number) => boolean
   accessToken: string | null
+  memberInfo: MemberInfo | null // memberInfo 필드 추가
   setAccessToken: (token: string | null) => void
+  setMemberInfo: (info: MemberInfo | null) => void // setMemberInfo 함수 추가
   getAccessToken: () => string | null
+  getMemberInfo: () => MemberInfo | null // getMemberInfo 함수 추가
   clearToken: () => void
   clearLikedRecipe: () => void
+}
+
+export interface MemberInfo {
+  userId: number
+  nickname: string
+  // 필요한 경우 다른 필드 추가
 }
 
 export const useStore = create<StoreState>()(
@@ -38,10 +45,19 @@ export const useStore = create<StoreState>()(
             set(() => ({ accessToken: newToken }))
           }
         },
+        memberInfo: null,
+
+        setMemberInfo: (info: MemberInfo | null) => {
+          set((state: StoreState) => ({
+            ...state,
+            memberInfo: info,
+          }));
+        },
         clearToken: () => {
-          set(() => ({ accessToken: null }))
+          set(() => ({ accessToken: null, memberInfo: null })) 
         },
         getAccessToken: () => get().accessToken,
+        getMemberInfo: () => get().memberInfo,
       }),
       {
         name: 'mystore',

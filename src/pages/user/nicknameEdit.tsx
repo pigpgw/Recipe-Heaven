@@ -35,27 +35,30 @@ const nicknameEdit = () => {
   }
 
   const handleIdSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
+    e.preventDefault();
+  
     try {
       if (validateId()) {
         const response = await axios.patch(
-          'http://kdt-sw-7-team06.elicecoding.com:8088/auth/18/nickname/똥깨',
-          {},
-        )
+          `http://kdt-sw-7-team06.elicecoding.com:8088/auth/18/nickname/${id}`,
+          { newNickname: id }
+        );
+  
+        console.log('응답 데이터:', response.data);
+  
+        if (response.status === 200) {
+          toast.success('닉네임이 변경되었습니다.');
+          window.location.reload();
 
-        console.log('응답 데이터:', response.data) // 응답 데이터를 콘솔에 출력
-
-        if (response.data && response.data.nickname) {
-          toast.success('닉네임이 변경되었습니다')
-          setId(response.data.nickname.toString())
+        } else {
+          toast.error('서버에서 닉네임을 업데이트하지 못했습니다.');
         }
       }
     } catch (error) {
-      console.error('닉네임 변경 중 오류 발생:', error)
-      toast.error('닉네임 변경 중 오류가 발생했습니다.')
+      console.error('닉네임 변경 중 오류 발생:', error);
+      toast.error('중복된 닉네임 입니다.');
     }
-  }
+  };
 
   const validateId = (): boolean => {
     if (id.length < 2 || id.length > 8) {
@@ -83,13 +86,13 @@ const nicknameEdit = () => {
           <label className="block mb-2">현재 닉네임: {id || '없음'}</label>
           <label className="block mb-4">
             새로운 닉네임:
-            <input
-              id="newId"
-              type="text"
-              value={id}
-              onChange={handleIdChange}
-              className="border p-2 w-full"
-            />
+                      <input
+            id="newId"
+            type="text"
+            value={id}
+            onChange={handleIdChange}
+            className="border p-2 w-full"
+          />
           </label>
           {error && <p className="text-red-500 mb-2">{error}</p>}
           <button

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { useStore } from '../../components/store/store'
+import { useEffect } from 'react'
 import { toast } from 'react-hot-toast'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useStore } from '../../components/store/store'
 
 const Callback = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { setAccessToken } = useStore()
+  const { setAccessToken, setMemberInfo } = useStore()
 
   useEffect(() => {
     const sendAuthorizationCodeToServer = async (code: string) => {
@@ -29,6 +29,17 @@ const Callback = () => {
         )
         // 토큰 스토어에서 받은 토큰 설정
         setAccessToken(response.data.access_token)
+
+        const userResponse = await axios.get(
+          'https://kapi.kakao.com/v2/user/me',
+          {
+            headers: {
+              Authorization: `Bearer ${response.data.access_token}`,
+            },
+          },
+        )
+        console.log(userResponse.data.id)
+        setMemberInfo(userResponse.data.id)
         toast.success('로그인에 성공했습니다.')
         navigate('/')
       } catch (error) {
@@ -36,8 +47,6 @@ const Callback = () => {
         navigate('/login')
       }
     }
-
-    const domain = 'http://localhost:5173'
     const authorizationCode = new URLSearchParams(location.search).get('code')
 
     if (authorizationCode) {
