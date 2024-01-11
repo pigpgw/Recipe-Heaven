@@ -5,10 +5,8 @@ import { QueryFunction } from '@tanstack/react-query'
 const fetchRecipeById = async (recipeId: number): Promise<RecipeCard> => {
   try {
     const response = await axios.get(
-      `http://kdt-sw-7-team06.elicecoding.com:3000/recipes/${recipeId}`,
+      `http://kdt-sw-7-team06.elicecoding.com:8088/recipes/${recipeId}`,
     )
-    console.log('response')
-    console.log(response.data)
     return response.data
   } catch (error) {
     throw new Error('내가 찜한 레시피 불러오는 중 오류 발생')

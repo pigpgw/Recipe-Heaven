@@ -3,7 +3,7 @@ import StarRating from './StarRating'
 import toast from 'react-hot-toast'
 import { usePostCommentMutation } from '../mutation/useCommentsMutation'
 
-const WriteComment = () => {
+const WriteComment = ({ recipeId }: { recipeId: number }) => {
   const [selectedRating, setSelectedRating] = useState(0)
   const [commentContent, setCommentContent] = useState('')
   const { postComment, isPosting } = usePostCommentMutation()
@@ -30,7 +30,8 @@ const WriteComment = () => {
     postComment({
       comment: commentContent,
       star: selectedRating,
-      reviewId: randomNum,
+      userId: randomNum,
+      recipeId,
     })
     setSelectedRating(0)
     setCommentContent('')

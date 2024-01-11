@@ -10,6 +10,7 @@ export interface Comment {
   star: number
   comment: string
   userId: string
+  recipeId: number
   deletedAt: null
   updatedAt: Date
   createdAt: Date
