@@ -14,7 +14,7 @@ const CommentItem = ({ review }: { review: Comment }) => {
   const formattedDate = momentDate.format('YYYY-MM-DD. h:mm')
   const store = useStore()
 
-  const loginId = store.memberInfo.userId
+  const loginId = store.memberInfo
 
   const [selectedRating, setSelectedRating] = useState(review.star || 0)
   const [commentContent, setCommentContent] = useState(review.comment || '')

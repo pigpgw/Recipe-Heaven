@@ -32,7 +32,7 @@ const WriteComment = ({ recipeId }: { recipeId: number }) => {
     postComment({
       comment: commentContent,
       star: selectedRating,
-      userId: store.memberInfo.userId,
+      userId: store.memberInfo,
       recipeId,
     })
     setSelectedRating(0)
