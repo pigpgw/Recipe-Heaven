@@ -65,8 +65,8 @@ function ModifyRecipe() {
     const selectedFile = event.target.files[0]
     if (selectedFile) {
       setMainImageVisible(true)
-      // setRecipeMainImg(selectedFile)
-      setRecipeMainImg('현재는 응애입니다')
+      setRecipeMainImg(selectedFile)
+      // setRecipeMainImg('현재는 응애입니다')
       setRecipeMainImgPreview(URL.createObjectURL(recipeMainImg))
     }
   }
@@ -121,8 +121,8 @@ function ModifyRecipe() {
       img: recipeMainImg,
       portion: portion,
       leadTime: leadTime,
-      // setCgIngredient: categoryIg,
-      // setCgSituation: categorySt,
+      setCgIngredient: categoryIg,
+      setCgSituation: categorySt,
       level: level,
       ingredient: ingredients,
       step: recipeSequenceItems,
@@ -131,6 +131,21 @@ function ModifyRecipe() {
       // recipeId: 1,
     }
   }
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const fetchData = await axios.get(
+          'http://kdt-sw-7-team06.elicecoding.com:8088/categories',
+        )
+        console.log("fetchData",fetchData.data)
+        return fetchData.data
+      } catch (e) {
+        console.log('e', e)
+      }
+    }
+    fetchCategoryData()
+  },[])
 
   const navigate = useNavigate()
   const patchUserData = async () => {

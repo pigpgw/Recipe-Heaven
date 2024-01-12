@@ -33,7 +33,7 @@ function FoodMakingList({
                 {index + 1}
               </div>
             </div>
-            <p className="px-3 m-2  min-w-[10rem]">{explainText}</p>
+            <p className="px-3 m-2 text-2xl  min-w-[10rem]">{explainText}</p>
           </div>
           <div className="w-3/12 min-w-[10rem]">
             <img
