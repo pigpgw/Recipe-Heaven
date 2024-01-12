@@ -60,7 +60,7 @@ function Detail() {
               className="float-right px-5 py-5 relative top-5"
               onClick={handleMoreClick}
             >
-              <div className="w-35 h-14 cursor-pointer mr-20 pr-20 text-xl">더보기</div>
+              <div className="w-40 h-14 cursor-pointer mr-20 pr-20 text-xl">더보기</div>
               {showOptions && (
                 <div className="absolute right-6 bottom-8 bg-white border border-gray-300 shadow-md p-2">
                   <Link to={`/modify/${recipeId}`}>

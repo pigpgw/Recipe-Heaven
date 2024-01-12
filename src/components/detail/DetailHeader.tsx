@@ -15,7 +15,7 @@ function DetailHeader({ fetchData }) {
         <img className="min-w-[30rem] h-[35rem]" src={fetchData.img} alt="" />
       </div>
       <div className="w-3/5">
-        <div className="w-full m-4">
+        <div className="w-full">
           <div className="flex justify-between">
             <div className="text-3xl ml-5 font-bold pl-10">
               {fetchData.recipeName}
@@ -58,7 +58,7 @@ function DetailHeader({ fetchData }) {
             재료 및 분량{' '}
             <span className="text-orange-600">{fetchData.portion}</span>
           </p>
-          <div className="bg-gray-100 p-3 rounded-[12px] font-medium flex flex-wrap flex-col w-10/12 max-h-[384px]">
+          <div className="bg-gray-100 p-3 rounded-[12px] font-medium flex flex-wrap flex-col w-10/12 max-h-[384px] min-h-[350px]">
             {fetchData?.ingredient?.map((item, index) => {
               return (
                 <div
