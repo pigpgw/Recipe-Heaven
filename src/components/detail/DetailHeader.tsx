@@ -9,12 +9,12 @@ function DetailHeader({ fetchData }) {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-center min-w-[50rem]  w-5/6 ml-[5rem]">
-      <div className="w-2/5 px-6 min-w-[22rem]">
+    <div className="flex flex-wrap items-center justify-center min-w-[40rem] w-4/5 ml-[5rem]">
+      <div className="w-6/12">
         {/* 서버에서 이미지 받아오기 */}
-        <img className="min-w-[30rem] h-[35rem]" src={fetchData.img} alt="" />
+        <img className="w-[30rem] min-w-[20rem] h-[35rem]" src={fetchData.img} alt="" />
       </div>
-      <div className="w-3/5">
+      <div className="min-w-[30rem] w-6/12">
         <div className="w-full">
           <div className="flex justify-between">
             <div className="text-3xl ml-5 font-bold pl-10">
@@ -53,7 +53,7 @@ function DetailHeader({ fetchData }) {
           </div>
         </div>
 
-        <div className="py-2 w-11/12 flex items-center justify-center flex-col">
+        <div className="py-2 w-full flex items-center justify-center flex-col">
           <p className="text-1xl pr-10  pl-20 py-2 font-bold w-full">
             재료 및 분량{' '}
             <span className="text-orange-600">{fetchData.portion}</span>

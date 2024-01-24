@@ -275,7 +275,7 @@ function ModifyRecipe() {
                   <input
                     className="infoInput"
                     type="text"
-                    placeholder="시간"
+                    placeholder="시간"
                     value={leadTime}
                     onChange={(e) => {
                       setLeadTime(Number(e.target.value))
