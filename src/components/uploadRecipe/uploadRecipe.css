@@ -40,11 +40,12 @@
 }
 
 .main-imgUpload-btn-box {
-  width: 400px;
-  height: 250px;
+  width: 85%;
+  height: 270px;
   background: url('../../../src/assets/uploadRecipe/uploadMainfoodimg.png');
   background-size: cover;
   background-repeat: no-repeat;
+  min-width: 300px;
 }
 
 .recipe-title-container {

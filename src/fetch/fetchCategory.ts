@@ -31,3 +31,4 @@ export const categoryFetchData = async () => {
     })
   return { ingredientCategoryList, situationCategoryList }
 }
+
