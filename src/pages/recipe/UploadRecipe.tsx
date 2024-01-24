@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 // import '../../../team6-front/src/components/uploadRecipe/uploadRecipe.css'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { categoryFetchData } from '../../fetch/fetchCategory'
+import { fetchCategoryData, categoryFetchData } from '../../fetch/fetchCategory'
 import { Ingredient, RecipeSequenceItem } from '../../fetch/DetailRecipeTypes'
 
 function UploadRecipe() {
@@ -24,9 +24,41 @@ function UploadRecipe() {
   const [recipeSequenceItems, setRecipeSequenceItems] = useState<
     RecipeSequenceItem[]
   >([{ stepNum: 1, des: '', imgUrl: '' }])
+  const [getCategoryList, setGetCategoryList] = useState()
+  const [categoryId, setCategoryId] = useState()
 
   const navigate = useNavigate()
   const { recipeId } = useParams()
+
+  useEffect(() => {
+    console.log(createRecipeData())
+  })
+
+  useEffect(() => {
+    async function getCategory() {
+      try {
+        const categoryData = await fetchCategoryData()
+        console.log('category data', categoryData)
+        setGetCategoryList(categoryData)
+      } catch (e) {
+        console.log('err', e)
+      }
+    }
+    getCategory()
+  }, [])
+
+  useEffect(() => {
+    console.log('getCategoryList', getCategoryList)
+    const find = getCategoryList?.filter(
+      (item) =>
+        item.categoryName.includes(categoryIg) ||
+        item.categoryName.includes(categorySt),
+    )
+    console.log('find', find)
+    if (find && find.length > 0) {
+      setCategoryId(find[0].categoryId)
+    }
+  }, [categoryIg,categorySt])
 
   useEffect(() => {
     categoryFetchData().then(
@@ -55,12 +87,12 @@ function UploadRecipe() {
     setRecipeSequenceItems([...recipeSequenceItems, newItem])
   }
 
-    useEffect(() => {
-      console.log('recipeSequenceItems', recipeSequenceItems)
-      recipeSequenceItems?.forEach((item, index) => {
-        item.stepNum = index + 1
-      })
-    }, [recipeSequenceItems])
+  useEffect(() => {
+    console.log('recipeSequenceItems', recipeSequenceItems)
+    recipeSequenceItems?.forEach((item, index) => {
+      item.stepNum = index + 1
+    })
+  }, [recipeSequenceItems])
 
   const handleStepChange = (index: number, key: string, value: string) => {
     const updatedSteps = [...recipeSequenceItems]
@@ -92,6 +124,7 @@ function UploadRecipe() {
   function createRecipeData() {
     return {
       recipeName: recipeName,
+      // categoryId: categoryId,
       img: recipeMainImg,
       // img: 'asdasd',
       portion: portion,
@@ -104,7 +137,6 @@ function UploadRecipe() {
       // user: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFhYWEiLCJpYXQiOjE3MDMyMzk5NDQsImV4cCI6MTcwMzI0MzU0NH0.GJoG8AWVI-2IwNrz-mVp5YOqCO0Z_Wje-qA9Ao1KUCU',
     }
   }
-
   const submit = async () => {
     try {
       const recipeData = createRecipeData()
