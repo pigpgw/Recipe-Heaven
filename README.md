@@ -25,7 +25,7 @@ https://doit-doit.notion.site/API-Spring-7d69952114a24d38b72f97a17a822cda
 
 # 💿기술 스택
 - 프론트 : HTML, CSS, React ,Node.js
-- 백엔드 : nest.js, Express.js, MongoDB, JWT
+- 백엔드 : spring, MySQL, JWT
 
 # 🖼주요 화면 구성
 - 메인 페이지
