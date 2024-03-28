@@ -21,7 +21,7 @@ npm run dev 명령어를 실행하여 서버를 시작합니다.
 
 # ✨API 문서
 API 문서는 여기에서 확인할 수 있습니다.
-https://www.notion.so/API-fe1d33d620ee491ba6dd9b48902e00ad
+https://doit-doit.notion.site/API-Spring-7d69952114a24d38b72f97a17a822cda
 
 # 💿기술 스택
 - 프론트 : HTML, CSS, React ,Node.js
